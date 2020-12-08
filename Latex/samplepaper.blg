@@ -6,6 +6,7 @@ Database file #1: mybibliography.bib
 Warning--empty journal in 2019Almeida
 Warning--empty journal in 2018Integer
 Warning--empty journal in Cowtan2019
+Warning--empty journal in Daei2020
 Warning--empty journal in 2019CNOT
 Warning--empty journal in Li2018
 Warning--empty journal in 2020Qubit
@@ -18,45 +19,45 @@ Warning--empty journal in Sun2020
 Warning--empty journal in Tannu2019
 Warning--empty journal in 2017Temporal
 Warning--empty journal in 2019Zhang
-You've used 24 entries,
+You've used 26 entries,
             2850 wiz_defined-function locations,
-            740 strings with 8627 characters,
-and the built_in function-call counts, 12930 in all, are:
-= -- 999
-> -- 448
-< -- 16
-+ -- 185
-- -- 160
-* -- 887
-:= -- 1716
-add.period$ -- 22
-call.type$ -- 24
-change.case$ -- 152
+            752 strings with 8833 characters,
+and the built_in function-call counts, 13891 in all, are:
+= -- 1073
+> -- 472
+< -- 18
++ -- 195
+- -- 168
+* -- 953
+:= -- 1842
+add.period$ -- 24
+call.type$ -- 26
+change.case$ -- 162
 chr.to.int$ -- 0
-cite$ -- 39
-duplicate$ -- 1205
-empty$ -- 1131
-format.name$ -- 182
-if$ -- 2735
+cite$ -- 42
+duplicate$ -- 1300
+empty$ -- 1223
+format.name$ -- 191
+if$ -- 2941
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 240
-newline$ -- 78
-num.names$ -- 48
-pop$ -- 488
+int.to.str$ -- 26
+missing$ -- 258
+newline$ -- 84
+num.names$ -- 52
+pop$ -- 520
 preamble$ -- 1
-purify$ -- 128
+purify$ -- 136
 quote$ -- 0
-skip$ -- 286
+skip$ -- 307
 stack$ -- 0
-substring$ -- 662
-swap$ -- 598
-text.length$ -- 16
+substring$ -- 715
+swap$ -- 646
+text.length$ -- 18
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
-warning$ -- 15
-while$ -- 92
-width$ -- 26
-write$ -- 231
-(There were 15 warnings)
+type$ -- 104
+warning$ -- 16
+while$ -- 100
+width$ -- 28
+write$ -- 250
+(There were 16 warnings)

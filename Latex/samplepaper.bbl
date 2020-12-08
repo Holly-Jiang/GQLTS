@@ -23,6 +23,14 @@ Bernal, D., Booth, K., Dridi, R., Alghassi, H., Tayur, S., Venturelli, D.:
 Cowtan, A., Dilkes, S., Duncan, R., Krajenbrink, A., Simmons, W., Sivarajah,
   S.: On the qubit routing problem  (02 2019)
 
+\bibitem{Daei2020}
+Daei, O., Navi, K., Zomorodi, M.: Optimized quantum circuit partitioning  (05
+  2020)
+
+\bibitem{Glover1990}
+Glover, F.: Tabu search—part ii. ORSA Journal on Computing  \textbf{2},
+  4--32 (02 1990). \doi{10.1287/ijoc.2.1.4}
+
 \bibitem{Guerreschi2018}
 Guerreschi, G.G., Park, J.: Two-step approach to scheduling quantum circuits.
   Quantum Science and Technology  \textbf{3} (06 2018).
