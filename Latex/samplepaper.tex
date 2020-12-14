@@ -53,6 +53,7 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 	How to find an automatic method to map any logic quantum circuits to
 	physical circuits effectively in acceptable time, 
 	and make the output circuits add as few additional auxiliary gates as possible. 
+	The process is called circuit transformation.
 	This is crucial in the development of quantum computing.
 	This paper mainly proposes the initial mapping algorithm 
 	based on combined subgraph isomorphism algorithm ($CSI$)
@@ -68,9 +69,10 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \end{abstract}
 \section{Introduction}
 \label{Introduction}
-Since the discovery of quantum mechanics in the early 20th century,
-quantum technology has been applied in practice, but large quantum computers
-have not yet been builted. Most of the contributions of quantum 
+Quantum technology has been applied in practice, but large quantum computers
+have not yet been builted,
+since the discovery of quantum mechanics in the early 20th century.
+Most of the contributions of quantum 
 information to computer science are still in the theoretical stage.
 In March 2017, IBM developed the first 5-qubit backend called IBM QX2. 
 In June, it launched the 16-qubit backend called IBM QX3. 
@@ -218,8 +220,8 @@ The main contributions of this paper are as follows.
 		 and then complete the mapping based on the connectivity between qubits.
 		\item We propose a heuristic SWAP search algorithm based on Tabu Search, 
 		which can handle large circuits in a short time at a low cost.
-		Compared with the previous precise search and heuristic algorithms,
-		this algorithm can complete the circuit transformation in a shorter time.
+		Compared with the previous precise search and heuristic algorithms ($QCTS$),
+		it can complete the circuit transformation in a shorter time.
 		$QCTS$ can complete the search of the 159 circuits only with a few minutes, 
 		but other heuristic search cannot deal with them in a few minutes.
 		Even some heuristic methods may not handle large circuits.
@@ -591,7 +593,8 @@ Fig.~\ref{IBM} (a) and (b) are $PAG$ of the 5-qubit of IBM QX2,
 and (e) are the $PAG$ of IBM Q20. 
 The arrow in the figure indicates that the qubit at the beginning of the arrow can control 
 the qubit at the end of the arrow, and the 2-qubit gate operations can only be performed between 
-qubits with edges connected.
+qubits with edges connected. 
+IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. 
 Fig.~\ref{LAGPAG}(a) is the logical architecture 
 of the original circuit of Fig.~\ref{OriginalCircuit},
 and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
@@ -900,15 +903,12 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 
 \subsubsection{Problem in qubit Mapping}
 Lloyd proved that almost all gates of two qubits can be represented by general quantum gates~\cite{Lloyd1995Almost}. 
-Before circuit transformation, the circuit is simplified to a circuit with only single 
+Single qubit gates and $CNOT$ gates are used as basic gates, 
+since they are commonly used to implement any quantum circuit 
+and are supported by the IBM QX architecture.
+Before circuit transformation, the circuit should be simplified to a circuit with only single 
 quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}.
- $LC$ does not consider physical constraints, 
-any gate operation can be performed between two non-adjacent logical qubits, 
-but IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. 
-
-Generally, mapping logical qubit directly to physical qubit cannot satisfy the limit of logical circuit, 
-and circuit transformation is needed to make quantum gate executable on physical devices. 
-This process is called circuit transformation in this paper. We insert 
+We insert 
 auxiliary gates (see Fig.~\ref{Decomposition}),
 so that two non-adjacent qubits can move to adjacent positions in logic, 
 or change direction between two adjacent qubits (see Fig.~\ref{Transformate}). 
@@ -918,65 +918,59 @@ The quantum system is easy to interact with the surrounding environment,
 resulting in errors. In the NISQ era, quantum error correction is difficult to achieve. 
 Due to the decoherence problem of quantum, the quantum operation needs to be completed in the coherent period, 
 and the time of quantum in the coherent state is very short. Therefore, 
-it is necessary to improve the parallelism of qubits as much as possible to minimize the depth 
-of quantum circuit. This is the focus of this paper. We hope to find a circuit mapping scheme 
+it is necessary to improve the parallelism of qubits as much as possible to minimize the depth of quantum circuit. This is the focus of this paper. We hope to find a circuit transformation algorithm to make the output circuit 
 with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
-A quantum circuit transformation problem mainly includes the following four steps, 
-among which the third step of $qubit$ $assignment$ and the fourth step of qubit routing 
-problem are both NPC~\cite{2018QubitSiraichi}
-\begin{enumerate}
-	\item \emph{Convert a quantum program into a logical quantum circuit.}
-	\item \emph{Decompose the circuit into basic gates.} 
-	Single qubit gates and $CNOT$ gates are used as basic gates, 
-	because they are commonly used to implement any quantum circuit 
-	and are supported by the IBM QX architecture.
-	\item \emph{Generate a high-quality initial mapping.} 
-	We use the subgraph isomorphism 
-	algorithm to get a logical architecture graph $LAG$ that satisfies 
-	the constraints of physical architecture graph ($PAG$) as much as possible. 
-	We try to satisfy the requirements of as many nodes as possible, since most 
-	$LAG$ cannot find a perfect mapping 
-	on the $PAG$.
-	It will change the original mapping relations $\tau$ by adding SWAP gates, $\tau:q \rightarrow Q $. 
-	$q,\ Q$ are the sets of logical qubits and physical qubits, respectively.
-	$|Q| \geq |q|$, so it is not a bijective function.
-	Two mappings are equal $\tau(q_{i})=\tau(q_{j})$, if and only if $i=j$.
-	\item The task of modifying the circuit to match the memory layout of 
-	a particular quantum computer is called the qubit routing problem~\cite{Cowtan2019}. 
-	Since quantum algorithms are usually designed without referring to 
-	the connectivity constraints of any specific hardware, routing problems 
-	need to be solved before the implementation of quantum circuits. 
-	Therefore, qubit routing forms a necessary stage of any compiler 
-	for quantum software.
 
-	Given the logical circuit $LC$, physical structure $\mathcal{AG}_{P}$, 
-	and an initial mapping $\tau$, $CNOT$ gate $g=\left \langle q_{i},q_{j}\right \rangle $, 
-	if gate $G$ is executable, then $\left \langle\tau(q_{i}),\tau(q_{j})\right \rangle $ 
-	is a directed edge on $\mathcal{AG}_{P}$.
-\end{enumerate}
+Given the logical circuit $LC$, physical structure $\mathcal{AG}_{P}$, 
+and an initial mapping $\tau$, $CNOT$ gate $g=\left \langle q_{i},q_{j}\right \rangle $, 
+if gate $G$ is executable, then $\left \langle\tau(q_{i}),\tau(q_{j})\right \rangle $ 
+is a directed edge on $\mathcal{AG}_{P}$.
+
 \begin{example}
 	Fig.~\ref{LAGPAG} (a) is the logical structure of Fig.~\ref{OriginalCircuit}, 
 	Fig.~\ref{LAGPAG} (b) is the partial architecture graph of IBM Q20, an initial mapping is 
 	$\tau=\{q_{0}\rightarrow  Q_{10},\ q_{1}\rightarrow Q_{0},\ 
-			q_{2}\rightarrow  Q_{6},\ q_{3}\rightarrow  Q_{5},\ q_{4}\rightarrow  Q_{11}\}$.
-			$g_{0}=\left \langle q_{2},q_{1}\right \rangle $ is executable, since 
-			$\left \langle \tau(q_{2}),\tau(q_{2})\right \rangle =\left \langle Q_{5},Q_{0}\right \rangle $ exists in $\mathcal{AG}_{P}$.
+	q_{2}\rightarrow  Q_{6},\ q_{3}\rightarrow  Q_{5},\ q_{4}\rightarrow  Q_{11}\}$.
+	$g_{0}=\left \langle q_{2},q_{1}\right \rangle $ is executable, since 
+	$\left \langle \tau(q_{2}),\tau(q_{2})\right \rangle =\left \langle Q_{5},Q_{0}\right \rangle $ exists in $\mathcal{AG}_{P}$.
 	But $g_{3}=\left \langle q_{1},q_{3}\right \rangle $ is not executable, since 
 	$\left \langle \tau(q_{1}),\tau(q_{3})\right \rangle =\left \langle Q_{0},Q_{6}\right \rangle $  does not exist in $\mathcal{AG}_{P}$.
 \end{example}
+
+A quantum circuit transformation problem mainly includes the following four steps, 
+among which the third step of $qubit$ $assignment$ and the fourth step of circuit transformation 
+problem are both NPC~\cite{2018QubitSiraichi}
+\begin{enumerate}
+	\item \emph{Convert a quantum program into a logical quantum circuit.}
+	\item \emph{Decompose the circuit into basic gates.} 
+	\item \emph{Generate a high-quality initial mapping.} 
+	The maximum isomorphic subgraph of $LAG$ is 
+	obtained by using subgraph isomorphism algorithm from $PAG$.
+	In fact, most $LAG$ cannot find a perfect mapping 
+	on the corresponding $PAG$.
+	It will change the original mapping relations $\tau$ by adding SWAP gates, $\tau:q \rightarrow Q $. 
+	$q,\ Q$ are the sets of logical qubits and physical qubits, respectively.
+	$|Q| \geq |q|$, so it is not a bijective function.
+	Two mappings are equal $\tau(q_{i})=\tau(q_{j})$, if and only if $i=j$.
+	\item \emph{Transforming logic circuits to meet physical constraints}
+	Circuit transformation problems 
+	need to be solved before the implementation of quantum circuits, 
+	Since quantum algorithms are usually designed without referring to 
+	the connectivity constraints of any specific hardware. 
+	Therefore, circuit transformation forms a necessary stage of any quantum compiler.
+\end{enumerate}
+
 \section{Solution}
 \label{Solution}
 The solution proposed in this paper mainly includes preprocessing, 
 initial mapping, 
-and minimum SWAP algorithm based on Tabu Search and  $A^{*}$ algorithm.
+and  circuit transformation algorithm based on Tabu Search.
 \subsection{Preprocessing}
 Before the transformation of the SWAP circuit based on Tabu Search, 
 we need to preprocess it to get more convenient data to shorten our search time and space.
-In the preprocessing stage, we first adjust the circuit of the input openQASM 
-program to shorten the life cycle of qubits, convert the openQASM code 
-into a layered form, and generate $DAG$ and $LAG$.
-Then we read $PAG$ into the memory in the specified format, then use BFS to calculate 
-the shortest distance between each node on the architecture graph.
+In the preprocessing stage, we adjust the circuit of the input openQASM 
+program to shorten the life cycle of qubits. Then we use Breadth First Search (BFS) to calculate 
+the shortest distance between each nodes on the architecture graph.
 \subsubsection{Circuit Adjustment}
 In order to shorten the life cycle of qubits and improve the parallelism of qubits, 
 we use a layered method~\cite{2019Zhang} to analyze the life cycle of qubits, 
@@ -987,7 +981,7 @@ The algorithm reduces the error rate of quantum programs by 11\%.
 On most quantum workloads, the longest qubit lifetime and the average qubit lifetime 
 can be reduced by more than 20\%, and the execution time of some quantum programs can also be reduced.
 \subsubsection{Shortest Distance}
-As long as $PAG$ is determined, 
+Given $PAG$, 
 the shortest distance between two qubits can be calculated. 
 In this paper, the shortest distance matrix $dist[i][j]$ is calculated by $Floyd-Warshall$ algorithm, 
 which represents the shortest distance from $Q_{i}$ to $Q_{j}$, 
@@ -1000,11 +994,10 @@ Two qubits are mapped to $Q_{i}$ and $Q_{j}$ respectively, with $\ \tau(q_{i})=Q
 then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(q_{i},q_{j})=7 \times( dist[i][j]-1)$.
 If they move to adjacent positions, but there is no edge from $Q_{i}$ to $Q_{j}$,
 they need to add 4 $H$ gates to adjust their directions.
- Then the cost between them is $cost_{cnot}(q_{i},q_{j})=3 \times( dist[i][j]-1)$.
-In the IBM Q20 structure, all the edges are bidirectional. 
-The SWAP operation requires 3 gates (3 $CNOT$ gates), 
+For IBM Q20, which all edges are bidirectional, 
+the SWAP operation requires 3 gates (3 $CNOT$ gates), 
 and there is no need to change the direction. 
-Then the calculation formula for IBM Q20 structure is $cost_{cnot}(q_{i},q_{j})=3 \times( dist[i][j]-1)$
+Thus the cost between them is $cost_{cnot}(q_{i},q_{j})=3 \times( dist[i][j]-1)$.
 The time complexity of this step is $O (N^{3})$.
 \begin{example}
 	Take the QX5 structure as an example.
@@ -1042,12 +1035,12 @@ and $E_{L}$ represents the set of undirected edges that the $CNOT$ gates can exe
 It has been proved that the initial mapping has an important influence on $qubit$  
 $ assignment$, 
 and the subgraph isomorphism can be reduced to $qubit$ $ assignment$, so we want to use the subgraph 
-isomorphism algorithm to find an initial mapping which is closer to the optimum.
+isomorphism algorithm to find an initial mapping which help to minimize auxiliary gates in transformation stage.
 In $PAG$, it is almost impossible to find a subgraph that exactly 
 matches $LAG$, so we hope to find a partial mapping that can maximize the match. 
 $SubgraphCompare$~\cite{Sun2020} compares several state-of-the-art subgraph isomorphism algorithm composition. 
-It shows that using the filtering and sorting ideas of GraphQL algorithm to process 
-candidate nodes, and the local candidates calculation method LFTJ based on 
+It shows that using the filtering and sorting ideas of \emph{GraphQL} algorithm to process 
+candidate nodes, and the local candidates calculation method \emph{LFTJ} based on 
 set-intersection to enumerate the results is the best.
 Since $SubgraphCompare$ used in this paper is only suitable for 
 fully connected subgraph isomorphism, 
@@ -1056,7 +1049,7 @@ there may be no 2-qubit gate operation between one qubit and other qubits in our
 to generate part of the initial mapping, 
  because the subgraph matching will first match the node with the largest degree, 
  and we hope to minimize the impact on the logical dependency graph. 
- Therefore, we artificially connect the qubit with degree 0 to the qubit with 
+ Therefore, we artificially connect the isolating qubit to the qubit with 
  the largest degree in the logical architecture diagram.
 
 We use $SubgraphCompare$ generate partial mappings denoted by $T$. 
