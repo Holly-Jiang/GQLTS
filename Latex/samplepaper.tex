@@ -50,79 +50,71 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-	Since we are in the NISQ era, quantum systems are prone to interact with the surrounding environment 
-	to generate noise, which can overwhelm the signal in the circuit. 
-	One way to eliminate errors  use quantum error correction. 
-	Due to the limitation of circuit size, the computing power of NISQ technology is limited. 
-	Quantum error correction brings heavy overhead in terms of the number of qubits and gates. 
-	Therefore, it is difficult to achieve scale expansion using quantum error correction. 
-	Currently, the quantum circuit we simulate ignores quantum noise. 
-	In addition, the operation between qubits of NISQ devices is limited, 
-	and only adjacent qubits can be operated. Therefore, a large number of modifications must 
-	be made to the logical circuit to adapt to physical limitations. 
-
-
-	It is vital to the success of quantum computing 
-	how to find an automated method to effectively transform any input quantum circuit into 
-	one that satisfies the physical constraints imposed by NISQ device 
-	and has a small overhead in terms of the number of auxiliary gates, and the circuit depth.
-	This paper aims to adjust the life cycle of qubits through preprocessing of quantum circuits 
-	to increase the parallelism of quantum circuits.
-	The combined subgraph isomorphism algorithm ($CSI$) is used to generate high-quality initial mapping, 
-	and a circuit transformation algorithm based on Tabu Search ($TS$) is proposed to obtain a circuit 
-	that satisfies the constraints of both logical and physical circuits.
-	 For a benchmark composed of 159 circuits and the architecture of IBM Q20,
-	  compared with the initial mapping based on the $VF2$ algorithm, 
-	  our initial mapping has an average efficiency improvement of 22.26\%. 
-	  Our algorithm only needs 461 seconds to run all, 
-	  and other state-of-the-art algorithms are difficult to handle large circuits.
+	How to find an automatic method to map any logic quantum circuits to
+	physical circuits effectively in acceptable time, 
+	and make the output circuits add as few additional auxiliary gates as possible. 
+	This is crucial in the development of quantum computing.
+	This paper mainly proposes the initial mapping algorithm 
+	based on combined subgraph isomorphism algorithm ($CSI$)
+	and a circuit transformation algorithm based on tabu search ($QCTS$), 
+	and summarizes the advantages and disadvantages of the state-of-the-art 
+	circuit transformation algorithm.
+	The experimental results show that our algorithm is feasible.
+	Compared with the initial mapping based on the $VF2$ algorithm, 
+	adding auxiliary gates to our initial mapping reduced by 22.26\%, and the depth was reduced by 11.17\%.
+	$QCTS$ is scalable on large-scale circuits with less overhead,
+	but other state-of-the-art algorithms are difficult to handle large-scale circuits. 
 \keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu search}
 \end{abstract}
 \section{Introduction}
 \label{Introduction}
 Since the discovery of quantum mechanics in the early 20th century,
 quantum technology has been applied in practice, but large quantum computers
-have not yet been builted, and most of the contributions of quantum 
+have not yet been builted. Most of the contributions of quantum 
 information to computer science are still in the theoretical stage.
 In March 2017, IBM developed the first 5-qubit backend called IBM QX2. 
-In June, it launched the 16-qubit backend called IBM QX3. The revised versions of 5-qubit and 16-qubit 
+In June, it launched the 16-qubit backend called IBM QX3. 
+The revised versions of 5-qubit and 16-qubit 
 are called IBM QX4 and IBM QX5, respectively.
-IBM Q provides the public with free quantum computer resources on the cloud. 
+IBM Q experience provides the public with free quantum computer resources on the cloud,
+and opens source the quantum computing software framework $Qiskit^{1}$. 
 If we want to use these quantum computer resources, 
-we must map quantum circuits to a given physical architecture and 
+we must map  the logical quantum circuit to a given physical circuit and 
 satisfy physical constraints. This requires a set of highly efficient and 
 automatic mapping procedures. Quantum circuit transformation is an important 
-part of quantum circuit compilation. The main idea  convert the input
-logical circuit into a physical logical circuit and satisfy the constraints of
-the physical circuit.
-
+part of quantum circuit compilation. The main idea convert the input
+logical circuit ($LC$) into a physical circuit ($PC$) and satisfy the constraints of
+the physical constraints.
+  
 There are currently five main methods for solving qubit allocation.
 \begin{enumerate}
-	\item using the unitary matrix factorization algorithm to rearrange 
+	\item \emph{Unitary matrix factorization algorithm.} 
+	The first mathod used the unitary matrix factorization algorithm to rearrange 
 the quantum circuit from the beginning while retaining the function of the input 
 circuit~\cite{2019CNOT,2019Quantum}.
-	\item converting the quantum circuit transformation problem into 
+	\item \emph{Converting into some existing problems.}  
+	The second method converted the quantum circuit transformation problem into 
 	some existing problems, such as AI planning~\cite{2017Temporal,2018Integer}, 
 	Integer Linear Programming (ILP)~\cite{2019Almeida}, 
-	Satisfiability Modulo Theory (SMT)~\cite{2019Murali}, 
-	or using the ready-made tools for these problems to find acceptable results.
+	Satisfiability Modulo Theory (SMT)~\cite{2019Murali},
+	and used the ready-made tools for these problems to find acceptable results.
 	But these methods may run for a long time and 
 	can only be applied to a small amount of qubit. 
 	And these tools cannot take advantage of some of the properties of quantum mapping.
-	\item using precise methods to construct output quantum circuits. 
-	This method is only suitable for simple quantum structures and cannot be extended to 
+	\item \emph{Precise methods.} 
+	The precise method is only suitable for simple quantum structures and cannot be extended to 
 	complex quantum structures~\cite{2018QubitSiraichi}.
-	\item using the relevant results of graph theory.
-	For example, in~\cite{Shafaei2013}  used the minimum linear arrangement problem in graph theory 
+	\item \emph{Graph theory.} 
+	For example, in~\cite{Shafaei2013} Shafaei used the minimum linear arrangement problem in graph theory 
    to model the problem of reducing the interaction distance.
    It divided a given circuit into several sub-circuits, 
-   and then applied the minimum linear arrangement problem respectively, 
-   and turned non-adjacent gates in the sub-circuits into adjacent circuits 
+   and applied the minimum linear arrangement problem, respectively.
+   Then turned non-adjacent gates in the sub-circuits into adjacent circuits 
    by adding auxiliary gates.
    Finally, it used the minimum linear permutation problem to find an apropriate permutation, 
-   and used bubble sort to calculate the number of SWAP gates needed.
-   In~\cite{Guerreschi2018} and~\cite{Matsuo2019}, 
-   a two-step approach was proposed to reformulate the subtasks 
+   and bubble sort to calculate the number of SWAP gates needed.
+   In~\cite{Guerreschi2018} and~\cite{Matsuo2019}, they proposed
+   a two-step approach to reformulate the subtasks 
    of gate scheduling as a graph problem.
    According to the graph coloring problem and the maximum subgraph isomorphism,
    the SWAP operations were added to minimize its overhead.
@@ -132,44 +124,40 @@ circuit~\cite{2019CNOT,2019Quantum}.
    and the latter purely solved the problem of position movement. 
    They all divided the swapping of qubits into three categories. 
    The first is a movement that is beneficial to both qubits; 
-   the second considers a qubit advantageous, 
-   and the other qubit is not mapped; 
-   the third is that one qubit is advantageous and 
-   one qubit is harmful. 
+   the second considers one advantageous, 
+   but the other is not mapped; 
+   the third is that one is advantageous and the other is harmful.
    Then they calculate the scores from the initial position 
-   to the target position according to the types, and moves.
-	\item using heuristic search~\cite{Zulehner2017,Cowtan2019,Li2018,Xiangzhen2020,2018QubitSiraichi},
-	the circuit transformation hopes to find a minimum number of SWAPs, 
-	but they takes exponential time, 
-	so heuristic search is used to control the evaluation function 
-	to obtain an acceptable solution.
+   to the target position according to the types, and move.
+	\item \emph{Heuristic search~\cite{Zulehner2017,Cowtan2019,Li2018,Xiangzhen2020,2018QubitSiraichi}.}
+	The circuit transformation algorithm hopes to find a minimum number of SWAPs. 
+	Heuristic search use evaluation function to obtain an acceptable solution in exponential time.
 	Zulehner divided a given circuit into multiple layers, 
 	which can be implemented in a $CNOT$ 
 	constraint compatible manner~\cite{Zulehner2017}. Then, for each of these layers, 
 	a respectively compatible mapping is determined, 
 	which requires as few additional gates as possible. 
 	The main idea  determine the cheapest path from the root node to the target node 
-	(the path with the lowest cost). Since the search space is usually exponential, 
-	complex mechanisms are used to keep the paths considered as few as possible.
+	(the path with the lowest cost). Since the search space is usually exponential.
+	Complex mechanisms are used to keep the paths considered as few as possible.
 	Zhou designed a heuristic search algorithm with a novel selection 
-	mechanism~\cite{Xiangzhen2020}, 
-	in which in each step of the search process, 
-	he did not choose the lowest cost operation to apply, 
+	mechanism, in which in each step of the search process~\cite{Xiangzhen2020}.
+	He did not choose the lowest cost operation to apply, 
 	but looked forward one step, and then chooses the best continuous operation. 
 	In this way, the algorithm can effectively avoid local minimum. 
 	And a pruning mechanism is introduced 
 	to reduce the size of the search space and ensure that the program 
 	terminates in a reasonable amount of time. 
 	The time complexity of this algorithm is $O(|V|^{4})$.
-	Li proposed a SWAP-based search scheme SABRE~\cite{Li2018}. 
+	Li proposed a SWAP-based search scheme $SABRE$~\cite{Li2018}. 
 	Compared with previous search algorithms based on exhaustive mapping, 
-	this search scheme achieves an exponential acceleration of search complexity.
-	This fast search scheme ensures the scalability of SABRE to adapt to the large 
+	$SABRE$ achieves an exponential acceleration of search complexity,
+	and ensures the scalability of $SABRE$ to adapt to the large 
 	quantum equipment in the NISQ era.
 	By introducing the attenuation effect in the heuristic cost function, 
 	different hardware compatible circuits are generated by switching the number 
 	of gates in the circuit according to the circuit depth.
-	This makes SABRE suitable for NISQ devices with different characteristics and optimization goals.
+	This makes $SABRE$ suitable for NISQ devices with different characteristics and optimization goals.
 	The routing algorithm implemented in $t\ket{ket}$ can ensure 
 	that any quantum circuit is compiled into any architecture~\cite{Cowtan2019}.
 	The algorithm is divided into four stages: 
@@ -185,12 +173,12 @@ circuit~\cite{2019CNOT,2019Quantum}.
 	This strategy allocates program qubits to physical qubits to take advantage 
 	of SWAPs in the error rate, thereby minimizing the use of links with high error rates.
 \end{enumerate} 
-In general, An initial search algorithm can be used to generate the initial solution. 
- Paler used a heuristic method to find the initial mapping, 
+In general, An initial algorithm can be used to generate an initial mapping. 
+Paler used a heuristic method to find the initial mapping, 
  and uses IBM's compiler to benchmark~\cite{Paler2018}. 
 The preliminary results show that the cost can be reduced by up to 10\% only by placing qubits 
 that are different from the default position (trivial placement) only in the actual circuit instance 
-on the actual NISQ architecture. Recently, a novel reverse traversal technique is proposed in~\cite{Li2018}, 
+on the actual NISQ device. In 2018, a novel reverse traversal technique is proposed in~\cite{Li2018}, 
 which selects the initial mapping method by considering the whole circuit. 
 In~\cite{Xiangzhen2020}, an annealing algorithm was proposed to find a favorable 
 initial mapping. 
@@ -206,12 +194,13 @@ the number of SWAP gates by 22.29\% and the depth by 11.17\%.
 The biggest problem facing quantum information processing is the problem of quantum decoherence.
 The entanglement of the quantum system with the surrounding environment and quantum measurement 
 will cause the disappearance of quantum coherence.
-Since it is now in the Noisy Intermiat-Scale Quantum (NISQ) era, there are only dozens of qubits, 
+Since it is now in NISQ era, there are only dozens of qubits, 
 and it is unrealistic to realize quantum error correction~\cite{2018QuantumPreskill}.
-Quantum physical circuits are also limited. Quantum gate operations can only be performed between adjacent qubits, 
-so it is necessary to convert circuits by adding auxiliary gates to satisfy logical and physical 
+Quantum gate operations are limited in physical circuits. 
+They can only be performed between adjacent qubits.
+Thus it is necessary to convert circuits by adding auxiliary gates to satisfy logical and physical 
 constraints. This process may introduce a lot of errors, 
-which brings a huge challenge to circuit compilation, because noise will have a greater impact on the 
+which brings a huge challenge to circuit compilation, because noise has a greater impact on the 
 final circuit and may make the result meaningless.
 The quantum coherence time is very short. The longest coherence time of a superconducting q
 uantum chip is still within 10us-100us, 
@@ -221,55 +210,47 @@ uantum chip is still within 10us-100us,
 The main contributions of this paper are as follows.
 	\begin{enumerate}
 		\item We summary the current status, problems, and breakthrough directions 
-		of the current quantum mapping work, and points out their advantages and disadvantages 
-		to existing solutions. On this basis, We propose an initial mapping algorithm
-		$CSI$ and Tabu Search heuristic SWAP search scheme GQLTS,
-		which can generate high-quality initial mapping and logical circuit that 
-		meets physical circuit constraints in a short time and with low consumption.
-		\item 
-		In order to ensure that the quantum operation is completed in the coherent time,
-		we preprocess the quantum circuit to increase the parallelism of the quantum operations and 
-		relatively reduce the depth of the output circuit.
+		of quantum mapping work, and point out their advantages and disadvantages. 
 		\item
-		 We propose an inistial method which uses $CSI$ to obtain 
-		 a partial initial mapping qubits, 
-		 and then use the vertex completion algorithm to map the unmapped qubits to the coupled graph. 
-		 Compared with the $VF2$ subgraph isomorphism algorithms, 
-		 $CSI$ algorithm performs better.
-		\item We propose a heuristic SWAP search algorithm based on Tabu Search (GQLTS) , 
+		 We propose an algorithm ($CSI$) to obtain an initial mapping.
+		 The initial mapping of quantum circuits can be reduced to subgraph isomorphism,
+		 thus we use a better subgraph matching algorithm to generate part of the initial mapping, 
+		 and then complete the mapping based on the connectivity between qubits.
+		\item We propose a heuristic SWAP search algorithm based on Tabu Search, 
 		which can handle large circuits in a short time at a low cost.
 		Compared with the previous precise search and heuristic algorithms,
-		this algorithms can complete the circuit transformation in a shorter time.
-		GQLTS can complete the search of the 159 circuits only with a few minutes, 
-		but other heuristic search takes a few days to get a circuit result.
-		Even some heuristic methods may not be successfunlly handled when processing large circuits.
+		this algorithm can complete the circuit transformation in a shorter time.
+		$QCTS$ can complete the search of the 159 circuits only with a few minutes, 
+		but other heuristic search cannot deal with them in a few minutes.
+		Even some heuristic methods may not handle large circuits.
 	\end{enumerate}
 	The rest of this paper is organised as follows. 
 	In Section~\ref{Background} we recall some background of quantum computing and quantum information,
 	and analyze the problems that need to be dealt with for the transformation of quantum circuits in Section~\ref{Problem Analysis}.
 	Section~\ref{Solution} describes and analyses our algorithm in detail. 
-	The experiment and results are reported in Section~\ref{Experiment} , 
-	and the last section concludes the paper and discusses future research.
+	The experiment and results are reported in Section~\ref{Experiment}, 
+	and last section concludes the paper and discusses future research.
 
 \section{Background}
 \label{Background}
 This section introduces some notions and notations of quantum computing and quantum information.
-\subsection{Software conditions} 
-\subsubsection{$Qubits$.}
+
+\subsection{$Qubits$.}
 Classical information is stored in bits, while quantum information is stored in qubits. 
-A qubit has two basic states, marked as $\ket{0}$ or $\ket{1}$, qubit also can be in any linear superposition 
+A qubit has two basic states, marked as $\ket{0}$ or $\ket{1}$. A qubit also can be in any linear superposition 
 state $\ket{\phi}=a\ket{0}+b\ket{1}$, where a and b are complex numbers and $a^{2}+b^{2}=1$. 
 Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ 
-and in the state $\ket{1}$ with the probability of $|b|^{2}$. 
-\subsubsection{$Quantum \ Gate$.}
+or in the state $\ket{1}$ with the probability of $|b|^{2}$. 
+\subsection{$Quantum \ Gate$.}
 Suppose $U$ is a unitary operator on a single qubit,
  then there are real numbers $\alpha, \beta, \delta, \gamma$.
-such that $U$ satisfies the following equation.
-$R_{z}(\beta)$ represents a rotation by $\beta$ about the $\hat{z}$ axis, 
-and $R_{y}(\gamma)$ represents a rotation by $\gamma$ about the $\hat{y}$ axis.
+such that $U$ satisfies the following equation,
  \begin{equation}
 	U=e^{i\alpha}R_{z}(\beta)R_{y}(\gamma)R_{z}(\delta)
 \end{equation}
+where $R_{z}(\beta)$ represents a rotation by $\beta$ about the $\hat{z}$ axis, 
+and $R_{y}(\gamma)$ represents a rotation by $\gamma$ about the $\hat{y}$ axis.
+
 Commonly used quantum gate symbols and their matrices are shown in the Fig.~\ref{common_gates}. 
 Physical qubit and logical qubit are represented by $Q ,\ q $, respectively.
  {
@@ -374,29 +355,25 @@ Physical qubit and logical qubit are represented by $Q ,\ q $, respectively.
 \end{figure}	 
 
 }
- \subsubsection{$Quantum \ Circuit$.}
-A quantum circuit ($QC$) consists of quantum gates interconnected by quantum wires~\cite{Daei2020}.
+ \subsection{$Quantum \ Circuit$.}
+A quantum logical circuit $LC$ (see Fig.~\ref{OriginalCircuit}) consists of quantum gates interconnected by quantum wires~\cite{Daei2020}.
 A quantum wire is a mechanism for moving quantum data from one location to another.
-Fig.~\ref{OriginalCircuit} shows a logical circuit ($LC$).
+Each line represents a qubit, and the gate operation on the line acts on the corresponding qubit.
  The width $w$ of a circuit refers to the number of qubits in the circuit.
  The depth $d$ of a circuit refers to the number of layers that can be executed in parallel.
-The logical dependence graph (see Fig.~\ref{DAG}) of a circuit is obtained by parallelizing 
+The directed acyclic graph (see Fig.~\ref{DAG}) of a circuit is obtained by parallelizing 
 and layering the circuit by topological sorting.
-Each line represents a qubit, and the gate operation on the line acts on the corresponding qubit.
-In this paper, circuits with a depth less than 100 are called small circuits, 
-circuits with a depth greater than 1000 are called large circuits, 
-and the rest are medium circuits.
-The execution order of the circuit is from left to right. 
-The depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6 and the width is 5.
-Since the qubit is $local$~\cite{2013Optimization}, 
-it is not necessary to consider single quantum gates in circuit transformation. 
-In this paper, the initial mapping is generated by regarding qubits in circuits
-as nodes and 2-qubit gates as edges. 
-The generated $LAG$ $\mathcal{AG}_{L}=(V_{L},E_{L})$ 
-and $PAG$ $\mathcal{AG}_{P}=(V_{P},E_{P})$ are matched by subgraphs. 
-Fig.~\ref{LAGPAG}(a) is the logical architecture 
-of the original circuit of Fig.~\ref{OriginalCircuit},
-and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
+In this paper, circuits with a depth less than 100 are called small-scale circuits, 
+circuits with a depth greater than 1000 are called large-scale circuits, 
+and the rest are medium-scale circuits.
+The execution order of a quantum logical circuit graph is from left to right. 
+The depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6 and the width is 5. 
+It is not necessary to consider single quantum gates in circuit transformation, 
+since the qubit is $local$~\cite{2013Optimization}. 
+Architecture graph $\mathcal{AG}_{L}$  is generated by regarding qubits in $LC$
+as nodes $V$  and 2-qubit gates as edges $E$. 
+Our initial mapping try to finding subgraphs isomorphic to the logical architecture graph ($LAG$)
+on the physical architecture graph ($PAG$).
 \begin{figure}[h!] 
 	\begin{center}
 		  {\scalefont{1.0}
@@ -604,24 +581,28 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
    \label{Decomposition}
  \end{figure}
 
-\subsection{Hardware Condition}
-\subsubsection{Architectures}
-This paper mainly discusses the physical circuit of IBM. 
+\subsection{Architectures}
+We mainly discusses the physical circuit of IBM. 
 Let $\mathcal{\mathcal{AG}_{P}}=(V_{P},E_{P})$ denote the architecture graph of the physical circuit, 
 where $V_{P} $ denotes the physical qubit set, 
 and $E_{P}$ represents the directed edge that the $CNOT$ gates can execute.
 Fig.~\ref{IBM} (a) and (b) are $PAG$ of the 5-qubit of IBM QX2, 
 (c) and (d) are $PAG$ of 16$-$qubit of IBM QX3, 
-and (e) are the $PAG$ of IBM Q20 series. 
+and (e) are the $PAG$ of IBM Q20. 
 The arrow in the figure indicates that the qubit at the beginning of the arrow can control 
 the qubit at the end of the arrow, and the 2-qubit gate operations can only be performed between 
-qubits with edges connected. 
-Since the quantum logical circuit does not consider physical constraints, 
+qubits with edges connected.
+Fig.~\ref{LAGPAG}(a) is the logical architecture 
+of the original circuit of Fig.~\ref{OriginalCircuit},
+and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
+
+Lloyd proved that almost all gates of two qubits can be represented by general quantum gates~\cite{Lloyd1995Almost}. 
+Before circuit transformation, the circuit is simplified to a circuit with only single 
+quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}.
+ $LC$ does not consider physical constraints, 
 any gate operation can be performed between two non-adjacent logical qubits, 
 but IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. 
-Therefore, before the circuit transformation, the circuit is simplified to a circuit with only single 
-quantum gates and $CNOT$ gates. This part of the work has been implemented in~\cite{2005Mttnen,1995Barenco}. 
-Lloyd proved that almost all gates of two qubits can be represented by general quantum gates~\cite{Lloyd1995Almost}. 
+
 Generally, mapping logical qubit directly to physical qubit cannot satisfy the limit of logical circuit, 
 and circuit transformation is needed to make quantum gate executable on physical devices. 
 This process is called circuit transformation in this paper. In this paper, we insert the 
@@ -952,7 +933,7 @@ problem are both NPC~\cite{2018QubitSiraichi}
 	and are supported by the IBM QX architecture.
 	\item \emph{Generate a high-quality initial mapping.} 
 	We use the subgraph isomorphism 
-	algorithm to get a logical architecture graph ($LAG$) that satisfies 
+	algorithm to get a logical architecture graph $LAG$ that satisfies 
 	the constraints of physical architecture graph ($PAG$) as much as possible. 
 	We try to satisfy the requirements of as many nodes as possible, since most 
 	$LAG$ cannot find a perfect mapping 
@@ -1556,7 +1537,7 @@ but wgtgraph cannot get results in a short time.
 	\centering
 	\begin{tabular}{|p{2cm}<{\centering}|p{1.5cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|}
 	\hline
-	\multirow{2}*{benchmarks}&\multirow{2}*{\#circ.}&\multicolumn{2}{c|}{GQLTS$_{num}$}&\multicolumn{2}{c|}{GQLTS$_{dep}$} & \multicolumn{2}{c|}{wgtgraph} & \multicolumn{2}{c|}{SABRE} \\
+	\multirow{2}*{benchmarks}&\multirow{2}*{\#circ.}&\multicolumn{2}{c|}{GQLTS$_{num}$}&\multicolumn{2}{c|}{GQLTS$_{dep}$} & \multicolumn{2}{c|}{wgtgraph} & \multicolumn{2}{c|}{$SABRE$} \\
 		\cline{3-10}		
 	&&\#succ.&time&\#succ.&time&\#succ.&time&\#succ.&time\\
 	\hline
