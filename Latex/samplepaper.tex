@@ -596,29 +596,6 @@ Fig.~\ref{LAGPAG}(a) is the logical architecture
 of the original circuit of Fig.~\ref{OriginalCircuit},
 and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
 
-Lloyd proved that almost all gates of two qubits can be represented by general quantum gates~\cite{Lloyd1995Almost}. 
-Before circuit transformation, the circuit is simplified to a circuit with only single 
-quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}.
- $LC$ does not consider physical constraints, 
-any gate operation can be performed between two non-adjacent logical qubits, 
-but IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. 
-
-Generally, mapping logical qubit directly to physical qubit cannot satisfy the limit of logical circuit, 
-and circuit transformation is needed to make quantum gate executable on physical devices. 
-This process is called circuit transformation in this paper. In this paper, we insert the 
-auxiliary gates (SWAP) as shown in Fig.~\ref{Decomposition},
-so that two non-adjacent qubits can be logically swap to adjacent positions, 
-or change direction between two adjacent qubits (see Fig.~\ref{Transformate}). 
-The introduction of auxiliary gates may lead to errors, 
-which may lead to large deviation between the final results and the actual situation. 
-The quantum system is easy to interact with the surrounding environment, 
-resulting in errors. In the NISQ era, quantum error correction is difficult to achieve. 
-Due to the decoherence problem of quantum, the quantum operation needs to be completed in the coherent period, 
-and the time of quantum in the coherent state is very short. Therefore, 
-it is necessary to improve the parallelism of qubits as much as possible to minimize the depth 
-of quantum circuit. This is the focus of this paper. We hope to find a circuit mapping scheme 
-with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
-
 \begin{figure}
 	{
 	\scalefont{0.6}
@@ -922,6 +899,28 @@ with the minimum number of auxiliary gates and the circuit depth in an acceptabl
 \label{Problem Analysis}
 
 \subsubsection{Problem in qubit Mapping}
+Lloyd proved that almost all gates of two qubits can be represented by general quantum gates~\cite{Lloyd1995Almost}. 
+Before circuit transformation, the circuit is simplified to a circuit with only single 
+quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}.
+ $LC$ does not consider physical constraints, 
+any gate operation can be performed between two non-adjacent logical qubits, 
+but IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. 
+
+Generally, mapping logical qubit directly to physical qubit cannot satisfy the limit of logical circuit, 
+and circuit transformation is needed to make quantum gate executable on physical devices. 
+This process is called circuit transformation in this paper. We insert 
+auxiliary gates (see Fig.~\ref{Decomposition}),
+so that two non-adjacent qubits can move to adjacent positions in logic, 
+or change direction between two adjacent qubits (see Fig.~\ref{Transformate}). 
+The introduction of auxiliary gates may lead to errors, 
+which may lead to large deviation between the final results and the actual situation. 
+The quantum system is easy to interact with the surrounding environment, 
+resulting in errors. In the NISQ era, quantum error correction is difficult to achieve. 
+Due to the decoherence problem of quantum, the quantum operation needs to be completed in the coherent period, 
+and the time of quantum in the coherent state is very short. Therefore, 
+it is necessary to improve the parallelism of qubits as much as possible to minimize the depth 
+of quantum circuit. This is the focus of this paper. We hope to find a circuit mapping scheme 
+with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
 A quantum circuit transformation problem mainly includes the following four steps, 
 among which the third step of $qubit$ $assignment$ and the fourth step of qubit routing 
 problem are both NPC~\cite{2018QubitSiraichi}
