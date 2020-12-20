@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  17 DEC 2020 19:42
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  20 DEC 2020 21:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -801,17 +801,20 @@ Overfull \hbox (0.44525pt too wide) in paragraph at lines 1044--1050
  []
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 1133.
+LaTeX Warning: Command \textless invalid in math mode on input line 1132.
 
 
-LaTeX Warning: Float too large for page by 10.94675pt on input line 1133.
+LaTeX Warning: Float too large for page by 21.94675pt on input line 1132.
 
 [10]
 
-LaTeX Warning: Command \textless invalid in math mode on input line 1180.
+LaTeX Warning: Command \textless invalid in math mode on input line 1179.
 
-[11] [12] [13] [14] [15] [16] [17]
-Overfull \hbox (8.44698pt too wide) in paragraph at lines 1492--1528
+[11] [12] [13] [14] [15] [16]
+Underfull \vbox (badness 2856) has occurred while \output is active []
+
+ [17]
+Overfull \hbox (8.44698pt too wide) in paragraph at lines 1487--1492
 []\TU/lmr/m/n/10 First, we compared the efficiency of initial mapping on $\OML/cmm/m/it/10 ^^\[]$ \TU/lmr/m/n/10 [26], $\OML/cmm/m/it/10 ^^\[]$ \TU/lmr/m/n/10 [10]
  []
 
@@ -820,7 +823,10 @@ Overfull \hbox (12.48285pt too wide) in paragraph at lines 1561--1576
  [][] 
  []
 
-[19]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20]
