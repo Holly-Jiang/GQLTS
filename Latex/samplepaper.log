@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  20 DEC 2020 21:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  21 DEC 2020 17:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -688,91 +688,150 @@ Title too long for running head. Please supply
 a shorter form with \titlerunning prior to \maketitle
 [1
 
-] [2] [3] [4]
-LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 266.
+]
+
+LaTeX Warning: Citation `2019CNOT' on page 2 undefined on input line 96.
+
+
+LaTeX Warning: Citation `2019Quantum' on page 2 undefined on input line 96.
+
+
+LaTeX Warning: Citation `2017Temporal' on page 2 undefined on input line 99.
+
+
+LaTeX Warning: Citation `2018Integer' on page 2 undefined on input line 99.
+
+
+LaTeX Warning: Citation `2019Almeida' on page 2 undefined on input line 100.
+
+
+LaTeX Warning: Citation `2019Murali' on page 2 undefined on input line 101.
+
+
+LaTeX Warning: Citation `2018QubitSiraichi' on page 2 undefined on input line 108.
+
+
+LaTeX Warning: Citation `Shafaei2013' on page 2 undefined on input line 110.
+
+
+LaTeX Warning: Citation `Guerreschi2018' on page 2 undefined on input line 119.
+
+
+LaTeX Warning: Citation `Matsuo2019' on page 2 undefined on input line 119.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 2 undefined on input line 135.
+
+
+LaTeX Warning: Citation `Cowtan2019' on page 2 undefined on input line 135.
+
+
+LaTeX Warning: Citation `Li2018' on page 2 undefined on input line 135.
+
+
+LaTeX Warning: Citation `Xiangzhen2020' on page 2 undefined on input line 135.
+
+
+LaTeX Warning: Citation `2018QubitSiraichi' on page 2 undefined on input line 135.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 2 undefined on input line 140.
+
+
+LaTeX Warning: Citation `Xiangzhen2020' on page 2 undefined on input line 147.
+
+[2]
+
+LaTeX Warning: Citation `Li2018' on page 3 undefined on input line 156.
+
+
+LaTeX Warning: Citation `Cowtan2019' on page 3 undefined on input line 166.
+
+
+LaTeX Warning: Citation `Tannu2019' on page 3 undefined on input line 176.
+
+
+LaTeX Warning: Citation `Paler2018' on page 3 undefined on input line 182.
+
+
+LaTeX Warning: Citation `Li2018' on page 3 undefined on input line 185.
+
+
+LaTeX Warning: Citation `Xiangzhen2020' on page 3 undefined on input line 187.
+
+
+LaTeX Warning: Citation `2020Qubit' on page 3 undefined on input line 190.
+
+
+LaTeX Warning: Citation `2018QuantumPreskill' on page 3 undefined on input line 202.
+
+[3]
+
+LaTeX Warning: Citation `Glover1990' on page 4 undefined on input line 222.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 4 undefined on input line 226.
+
+[4]
+LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 265.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.40996> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.14998> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 266.
+(Font)              size <5> substituted on input line 265.
 
-<xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 11x7 2537> [5]
-LaTeX Font Info:    Calculating math sizes for size <5.40005> on input line 500.
+<xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143>
 
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <5.40005> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Warning: Citation `Daei2020' on page 5 undefined on input line 363.
 
 
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.78001> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Warning: Citation `2013Optimization' on page 5 undefined on input line 376.
+
+<xymatrix 11x7 2537> [5]
+LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 501.
 
 
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <2.70003> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 501.
 
 
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <5.40005> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.6> not available
+(Font)              size <5> substituted on input line 501.
 
 
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.78001> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 501.
 
 
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <2.70003> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <5.40005> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.78001> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <2.70003> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <5.40005> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.78001> not available
-(Font)              size <5> substituted on input line 500.
-
-
-LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <2.70003> not available
-(Font)              size <5> substituted on input line 500.
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 501.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -785,48 +844,88 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[6] [7]
-Overfull \hbox (15.2622pt too wide) in paragraph at lines 933--941
-\OML/cmm/m/it/10 Q[];  q[] \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 Q[];  q[] \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 Q[];  q[] \OMS/cmsy/m/n/10 ! \OML/cmm/m/it/10 Q[]\OMS/cmsy/m/n/10 g$\TU/lmr/m/n/10 . $\OML/cmm/m/it/10 g[] \OT1/cmr/m/n/10 = []$ \TU/lmr/m/n/10 is executable, since $[] \OT1/cmr/m/n/10 =
+[6]
+
+LaTeX Warning: Citation `Lloyd1995Almost' on page 7 undefined on input line 909.
+
+
+LaTeX Warning: Citation `2005Mttnen' on page 7 undefined on input line 914.
+
+
+LaTeX Warning: Citation `1995Barenco' on page 7 undefined on input line 914.
+
+[7]
+Overfull \hbox (7.33957pt too wide) in paragraph at lines 934--942
+[][]\OML/cmm/m/it/10 ;  [][] \OMS/cmsy/m/n/10 ! [][]\OML/cmm/m/it/10 ;  [][] \OMS/cmsy/m/n/10 ! [][]\OML/cmm/m/it/10 ;  [][] \OMS/cmsy/m/n/10 ! [][]g$\TU/lmr/m/n/10 . $\OML/cmm/m/it/10 g[] \OT1/cmr/m/n/10 = []$ \TU/lmr/m/n/10 is executable, since $[] \OT1/cmr/m/n/10 =
  []
 
+
+LaTeX Warning: Citation `2018QubitSiraichi' on page 8 undefined on input line 946.
+
+File: uml.jpg Graphic file (type bmp)
+<uml.jpg>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Citation `2019Zhang' on page 8 undefined on input line 956.
+
+
+LaTeX Warning: Citation `Sun2020' on page 8 undefined on input line 960.
+
 [8]
-Overfull \hbox (0.19106pt too wide) in paragraph at lines 995--1009
+
+LaTeX Warning: Citation `2019Zhang' on page 9 undefined on input line 989.
+
+[9]
+Overfull \hbox (0.19106pt too wide) in paragraph at lines 1005--1022
 \TU/lmr/m/n/10 SWAP operation requires 3 gates (3 $\OML/cmm/m/it/10 CNOT$ \TU/lmr/m/n/10 gates), and there is no need to change
  []
 
-[9]
-Overfull \hbox (0.44525pt too wide) in paragraph at lines 1044--1050
+
+Overfull \hbox (0.44525pt too wide) in paragraph at lines 1058--1064
 \OML/cmm/m/it/10 assignment$\TU/lmr/m/n/10 , and the subgraph isomorphism can be reduced to $\OML/cmm/m/it/10 qubit$ $assignment$\TU/lmr/m/n/10 ,
  []
 
-
-LaTeX Warning: Command \textless invalid in math mode on input line 1132.
-
-
-LaTeX Warning: Float too large for page by 21.94675pt on input line 1132.
-
 [10]
 
-LaTeX Warning: Command \textless invalid in math mode on input line 1179.
+LaTeX Warning: Citation `Sun2020' on page 11 undefined on input line 1067.
 
-[11] [12] [13] [14] [15] [16]
-Underfull \vbox (badness 2856) has occurred while \output is active []
 
- [17]
-Overfull \hbox (8.44698pt too wide) in paragraph at lines 1487--1492
-[]\TU/lmr/m/n/10 First, we compared the efficiency of initial mapping on $\OML/cmm/m/it/10 ^^\[]$ \TU/lmr/m/n/10 [26], $\OML/cmm/m/it/10 ^^\[]$ \TU/lmr/m/n/10 [10]
- []
+LaTeX Warning: Command \textless invalid in math mode on input line 1146.
+
+
+LaTeX Warning: Float too large for page by 21.94675pt on input line 1146.
+
+[11] [12]
+
+LaTeX Warning: Command \textless invalid in math mode on input line 1193.
+
+
+LaTeX Warning: Citation `Glover1990' on page 13 undefined on input line 1218.
+
+[13] [14] [15] [16] [17]
+
+LaTeX Warning: Citation `2020Qubit' on page 18 undefined on input line 1499.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 18 undefined on input line 1499.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 18 undefined on input line 1501.
+
+
+LaTeX Warning: Citation `2020Qubit' on page 18 undefined on input line 1502.
+
+
+LaTeX Warning: Citation `Zulehner2017' on page 18 undefined on input line 1505.
 
 [18]
-Overfull \hbox (12.48285pt too wide) in paragraph at lines 1561--1576
+Overfull \hbox (12.48285pt too wide) in paragraph at lines 1575--1590
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [19]
+[19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20]
@@ -847,55 +946,27 @@ Overfull \vbox (95.24287pt too high) has occurred while \output is active []
  [25]
 Overfull \vbox (53.1527pt too high) has occurred while \output is active []
 
- [26] (./samplepaper.bbl
+ [26]
+No file samplepaper.bbl.
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27]
-Underfull \hbox (badness 7963) in paragraph at lines 7--10
-[]\TU/lmr/m/n/9 Almeida, A., Dueck, G., Silva, A.: Finding optimal qubit permuta-
- []
-
-
-Underfull \hbox (badness 8132) in paragraph at lines 7--10
-\TU/lmr/m/n/9 tions for ibm’s quantum computer architectures pp. 1–6 (08 2019).
- []
-
-[28]
-Underfull \hbox (badness 10000) in paragraph at lines 71--74
-[]\TU/lmr/m/n/9 Nash, B., Gheorghiu, V., Mosca, M.: Quantum circuit optimizations
- []
-
-
-Underfull \hbox (badness 4673) in paragraph at lines 71--74
-\TU/lmr/m/n/9 for nisq architectures. Quantum Science and Technology \TU/lmr/bx/n/9 5 \TU/lmr/m/n/9 (02 2020).
- []
-
-
-Underfull \hbox (badness 2922) in paragraph at lines 102--105
-[]\TU/lmr/m/n/9 Tannu, S., Qureshi, M.: Not all qubits are created equal: A case for
- []
-
-
-Underfull \hbox (badness 2261) in paragraph at lines 112--116
-\TU/lmr/m/n/9 Aided Design of Integrated Circuits and Systems \TU/lmr/bx/n/9 PP\TU/lmr/m/n/9 ,  1–1 (01 2020).
- []
-
-[29]) [30] (./samplepaper.aux)
+ [27] [28] (./samplepaper.aux)
 
 LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 2.29997pt have occurred.
+(Font)              up to 1.85002pt have occurred.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 17825 strings out of 479418
- 322486 string characters out of 5888105
- 806190 words of memory out of 5000000
- 34953 multiletter control sequences out of 15000+600000
- 547917 words of font info for 112 fonts, out of 8000000 for 9000
+ 17815 strings out of 479418
+ 322384 string characters out of 5888105
+ 807872 words of memory out of 5000000
+ 34937 multiletter control sequences out of 15000+600000
+ 547950 words of font info for 116 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  60i,29n,60p,440b,1442s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on samplepaper.pdf (30 pages).
+Output written on samplepaper.pdf (28 pages).

@@ -216,9 +216,8 @@ The main contributions of this paper are as follows.
 		\item We summary the current status, problems, and breakthrough directions 
 		of quantum mapping work, and point out their advantages and disadvantages. 
 		\item
-		 We propose an algorithm ($CSI$) to obtain an initial mapping.
-		 The initial mapping of quantum circuits can be reduced to subgraph isomorphism,
-		 thus we use a better subgraph matching algorithm to generate part of the initial mapping, 
+		 We propose an algorithm ($CSI$) to obtain the initial mapping, which can be reduced to subgraph isomorphism.
+		 Thus we use a state-of-the-art subgraph isomorphism algorithm to generate part of the initial mapping, 
 		 and then complete the mapping based on the connectivity between qubits.
 		\item We propose a heuristic SWAP search algorithm based on Tabu Search~\cite{Glover1990} ($QCTS$), 
 		which can handle large circuits in a short time at a low cost.
@@ -256,7 +255,7 @@ where $R_{z}(\beta)$ represents a rotation by $\beta$ about the $\hat{z}$ axis,
 and $R_{y}(\gamma)$ represents a rotation by $\gamma$ about the $\hat{y}$ axis.
 
 Commonly used quantum gate symbols and their matrices are shown in the Fig.~\ref{common_gates}. 
-Physical qubit and logical qubit are represented by $Q ,\ q $, respectively.
+Physical qubit and logical qubit are represented by $\textup{q}$, $\textit{q}$, respectively.
  {
 \begin{figure}
 	 \scalefont{0.7}
@@ -386,11 +385,11 @@ on the physical architecture graph ($PAG$).
 		% \draw[help lines] (0,0) grid (11,7);
 		% IBM Q20
 		\node at (5.5,5){  \Qcircuit @C=1.2em @R=0.75em {
-			\lstick{q_{0}}   &  \qw 				&   \qw  \barrier{4}&\targ 	\barrier{4}	&\qw      		&\ctrl{4}\barrier{4}&   \qw		&\targ\barrier{4} &\targ  \barrier{4}&\qw  &  \qw       \\
-			\lstick{q_{1}}   &   \targ      		&   \qw      		&   \qw      		&   \ctrl{2} 	&   \qw      	&   \targ    	&   \qw      	&   \qw       	&   \qw   		&  \qw       \\
-			\lstick{q_{2}}   &   \ctrl{-1}  		&   \qw      		&   \qw      		&   \qw      	&   \qw      	&   \qw      	&   \qw     	&   \ctrl{-2} 	&   \targ       &  \qw       \\
-			\lstick{q_{3}}   &\qw					&   \ctrl{1}   		&   \ctrl{-3} 		&   \targ    	&   \qw      	&   \ctrl{-2}	&   \qw      	&   \qw       	&   \qw        	&  \qw         \\
-			\lstick{q_{4}}   &		\qw				& \targ				& \qw 				&   \qw      	&   \targ    	&   \qw      	&   \ctrl{-4}  	& 	\qw     	&   \ctrl{-2} 	&   \qw			\\
+			\lstick{\textit{q}_\textit{0}}   &  \qw 				&   \qw  \barrier{4}&\targ 	\barrier{4}	&\qw      		&\ctrl{4}\barrier{4}&   \qw		&\targ\barrier{4} &\targ  \barrier{4}&\qw  &  \qw       \\
+			\lstick{\textit{q}_\textit{1}}   &   \targ      		&   \qw      		&   \qw      		&   \ctrl{2} 	&   \qw      	&   \targ    	&   \qw      	&   \qw       	&   \qw   		&  \qw       \\
+			\lstick{\textit{q}_\textit{2}}   &   \ctrl{-1}  		&   \qw      		&   \qw      		&   \qw      	&   \qw      	&   \qw      	&   \qw     	&   \ctrl{-2} 	&   \targ       &  \qw       \\
+			\lstick{\textit{q}_\textit{3}}   &\qw					&   \ctrl{1}   		&   \ctrl{-3} 		&   \targ    	&   \qw      	&   \ctrl{-2}	&   \qw      	&   \qw       	&   \qw        	&  \qw         \\
+			\lstick{\textit{q}_\textit{4}}   &		\qw				& \targ				& \qw 				&   \qw      	&   \targ    	&   \qw      	&   \ctrl{-4}  	& 	\qw     	&   \ctrl{-2} 	&   \qw			\\
 							  &\dstick{g_{0}}		&\dstick{g_{1}}		&\dstick{g_{2}}		&\dstick{g_{3}}	&\dstick{g_{4}} &\dstick{g_{5}} &\dstick{g_{6}} &\dstick{g_{7}} &\dstick{g_{8}}	&   		\\		 
 							 &						&					&				&       		& 				& 				& 				&				&   				 
 							 }};
@@ -415,15 +414,15 @@ on the physical architecture graph ($PAG$).
 	\draw [black,  thin] (7,2) circle [radius=0.25];
 	\draw [black,  thin] (8,2) circle [radius=0.25];
 	% label
-	\node at (3,1) {$q_{1}$};
-	\node at (3,3) {$q_{0}$};
-	\node at (4,1.5) {$q_{2}$};
-	\node at (5,1){$q_{4}$};
-	\node at (5,1.7) {$q_{3}$};
-	\node at (6,1.7){$q_{5}$};
-	\node at (6,1) {$q_{6}$};
-	\node at (7,2) {$q_{7}$};
-	\node at (8,2) {$q_{8}$};
+	\node at (3,1) {$\textit{q}_\textit{1}$};
+	\node at (3,3) {$\textit{q}_\textit{0}$};
+	\node at (4,1.5) {$\textit{q}_\textit{2}$};
+	\node at (5,1){$\textit{q}_\textit{4}$};
+	\node at (5,1.7) {$\textit{q}_\textit{3}$};
+	\node at (6,1.7){$\textit{q}_\textit{5}$};
+	\node at (6,1) {$\textit{q}_\textit{6}$};
+	\node at (7,2) {$\textit{q}_\textit{7}$};
+	\node at (8,2) {$\textit{q}_\textit{8}$};
 
 	% q1
 	\draw [->, thin] (3.25,1) -- (3.75,1.5);
@@ -454,14 +453,16 @@ on the physical architecture graph ($PAG$).
 	\begin{center}
 		{\scalefont{1}
 	\begin{tikzpicture}
+		% \tikzstyle{every node}=[font=\small,scale=0.9]
+
 		\node at (0.5,0){(a)};
             % Q20
             \draw [black, thin] (0,1.4) circle [radius=0.25];
             \draw [-,thin] (0.25,1.4) -- (0.65,1.4);
             \draw [black, thin] (0.9,1.4) circle [radius=0.25];
             % label
-            \node at (0,1.4) {$q_{0}$};
-            \node at (0.9,1.4){$q_{4}$};
+            \node at (0,1.4) {$\textit{q}_\textit{0}$};
+            \node at (0.9,1.4){$\textit{q}_\textit{4}$};
             % |
             \draw [-,thin] (0,1.65) -- (0,2.05);
             \draw [-,thin] (0.9,1.65)-- (0.9,2.05);
@@ -470,15 +471,15 @@ on the physical architecture graph ($PAG$).
         
             \draw [black, thin] (0.9,2.3) circle [radius=0.25];
             % label
-            \node at (0,2.3) {$q_{3}$};
-            \node at (0.9,2.3){$q_{2}$};
+            \node at (0,2.3) {$\textit{q}_\textit{3}$};
+            \node at (0.9,2.3){$\textit{q}_\textit{2}$};
             % |
             \draw [-,thin] (0,2.55) -- (0,2.95);
         
             \draw [black, thin] (0,3.2) circle [radius=0.25];
             \draw [-,thin] (0.175,3.025) -- (0.725,2.475);
             % label
-            \node at (0,3.2) {$q_{1}$};
+            \node at (0,3.2) {$\textit{q}_\textit{1}$};
         
             %x
 			\draw [-,thin] (0.175,2.125) -- (0.725,1.575);
@@ -487,7 +488,7 @@ on the physical architecture graph ($PAG$).
 			\end{tikzpicture}
 			}
 			\qquad   \qquad
-			{\scalefont{0.6}
+			{\scalefont{0.8}
 			\begin{tikzpicture}
             
                 % IBM Q20
@@ -497,8 +498,8 @@ on the physical architecture graph ($PAG$).
             \draw [<->,thin] (0.25,0.5) -- (0.65,0.5);
             \draw [black, thin] (0.9,0.5) circle [radius=0.25];
         
-            \node at (0,0.5) {$Q_{15}$};
-            \node at (0.9,0.5){$Q_{16}$};
+            \node at (0,0.5) {$\textup{q}_\textup{15}$};
+            \node at (0.9,0.5){$\textup{q}_\textup{16}$};
             % |
             \draw [<->,thin] (0,0.75) -- (0,1.15);
             \draw [<->,thin] (0.9,0.75) -- (0.9,1.15);
@@ -507,8 +508,8 @@ on the physical architecture graph ($PAG$).
             \draw [<->,thin] (0.25,1.4) -- (0.65,1.4);
             \draw [black, thin] (0.9,1.4) circle [radius=0.25];
             % label
-            \node at (0,1.4) {$Q_{10}$};
-            \node at (0.9,1.4){$Q_{11}$};
+            \node at (0,1.4) {$\textup{q}_\textup{10}$};
+            \node at (0.9,1.4){$\textup{q}_\textup{11}$};
             % |
             \draw [<->,thin] (0,1.65) -- (0,2.05);
             \draw [<->,thin] (0.9,1.65)-- (0.9,2.05);
@@ -517,8 +518,8 @@ on the physical architecture graph ($PAG$).
             \draw [<->,thin] (0.25,2.3) -- (0.65,2.3);
             \draw [black, thin] (0.9,2.3) circle [radius=0.25];
             % label
-            \node at (0,2.3) {$Q_{5}$};
-            \node at (0.9,2.3){$Q_{6}$};
+            \node at (0,2.3) {$\textup{q}_\textup{5}$};
+            \node at (0.9,2.3){$\textup{q}_\textup{6}$};
             % |
             \draw [<->,thin] (0,2.55) -- (0,2.95);
             \draw [<->,thin] (0.9,2.55)-- (0.9,2.95);
@@ -527,8 +528,8 @@ on the physical architecture graph ($PAG$).
             \draw [<->,thin] (0.25,3.2) -- (0.65,3.2);
             \draw [black, thin] (0.9,3.2) circle [radius=0.25];
             % label
-            \node at (0,3.2) {$Q_{0}$};
-            \node at (0.9,3.2){$Q_{1}$};
+            \node at (0,3.2) {$\textup{q}_\textup{0}$};
+            \node at (0.9,3.2){$\textup{q}_\textup{1}$};
         
             %x
         
@@ -564,20 +565,20 @@ on the physical architecture graph ($PAG$).
 \begin{figure}[h!] 				
    \centerline{ 
 					\Qcircuit @C=1.2em @R=2.05em {
-											\lstick{q_{0}} &  \qswap  				&    \rstick{q_{1}} \qw \\
-											\lstick{q_{1}} &   \qswap\qwx	   		&     \rstick{q_{0}}  \qw   \\	 
+											\lstick{\textit{q}_\textit{0}} &  \qswap  				&    \rstick{\textit{q}_\textit{1}} \qw \\
+											\lstick{\textit{q}_\textit{1}} &   \qswap\qwx	   		&     \rstick{\textit{q}_\textit{0}}  \qw   \\	 
 																					&					&      						 
 										}
 										\qquad    \qquad
 \Qcircuit @C=1.2em @R=1.22em {
-					   \lstick{q_{0}} 	&  \ctrl{1}  		&  \targ  		&  \ctrl{1}  		&    \rstick{q_{1}} \qw \\
-					   \lstick{q_{1}} 	&   \targ      		&  \ctrl{-1}    &   \targ      		&     \rstick{q_{0}}  \qw   \\	 
+					   \lstick{\textit{q}_\textit{0}} 	&  \ctrl{1}  		&  \targ  		&  \ctrl{1}  		&    \rstick{\textit{q}_\textit{1}} \qw \\
+					   \lstick{\textit{q}_\textit{1}} 	&   \targ      		&  \ctrl{-1}    &   \targ      		&     \rstick{\textit{q}_\textit{0}}  \qw   \\	 
 										&					&				&					&      						 
 				   }
 					 \qquad    \qquad
  \Qcircuit @C=1.2em @R=0.75em {
-	\lstick{q_{0}}  &  \ctrl{1}  		&   \gate{H}  		&\ctrl{1} 			&\gate{H}     	&\ctrl{1}			&    \rstick{q_{1}}\qw  	 \\
-	\lstick{q_{1}}  &   \targ      		&   \gate{H}      	&   \targ      		&\gate{H} 		&\targ      		&    \rstick{q_{0}}\qw 	    \\	 
+	\lstick{\textit{q}_\textit{0}}  &  \ctrl{1}  		&   \gate{H}  		&\ctrl{1} 			&\gate{H}     	&\ctrl{1}			&    \rstick{\textit{q}_\textit{1}}\qw  	 \\
+	\lstick{\textit{q}_\textit{1}}  &   \targ      		&   \gate{H}      	&   \targ      		&\gate{H} 		&\targ      		&    \rstick{\textit{q}_\textit{0}}\qw 	    \\	 
 					&					&					&					&       		& 					&						 
 					 }
  }
@@ -604,22 +605,22 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 
 \begin{figure}
 	{
-	\scalefont{0.6}
+	\scalefont{0.8}
 	\begin{tikzpicture}
 	% \draw[help lines] (0,0) grid (11,3);
 		% IBM QX2
 	\node at (1.8,0.4){(a) IBM QX2};
 	\node at (4.8,0.4){(a) IBM QX4};
 	% label
-	\node at (0.9,2.7){$Q_{0}$};
+	\node at (0.9,2.7){$\textup{q}_\textup{0}$};
 	\draw [black, thin] (0.9,2.7) circle [radius=0.25];
-	\node at (2.7,2.7){$Q_{1}$};
+	\node at (2.7,2.7){$\textup{q}_\textup{1}$};
 	\draw [black, thin] (2.7,2.7) circle [radius=0.25];
-	\node at (1.8,1.8){$Q_{2}$};
+	\node at (1.8,1.8){$\textup{q}_\textup{2}$};
 	\draw [black, thin] (1.8,1.8)circle [radius=0.25];
-	\node at (0.9,0.9){$Q_{3}$};
+	\node at (0.9,0.9){$\textup{q}_\textup{3}$};
 	\draw [black, thin] (0.9,0.9) circle [radius=0.25];
-	\node at (2.7,0.9){$Q_{4}$};
+	\node at (2.7,0.9){$\textup{q}_\textup{4}$};
 	\draw [black, thin] (2.7,0.9) circle [radius=0.25];
 
 	
@@ -636,15 +637,15 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 
 		 
 		% label
-		\node at (3.9,2.7){$Q_{0}$};
+		\node at (3.9,2.7){$\textup{q}_\textup{0}$};
 		\draw [black, thin] (3.9,2.7) circle [radius=0.25];
-		\node at (5.7,2.7){$Q_{1}$};
+		\node at (5.7,2.7){$\textup{q}_\textup{1}$};
 		\draw [black, thin] (5.7,2.7) circle [radius=0.25];
-		\node at (4.8,1.8){$Q_{2}$};
+		\node at (4.8,1.8){$\textup{q}_\textup{2}$};
 		\draw [black, thin] (4.8,1.8)circle [radius=0.25];
-		\node at (3.9,0.9){$Q_{3}$};
+		\node at (3.9,0.9){$\textup{q}_\textup{3}$};
 		\draw [black, thin] (3.9,0.9) circle [radius=0.25];
-		\node at (5.7,0.9){$Q_{4}$};
+		\node at (5.7,0.9){$\textup{q}_\textup{4}$};
 		\draw [black, thin] (5.7,0.9) circle [radius=0.25];
 		
 		% -
@@ -661,7 +662,7 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 }
 \\
 {
-	\scalefont{0.6}
+	\scalefont{0.8}
 		\begin{tikzpicture}
 			
 	\node at (3.15,0){(c) IBM QX5};
@@ -710,23 +711,23 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 \draw [black, thin] (6.3,3.2) circle [radius=0.25];
 	
 	% label
-	\node at (0,0.5){$Q_{0}$};
-	\node at (0.9,0.5){$Q_{15}$};
-	\node at (1.8,0.5){$Q_{14}$};
-	\node at (2.7,0.5){$Q_{13}$};
-	\node at (3.6,0.5){$Q_{12}$};
-	\node at (4.5,0.5){$Q_{11}$};
-	\node at (5.4,0.5){$Q_{10}$};
-	\node at (6.3,0.5){$Q_{9}$};
+	\node at (0,0.5){$\textup{q}_\textup{0}$};
+	\node at (0.9,0.5){$\textup{q}_\textup{15}$};
+	\node at (1.8,0.5){$\textup{q}_\textup{14}$};
+	\node at (2.7,0.5){$\textup{q}_\textup{13}$};
+	\node at (3.6,0.5){$\textup{q}_\textup{12}$};
+	\node at (4.5,0.5){$\textup{q}_\textup{11}$};
+	\node at (5.4,0.5){$\textup{q}_\textup{10}$};
+	\node at (6.3,0.5){$\textup{q}_\textup{9}$};
 
-	\node at (0,1.4){$Q_{1}$};
-	\node at (0.9,1.4){$Q_{2}$};
-	\node at (1.8,1.4){$Q_{3}$};
-	\node at (2.7,1.4){$Q_{4}$};
-	\node at (3.6,1.4){$Q_{5}$};
-	\node at (4.5,1.4){$Q_{6}$};
-	\node at (5.4,1.4){$Q_{7}$};
-	\node at (6.3,1.4){$Q_{8}$};
+	\node at (0,1.4){$\textup{q}_\textup{1}$};
+	\node at (0.9,1.4){$\textup{q}_\textup{2}$};
+	\node at (1.8,1.4){$\textup{q}_\textup{3}$};
+	\node at (2.7,1.4){$\textup{q}_\textup{4}$};
+	\node at (3.6,1.4){$\textup{q}_\textup{5}$};
+	\node at (4.5,1.4){$\textup{q}_\textup{6}$};
+	\node at (5.4,1.4){$\textup{q}_\textup{7}$};
+	\node at (6.3,1.4){$\textup{q}_\textup{8}$};
 
 		%QX5
 		%-
@@ -773,26 +774,26 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 	\draw [black, thin] (6.3,1.4) circle [radius=0.25];
 		
 		% label
-		\node at (0,2.3){$Q_{0}$};
-		\node at (0.9,2.3){$Q_{15}$};
-		\node at (1.8,2.3){$Q_{14}$};
-		\node at (2.7,2.3){$Q_{13}$};
-		\node at (3.6,2.3){$Q_{12}$};
-		\node at (4.5,2.3){$Q_{11}$};
-		\node at (5.4,2.3){$Q_{10}$};
-		\node at (6.3,2.3){$Q_{9}$};
+		\node at (0,2.3){$\textup{q}_\textup{0}$};
+		\node at (0.9,2.3){$\textup{q}_\textup{15}$};
+		\node at (1.8,2.3){$\textup{q}_\textup{14}$};
+		\node at (2.7,2.3){$\textup{q}_\textup{13}$};
+		\node at (3.6,2.3){$\textup{q}_\textup{12}$};
+		\node at (4.5,2.3){$\textup{q}_\textup{11}$};
+		\node at (5.4,2.3){$\textup{q}_\textup{10}$};
+		\node at (6.3,2.3){$\textup{q}_\textup{9}$};
 	
-		\node at (0,3.2){$Q_{1}$};
-		\node at (0.9,3.2){$Q_{2}$};
-		\node at (1.8,3.2){$Q_{3}$};
-		\node at (2.7,3.2){$Q_{4}$};
-		\node at (3.6,3.2){$Q_{5}$};
-		\node at (4.5,3.2){$Q_{6}$};
-		\node at (5.4,3.2){$Q_{7}$};
-		\node at (6.3,3.2){$Q_{8}$};
+		\node at (0,3.2){$\textup{q}_\textup{1}$};
+		\node at (0.9,3.2){$\textup{q}_\textup{2}$};
+		\node at (1.8,3.2){$\textup{q}_\textup{3}$};
+		\node at (2.7,3.2){$\textup{q}_\textup{4}$};
+		\node at (3.6,3.2){$\textup{q}_\textup{5}$};
+		\node at (4.5,3.2){$\textup{q}_\textup{6}$};
+		\node at (5.4,3.2){$\textup{q}_\textup{7}$};
+		\node at (6.3,3.2){$\textup{q}_\textup{8}$};
 	\end{tikzpicture}
 }
-{\scalefont{0.6}
+{\scalefont{0.8}
 	\begin{tikzpicture}
 	
 		% IBM Q20
@@ -808,11 +809,11 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 	\draw [<->,thin] (2.95,0.5) -- (3.35,0.5);
 	\draw [black, thin] (3.6,0.5) circle [radius=0.25];
 
-	\node at (0,0.5) {$Q_{15}$};
-	\node at (0.9,0.5){$Q_{16}$};
-	\node at (1.8,0.5){$Q_{17}$};
-	\node at (2.7,0.5){$Q_{18}$};
-	\node at (3.6,0.5){$Q_{19}$};
+	\node at (0,0.5) {$\textup{q}_\textup{15}$};
+	\node at (0.9,0.5){$\textup{q}_\textup{16}$};
+	\node at (1.8,0.5){$\textup{q}_\textup{17}$};
+	\node at (2.7,0.5){$\textup{q}_\textup{18}$};
+	\node at (3.6,0.5){$\textup{q}_\textup{19}$};
 	% |
 	\draw [<->,thin] (0,0.75) -- (0,1.15);
 	\draw [<->,thin] (0.9,0.75) -- (0.9,1.15);
@@ -830,11 +831,11 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 	\draw [<->,thin] (2.95,1.4) -- (3.35,1.4);
 	\draw [black, thin] (3.6,1.4) circle [radius=0.25];
 	% label
-	\node at (0,1.4) {$Q_{10}$};
-	\node at (0.9,1.4){$Q_{11}$};
-	\node at (1.8,1.4){$Q_{12}$};
-	\node at (2.7,1.4){$Q_{13}$};
-	\node at (3.6,1.4){$Q_{14}$};
+	\node at (0,1.4) {$\textup{q}_\textup{10}$};
+	\node at (0.9,1.4){$\textup{q}_\textup{11}$};
+	\node at (1.8,1.4){$\textup{q}_\textup{12}$};
+	\node at (2.7,1.4){$\textup{q}_\textup{13}$};
+	\node at (3.6,1.4){$\textup{q}_\textup{14}$};
 	% |
 	\draw [<->,thin] (0,1.65) -- (0,2.05);
 	\draw [<->,thin] (0.9,1.65)-- (0.9,2.05);
@@ -852,11 +853,11 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 	\draw [<->,thin] (2.95,2.3) -- (3.35,2.3);
 	\draw [black, thin] (3.6,2.3) circle [radius=0.25];
 	% label
-	\node at (0,2.3) {$Q_{5}$};
-	\node at (0.9,2.3){$Q_{6}$};
-	\node at (1.8,2.3){$Q_{7}$};
-	\node at (2.7,2.3){$Q_{8}$};
-	\node at (3.6,2.3){$Q_{9}$};
+	\node at (0,2.3) {$\textup{q}_\textup{5}$};
+	\node at (0.9,2.3){$\textup{q}_\textup{6}$};
+	\node at (1.8,2.3){$\textup{q}_\textup{7}$};
+	\node at (2.7,2.3){$\textup{q}_\textup{8}$};
+	\node at (3.6,2.3){$\textup{q}_\textup{9}$};
 	% |
 	\draw [<->,thin] (0,2.55) -- (0,2.95);
 	\draw [<->,thin] (0.9,2.55)-- (0.9,2.95);
@@ -874,11 +875,11 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 	\draw [<->,thin] (2.95,3.2) -- (3.35,3.2);
 	\draw [black, thin] (3.6,3.2) circle [radius=0.25];
 	% label
-	\node at (0,3.2) {$Q_{0}$};
-	\node at (0.9,3.2){$Q_{1}$};
-	\node at (1.8,3.2){$Q_{2}$};
-	\node at (2.7,3.2){$Q_{3}$};
-	\node at (3.6,3.2){$Q_{4}$};
+	\node at (0,3.2) {$\textup{q}_\textup{0}$};
+	\node at (0.9,3.2){$\textup{q}_\textup{1}$};
+	\node at (1.8,3.2){$\textup{q}_\textup{2}$};
+	\node at (2.7,3.2){$\textup{q}_\textup{3}$};
+	\node at (3.6,3.2){$\textup{q}_\textup{4}$};
 
 	%x
 	\draw [<->,thin] (1.075,0.675) -- (1.625,1.225);
@@ -925,36 +926,45 @@ it is necessary to improve the parallelism of qubits as much as possible to mini
 with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
 
 Given the logical circuit $LC$, physical structure $\mathcal{AG}_{P}$, 
-and an initial mapping $\tau$, $CNOT$ gate $g=\left \langle q_{i},q_{j}\right \rangle $, 
-if gate $G$ is executable, then $\left \langle\tau(q_{i}),\tau(q_{j})\right \rangle $ 
+and an initial mapping $\tau$, $CNOT$ gate $g=\left \langle \textit{q}_\textit{i},\textit{q}_\textit{j}\right \rangle $, 
+if gate $G$ is executable, then $\left \langle\tau(\textit{q}_\textit{i}),\tau(\textit{q}_\textit{j})\right \rangle $ 
 is a directed edge on $\mathcal{AG}_{P}$.
 
 \begin{example}
 	Fig.~\ref{LAGPAG} (a) is the logical structure of Fig.~\ref{OriginalCircuit}, 
 	Fig.~\ref{LAGPAG} (b) is the partial architecture graph of IBM Q20, an initial mapping is 
-	$\tau=\{q_{0}\rightarrow  Q_{10},\ q_{1}\rightarrow Q_{0},\ 
-	q_{2}\rightarrow  Q_{6},\ q_{3}\rightarrow  Q_{5},\ q_{4}\rightarrow  Q_{11}\}$.
-	$g_{0}=\left \langle q_{2},q_{1}\right \rangle $ is executable, since 
-	$\left \langle \tau(q_{2}),\tau(q_{2})\right \rangle =\left \langle Q_{5},Q_{0}\right \rangle $ exists in $\mathcal{AG}_{P}$.
-	But $g_{3}=\left \langle q_{1},q_{3}\right \rangle $ is not executable, since 
-	$\left \langle \tau(q_{1}),\tau(q_{3})\right \rangle =\left \langle Q_{0},Q_{6}\right \rangle $  does not exist in $\mathcal{AG}_{P}$.
+	$\tau=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\ \textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},\ 
+	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\ \textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\ \textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
+	$g_{0}=\left \langle \textit{q}_\textit{2},\textit{q}_\textit{1}\right \rangle $ is executable, since 
+	$\left \langle \tau(\textit{q}_\textit{2}),\tau(\textit{q}_\textit{2})\right \rangle =\left \langle \textup{q}_{\textup{5}},\textup{q}_{\textup{0}}\right \rangle $ exists in $\mathcal{AG}_{P}$.
+	But $g_{3}=\left \langle \textit{q}_\textit{1},\textit{q}_\textit{3}\right \rangle $ is not executable, since 
+	$\left \langle \tau(\textit{q}_\textit{1}),\tau(\textit{q}_\textit{3})\right \rangle =\left \langle \textup{q}_{\textup{0}},\textup{q}_{\textup{6}}\right \rangle $  does not exist in $\mathcal{AG}_{P}$.
 \end{example}
 
-A quantum circuit transformation problem mainly includes the following four steps, 
-among which the third step of $qubit$ $assignment$ and the fourth step of circuit transformation 
+A quantum circuit transformation problem mainly includes the following four steps~\ref{processing}, 
+among which the third step of isomorphism and the fourth step of circuit transformation 
 problem are both NPC~\cite{2018QubitSiraichi}
+\begin{figure}[h!] 
+	\centering
+	\includegraphics[scale=0.4]{uml.jpg}		 
+	\caption{processing}
+	\label{processing}	
+	 \end{figure}
 \begin{enumerate}
-	\item \emph{Convert a quantum program into a logical quantum circuit.}
-	\item \emph{Decompose the circuit into basic gates.} 
+	\item \emph{ Preprocess the logical quantum circuit.} 
+	It includes extracting the $LAG$ of the circuit, 
+	adjusting the life cycle of qubits(this part of the work is done by zhang~\cite{2019Zhang}), 
+	and calculating the shortest path of the physical circuit.
+	\item \emph{Compute isomorphic substructures.}
+	It uses the subgraph isomorphism algorithm to find part of the initial mapping, 
+	which is done by Sun~\cite{Sun2020}   
 	\item \emph{Generate a high-quality initial mapping.} 
-	The maximum isomorphic subgraph of $LAG$ is 
-	obtained by using subgraph isomorphism algorithm from $PAG$.
-	In fact, most $LAG$ cannot find a perfect mapping 
-	on the corresponding $PAG$.
-	It will change the original mapping relations $\tau$ by adding SWAP gates, $\tau:q \rightarrow Q $. 
-	$q,\ Q$ are the sets of logical qubits and physical qubits, respectively.
-	$|Q| \geq |q|$, so it is not a bijective function.
-	Two mappings are equal $\tau(q_{i})=\tau(q_{j})$, if and only if $i=j$.
+	We perform mapping completion because the remaining nodes cannot satisfy all 
+	isomorphism requirements. 
+	According to the connectivity between the unmapped node and the mapped node, 
+	the unmapped node is mapped to the vicinity of the mapped node, 
+	which not only satisfies the connectivity of part of the structure, 
+	but also reduces the length of the shortest path.
 	\item \emph{Transforming logic circuits to meet physical constraints}
 	Circuit transformation problems 
 	need to be solved before the implementation of quantum circuits, 
@@ -989,32 +999,36 @@ and the execution time of some quantum programs can also be reduced.
 Given $PAG$, 
 the shortest distance between two qubits can be calculated. 
 In this paper, the shortest distance matrix $dist[i][j]$ is calculated by $Floyd-Warshall$ algorithm, 
-which represents the shortest distance from $Q_{i}$ to $Q_{j}$, 
+which represents the shortest distance from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, 
 and the distance of each edge is 1. 
 
 For IBM QX2, QX3, QX4, QX5, the SWAP operation needs 7 gates 
 (3 $CNOT$ gates and 4 $H$ gates). 
 Only 4 $H$ gates are needed to change directions between two adjacent qubits. 
-For a $CNOT$ gate $\left \langle  q_{i},q_{j} \right \rangle $,
-Two qubits are mapped to $Q_{i}$ and $Q_{j}$ respectively, with $\ \tau(q_{i})=Q_{i},\ \tau(q_{j})=Q_{j}$.
-then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(q_{i},q_{j})=7 \times( dist[i][j]-1)$.
-If they move to adjacent positions, but there is no edge from $Q_{i}$ to $Q_{j}$,
+For a $CNOT$ gate $\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
+Two qubits are mapped to $\textup{q}_{\textup{i}}$ and $\textup{q}_{\textup{j}}$ respectively, with 
+$\ \tau(\textit{q}_\textit{i})=\textup{q}_{\textup{i}},\ \tau(\textit{q}_\textit{j})=\textup{q}_{\textup{j}}$.
+then the cost of executing $g$ under the shortest distance path is 
+$cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[i][j]-1)$.
+If they move to adjacent positions, but there is no edge from 
+$\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$,
 they need to add 4 $H$ gates to adjust their directions.
 For IBM Q20, which all edges are bidirectional, 
 the SWAP operation requires 3 gates (3 $CNOT$ gates), 
 and there is no need to change the direction. 
-Thus the cost between them is $cost_{cnot}(q_{i},q_{j})=3 \times( dist[i][j]-1)$.
+Thus the cost between them is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[i][j]-1)$.
 The time complexity of this step is $O (N^{3})$.
 \begin{example}
 	Take the QX5 structure as an example.
-Suppose there is a $CNOT$ gate $g=\left \langle  q_{i}, q_{j} \right \rangle $, \ $q_{i}$ is mapped to $Q_{1}$, 
- $q_{j}$ is mapped to $Q_{14}$, 
+Suppose there is a $CNOT$ gate $g=\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, \ $\textit{q}_\textit{i}$ is mapped to $\textup{q}_{1}$, 
+ $\textit{q}_\textit{j}$ is mapped to $\textup{q}_{\textup{14}}$, 
 and the shortest distance between them  is $dist[1][14]=3$.
-There are three shortest paths to move $Q_{1}$ to the adjacent position of $Q_{14}$:
+There are three shortest paths to move $\textup{q}_{\textup{1}}$ to the adjacent position of 
+$\textup{q}_{\textup{14}}$:
 $\Pi=\{\pi_{0},\pi_{1},\pi_{2}\}$
-$\pi_{0}={Q_{1}\rightarrow Q_{2} \rightarrow Q_{3} \rightarrow Q_{14}}$,
-$\pi_{1}={Q_{1}\rightarrow Q_{2} \rightarrow Q_{15} \rightarrow Q_{14}}$,
-$\pi_{2}={Q_{1}\rightarrow Q_{0} \rightarrow Q_{15} \rightarrow Q_{14}}$.
+$\pi_{0}={\textup{q}_{\textup{1}}\rightarrow \textup{q}_{\textup{2}} \rightarrow \textup{q}_{\textup{3}} \rightarrow \textup{q}_{\textup{14}}}$,
+$\pi_{1}={\textup{q}_{\textup{1}}\rightarrow \textup{q}_{\textup{2}} \rightarrow \textup{q}_{\textup{15}} \rightarrow \textup{q}_{\textup{14}}}$,
+$\pi_{2}={\textup{q}_{\textup{1}}\rightarrow \textup{q}_{\textup{0}} \rightarrow \textup{q}_{\textup{15}} \rightarrow \textup{q}_{\textup{14}}}$.
 Their costs are 
 $cost_{\pi_{0}}=18,\ cost_{\pi_{1}}=14,\ cost_{\pi_{2}}=14$, respectively.
 \end{example}
@@ -1027,8 +1041,8 @@ Thus, we layer the adjusted circuit,
 traverse the entire program sequentially, 
 and add gates that can be executed in parallel to one layer, 
 otherwise a new layer is added. 
-The $CNOT$ gate is represented by $\left \langle  q_{i}, q_{j} \right \rangle $, $q_{i}$ is the control qubit, 
-and $q_{j}$ is the target qubit.
+The $CNOT$ gate is represented by $\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, $\textit{q}_\textit{i}$ is the control qubit, 
+and $\textit{q}_\textit{j}$ is the target qubit.
 $L(LC)=\{\mathcal{L}_{0},\mathcal{L}_{1},...,\mathcal{L}_{n}\}$ represents the layered circuit, and
 $\mathcal{L}_{i} \ (0 \le i \le n) $ represents a quantum gate set that can be executed in parallel.
 The quantum gate set separated by the dotted line in Fig.~\ref{OriginalCircuit} are the following
@@ -1060,7 +1074,7 @@ fully connected subgraph isomorphism,
 there may be no 2-qubit gate operation between one qubit and other qubits in our circuit.
  The architecture graph formed in this way cannot use $SubgraphCompare$ 
 to generate part of the initial mapping, 
- because the subgraph matching will first match the node with the largest degree, 
+ because the subgraph isomorphism will first match the node with the largest degree, 
  and we hope to minimize the impact on the logical dependency graph. 
  Therefore, we artificially connect the isolating qubit to the qubit with 
  the largest degree in the logical architecture diagram.
@@ -1175,29 +1189,29 @@ we first use  $CSI$ algorithm for $LAG$
 (see Fig.~\ref{LAGPAG} (a)) and $PAG$ (see Fig.~\ref{IBM} (e)) 
 to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$.
 We use one of the partial mapping set as an example
-$\tau_{0}=\{q_{0}\rightarrow Q_{10},q_{1}\rightarrow -1,
-	q_{2}\rightarrow Q_{6},q_{3}\rightarrow Q_{5},q_{4}\rightarrow Q_{11}\}, \ 0 \le i \textless n$. 
-	$q_{1}\rightarrow -1$ means that $q_{1}$ is not mapped to the physical structure in the subgraph isomorphism stage,
+$\tau_{0}=\{\textit{q}_\textit{0}\rightarrow \textup{q}_{\textup{10}},\textit{q}_\textit{1}\rightarrow -1,
+	\textit{q}_\textit{2}\rightarrow \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow \textup{q}_{\textup{11}}\}, \ 0 \le i \textless n$. 
+	$\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to the physical structure in the subgraph isomorphism stage,
 	so we need to perform mapping completion. 
 	Algorithm~\ref{algorithm_initial} 
 	complete the partial mapping with the maximum mapped nodes in $T$ as the initial mapping.
 	In this example, the maximum number of mapped nodes is 4. 
 	Next, we demonstrate that $\tau_{0}$ is mapped and completed, 
-	and the unmapped nodes in $\tau_{0}$ are added to the queue $Q, \ Q=\{q_{1}\}$, 
+	and the unmapped nodes in $\tau_{0}$ are added to the queue $Q, \ Q=\{\textit{q}_\textit{1}\}$, 
 	and the loop ends until $Q$ is empty. 
 	We put the first element of $Q$ into $q\_id$, and delete it from $Q$.  
 	Then we get the adjacency matrix of the query graph and the target graph,
-	and traversing the node $q_{m}$ connected to $q\_id$ in the adjacency matrix. 
-	If the node $q_{m}$ is matched, then we put $q_{m}$ into the candidate nodes list $cans$,
-	which is sorted by the connectivity of $q_{m}$ and $q\_id$.
-	Thus we get $cans=[q_{3},q_{2},q_{4},q_{0}]$.
-	Thereafter, we traverse $cans$ and take out the of the first element $value=q_{3}$ in $cans$, 
-	and calculate the value $t\_id=Q_{5}$ of $q_{m}$ in the current mapping $\tau_{0}(q_{3})$.
+	and traversing the node $\textit{q}_\textit{m}$ connected to $q\_id$ in the adjacency matrix. 
+	If the node $\textit{q}_\textit{m}$ is matched, then we put $\textit{q}_\textit{m}$ into the candidate nodes list $cans$,
+	which is sorted by the connectivity of $\textit{q}_\textit{m}$ and $q\_id$.
+	Thus we get $cans=[\textit{q}_\textit{3},\textit{q}_\textit{2},\textit{q}_\textit{4},\textit{q}_\textit{0}]$.
+	Thereafter, we traverse $cans$ and take out the of the first element $value=\textit{q}_\textit{3}$ in $cans$, 
+	and calculate the value $t\_id=\textup{q}_{\textup{5}}$ of $\textit{q}_\textit{m}$ in the current mapping $\tau_{0}(\textit{q}_\textit{3})$.
 	 Finally, we map $q\_id$ to the node connected to $t\_id$ and not yet mapped. 
 	 If the nodes connected to $t\_id$ have been mapped, 
-	 the loop continues. In this example, it can be directly mapped to $Q_{0}$. In the end, we get 
-	 $ \tau_{0}=\{q_{0}\rightarrow  Q_{10},q_{1}\rightarrow Q_{0},
-	q_{2}\rightarrow  Q_{6},q_{3}\rightarrow  Q_{5},q_{4}\rightarrow  Q_{11}\}$.
+	 the loop continues. In this example, it can be directly mapped to $\textup{q}_{\textup{0}}$. In the end, we get 
+	 $ \tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{10},\textit{q}_\textit{1}\rightarrow \textup{q}_{0},
+	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
 	\end{example}
 \subsection{Swap Minimization}
 \subsubsection{Tabu Search}
@@ -1260,18 +1274,18 @@ Lines 22-37 swap all the edges of this path and add them to the candidate set,
 and calculate the cost of each candidate.
 
 \begin{example}
-	Under the mapping $\tau_{0}=\{q_{0}\rightarrow  Q_{10},q_{1}\rightarrow Q_{0},
-q_{2}\rightarrow  Q_{6},q_{3}\rightarrow  Q_{5},q_{4}\rightarrow  Q_{11}\}$, 
+	Under the mapping $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},
+\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$, 
 for $L_{0}=\{g_{0},g_{1}\}$, $dist_{cnot}(g_{0})=3,\ dist_{cnot}(g_{1})=3$. 
 Gate $g_{1}$ can be executed directly under the $\tau_{0}$ mapping, so it is directly deleted from $L_{0}$,
 but $g_{0}$ cannot be executed under the mapping $\tau_{0}$. 
 Now the gate that cannot be executed in $L_{0}$ is $g_{0}$. 
 Thus circuit transformation is required. 
-Nodes that cannot be exchanged join the set to be swapped $swap_nodes=\{Q_{0},Q_6\}$
-The shortest path is $paths=\{\{Q_{6}\rightarrow Q_{1} \rightarrow Q_{0} \},\{Q_{6}\rightarrow Q_{5} \rightarrow Q_{0} \}\}$, 
+Nodes that cannot be exchanged join the set to be swapped $swap_nodes=\{\textup{q}_{\textup{0}},\textup{q}_\textup{6}\}$
+The shortest path is $paths=\{\{\textup{q}_{\textup{6}}\rightarrow \textup{q}_{\textup{1}} \rightarrow \textup{q}_{0} \},\{\textup{q}_\textup{6}\rightarrow \textup{q}_\textup{5} \rightarrow \textup{q}_\textup{0} \}\}$, 
 and then we traverse the shortest path to calculate candidate set.
 The two endpoints of the edge passed by the shortest path should intersect the swa set and join the candidate set.
-so the current candidate set is $\{SWAP(Q_{6},Q_{1}),$ $SWAP(Q_{1},Q_{0}),$ $SWAP(Q_{6},Q_{5}),$ $SWAP(Q_{5},Q_{0}) \}$.
+so the current candidate set is $\{SWAP(\textup{q}_\textup{6},\textup{q}_\textup{1}),$ $SWAP(\textup{q}_\textup{1},\textup{q}_\textup{0}),$ $SWAP(\textup{q}_\textup{6},\textup{q}_\textup{5}),$ $SWAP(\textup{q}_\textup{5},\textup{q}_\textup{0}) \}$.
 \end{example}
 \begin{algorithm}  
 	\label{algorithm_neighborhood}
@@ -1290,34 +1304,34 @@ so the current candidate set is $\{SWAP(Q_{6},Q_{1}),$ $SWAP(Q_{1},Q_{0}),$ $SWA
 					$swap\_nodes \leftarrow $ An empty set of candidate swap nodes\\  
 					
 					\ForEach{ $g\in  cl$}{
-						$q_{1} \leftarrow locations[g.control]$;\\
-						$q_{2} \leftarrow locations[g.target]$;\\
+						$\textit{q}_\textit{1} \leftarrow locations[g.control]$;\\
+						$\textit{q}_\textit{2} \leftarrow locations[g.target]$;\\
 						\If{$g \ is \ executable$}{
 							$cl \leftarrow cl \backslash g$ ; \\
 							$continue$;
 						}
-						$swap\_nodes.add(q_{1});$ \\
-						$swap\_nodes.add(q_{2});$ \\
+						$swap\_nodes.add(\textit{q}_\textit{1});$ \\
+						$swap\_nodes.add(\textit{q}_\textit{2});$ \\
 					}
 					
 					\ForEach{ $g\in  cl$}{
-						$q_{1} \leftarrow locations[g.control]$;\\
-						$q_{2} \leftarrow locations[g.target]$;\\
-						\ForEach{$path \in paths[q_{1}][q_{2}]$}{
+						$\textit{q}_\textit{1} \leftarrow locations[g.control]$;\\
+						$\textit{q}_\textit{2} \leftarrow locations[g.target]$;\\
+						\ForEach{$path \in paths[\textit{q}_\textit{1}][\textit{q}_\textit{2}]$}{
 						\ForEach{$e \in path $}{
 							\If{$swap\_nodes.contains(sour\_node)\ or $  
 							 $swap\_nodes.contains(tar\_node)$}{
 							$new\_qubits \leftarrow qubits$;\\
 							$new\_locations  \leftarrow locations$;\\
-							$q_{1} \leftarrow new\_qubits[e.source]$;\\
-							$q_{2} \leftarrow new\_qubits[e.target]$;\\
-							$new\_qubits[e.source]  \leftarrow  q_{2} $ ; \\
-							$new\_qubits[e.target]  \leftarrow  q_{1} $;\\
-							\If{$q_{1}\neq -1$}{ 
-								$new\_locations[q_{1}] \leftarrow  q_{2}$;
+							$\textit{q}_\textit{1} \leftarrow new\_qubits[e.source]$;\\
+							$\textit{q}_\textit{2} \leftarrow new\_qubits[e.target]$;\\
+							$new\_qubits[e.source]  \leftarrow  \textit{q}_\textit{2} $ ; \\
+							$new\_qubits[e.target]  \leftarrow  \textit{q}_\textit{1} $;\\
+							\If{$\textit{q}_\textit{1}\neq -1$}{ 
+								$new\_locations[\textit{q}_\textit{1}] \leftarrow  \textit{q}_\textit{2}$;
 							}
-							\If{$q_{2}\neq-1$}{
-								$new\_locations[q_{2}] \leftarrow  q_{1}$;
+							\If{$\textit{q}_\textit{2}\neq-1$}{
+								$new\_locations[\textit{q}_\textit{2}] \leftarrow  \textit{q}_\textit{1}$;
 							}
 							$s \leftarrow \emptyset$;\\
 							$s.value  \leftarrow compute\_evaluate\_value(dist,new\_locations,cl)$;\\
@@ -1367,11 +1381,11 @@ and then searches based on this solution.
 Before searching, we need to get a series of initial candidate SWAP sets
 and select the one with the lower evaluation score as the initial solution.
 For $L_{0}=\{g_{0},g_{1}\}$, the initial candidate set is 
-$\{SWAP(Q_{6},Q_{1}),$ $SWAP(Q_{1},Q_{0}),$ $SWAP(Q_{6},Q_{5}),$ $SWAP(Q_{5},Q_{0}) \}$, and the costs are
-$cost(SWAP(Q_{6},Q_{1}))=3.0,$ $cost(SWAP(Q_{1},Q_{0}))=3.0,$\\ $cost(SWAP(Q_{6},Q_{5}))=3.0,$ $cost(SWAP(Q_{5},Q_{0}))=3.0$, respectively.
+$\{SWAP(\textup{q}_\textup{6},\textup{q}_\textup{1}),$ $SWAP(\textup{q}_\textup{1},\textup{q}_\textup{0}),$ $SWAP(\textup{q}_\textup{6},\textup{q}_\textup{5}),$ $SWAP(\textup{q}_\textup{5},\textup{q}_\textup{0}) \}$, and the costs are
+$cost(SWAP(\textup{q}_\textup{6},\textup{q}_\textup{1}))=3.0,$ $cost(SWAP(\textup{q}_\textup{1},\textup{q}_\textup{0}))=3.0,$\\ $cost(SWAP(\textup{q}_\textup{6},\textup{q}_\textup{5}))=3.0,$ $cost(SWAP(\textup{q}_\textup{5},\textup{q}_\textup{0}))=3.0$, respectively.
 The algorithm will choose the first SWAP operation, 
-at this time the mapping becomes $\tau_{0}=\{q_{0}\rightarrow  Q_{10},q_{1}\rightarrow  Q_{0},
-q_{2}\rightarrow  Q_{1},q_{3}\rightarrow  Q_{5},q_{4}\rightarrow  Q_{11}\}$. 
+at this time the mapping becomes $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_\textup{10},\textit{q}_\textit{1}\rightarrow  \textup{q}_\textup{0},
+\textit{q}_\textit{2}\rightarrow  \textup{q}_\textup{1},\textit{q}_\textit{3}\rightarrow  \textup{q}_\textup{5},\textit{q}_\textit{4}\rightarrow  \textup{q}_\textup{11}\}$. 
 The Tabu Search loops to determine whether it has reached the stop condition,
 when the current iteration number reaches the limits, 
 or the current mapping satisfies the execution of all gates in $L_{0}$.
@@ -1419,15 +1433,15 @@ This paper tested two evaluation functions,
 one uses the depth of the generated circuit as the evaluation criterion~\ref{cost_depth}, 
 and the other uses the number of auxiliary gates in the generated circuit as the evaluation criterion~\ref{cost_num}.
 \begin{equation}
-	cost_{L_{i}}(SWAP(Q_{i},Q_{j}))= \sum_{g \in L}(dist[g.control][g.target])
+	cost_{L_{i}}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= \sum_{g \in L}(dist[g.control][g.target])
 	\label{cost_num}
 	\end{equation}
 	\begin{equation}
-		cost_{L_{i}}(SWAP(Q_{i},Q_{j}))= Depth(L_{i})
+		cost_{L_{i}}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})
 		\label{cost_depth}
 		\end{equation}
-$cost_{L_i}(SWAP(Q_{i},Q_{j})$ represents the cost of executing all gates of the current layer $L_i$ 
-after swapping $Q_{i}, \ Q_{j}$.
+$cost_{L_i}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j})$ represents the cost of executing all gates of the current layer $L_i$ 
+after swapping $\textup{q}_\textup{i}, \ \textup{q}_\textup{j}$.
 We only calculate the distance of the unmapped gates of the after the SWAP operation as in the equation~(\ref{cost_depth})
  or the depth between the unmapped gates as in the equation~(\ref{cost_num}) .
 
@@ -1451,13 +1465,13 @@ Experiments show that for $d=2,\ \delta=0.9$, the final effect is the best.
 Our evaluation function can be rewritten as
  \begin{equation}
 	 	\begin{aligned}
-			cost_{h}(SWAP(Q_{i},Q_{j}))=&\sum_{g \in L_{i}}(dist[g.control][g.target])+\\
+			cost_{h}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))=&\sum_{g \in L_{i}}(dist[g.control][g.target])+\\
 	&\delta \times \sum_{j=i}^{i+d}\sum_{g \in L_{j}}(dist[g.control][g.target])
 	\label{cost_num}
 	\end{aligned}
  \end{equation}
 	\begin{equation}
-		cost_{h}(SWAP(Q_{i},Q_{j}))= Depth(L_{i})+\delta \times Depth(\sum_{j=i}^{i+d}L_{j}).
+		cost_{h}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})+\delta \times Depth(\sum_{j=i}^{i+d}L_{j}).
 		\label{cost_depth}
 		\end{equation}
 \subsubsection{Complexity}
