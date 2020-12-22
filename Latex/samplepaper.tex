@@ -55,7 +55,7 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \end{abstract}
 \section{Introduction}
 \label{Introduction}
-Quantum technology has been applied in practice, but large quantum computers have not yet been built since quantum mechanics in the early 20th century. Most of the contributions of quantum information to computer science are still in the theoretical stage. In March 2017, IBM developed the first 5-qubit  backend called IBM  QX2.  In June,  it launched the  16-qubit  backend called IBM QX3. The revised versions of 5-qubit and 16-qubit are called IBM QX4 and IBM QX5, respectively. IBM Q experience provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework $Qiskit^{1}$. If we want to use these quantum com-puter resources, we must map the logical quantum circuit to a given physical circuit and satisfy physical constraints. This requires a set of highly efficient and automatic mapping procedures. Quantum circuit transformation is an important part of the quantum circuit compilation. The main idea converts the input logical circuit ($LC$) into a physical circuit ($PC$) and satisfies the physical constraints' constraints.
+Quantum technology has been applied in practice, but large quantum computers have not yet been built since quantum mechanics in the early 20th century. Most of the contributions of quantum information to computer science are still in the theoretical stage. In March 2017, IBM developed the first 5-qubit  backend called IBM  QX2.  In June,  it launched the  16-qubit  backend called IBM QX3. The revised versions of 5-qubit and 16-qubit are called IBM QX4 and IBM QX5, respectively. IBM Q experience provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework $Qiskit$\footnote{https://www.qiskit.org/.}. If we want to use these quantum com-puter resources, we must map the logical quantum circuit to a given physical circuit and satisfy physical constraints. This requires a set of highly efficient and automatic mapping procedures. Quantum circuit transformation is an important part of the quantum circuit compilation. The main idea converts the input logical circuit ($LC$) into a physical circuit ($PC$) and satisfies the physical constraints' constraints.
 There are currently five main methods for solving qubit allocation.
 \begin{enumerate}
 	\item \emph{Unitary matrix factorization algorithm.} The first method used the unitary matrix factorization algorithm to rearrange the quantum circuit from the beginning while retaining the input circuit~\cite{2019CNOT,2019Quantum}.
@@ -77,8 +77,7 @@ In general, An initial algorithm can be used to generate an initial mapping. Pal
 The biggest problem facing quantum information processing is the problem of quantum decoherence. The entanglement of the quantum system with the surrounding environment and quantum measurement will cause the disappearance of quantum coherence. Since it is now in the NISQ era, there are only dozens of qubits, and it is unrealistic to realize quantum error correction~\cite{2018QuantumPreskill}. Quantum gate operations are limited in physical circuits. They can only be performed between adjacent qubits. Thus it is necessary to convert circuits by adding auxiliary gates to satisfy logical and physical constraints. This process may introduce many errors, which brings a huge challenge to circuit compilation because noise has a greater impact on the final circuit and may make the result meaningless. The quantum coherence time is concise. The longest coherence time of a superconducting quantum chip is still within 10us-100us, the time of a single quantum gate is about 20ns, the time of a 2-qubit gate is about 40ns, and the time of a measurement operation is about 300ns-1us. The main contributions of this paper are as follows.
 	\begin{enumerate}
 		\item We summary the current status, problems, and breakthrough directions of quantum mapping work, and point out their advantages and disadvantages. 
-		\item
-		 We propose an algorithm ($CSI$) to obtain the initial mapping, which can be reduced to subgraph isomorphism. Thus we use a state-of-the-art subgraph isomorphism algorithm to generate part of the initial mapping and then complete the mapping based on the connectivity between qubits.
+		\item We propose an algorithm ($CSI$) to obtain the initial mapping, which can be reduced to subgraph isomorphism. Thus we use a state-of-the-art subgraph isomorphism algorithm to generate part of the initial mapping and then complete the mapping based on the connectivity between qubits.
 		\item We propose a heuristic circuit transformation algorithm based on Tabu Search~\cite{Glover1990} ($QCTS$), which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. $QCTS$ can complete the search of the 159 circuits~\cite{Zulehner2017} only with a few minutes, but another heuristic search cannot deal with them in a few minutes. Even some heuristic methods may not handle large circuits.
 	\end{enumerate}
 	The rest of this paper is organised as follows. In Section~\ref{Background} we recall some background of quantum computing and quantum information,	and analyze the problems that need to be dealt with for the transformation of quantum circuits in Section~\ref{Problem Analysis}. Section~\ref{Solution} describes and analyses our algorithm in detail. The experiment and results are reported in Section~\ref{Experiment}, and last section concludes the paper and discusses future research.
@@ -89,7 +88,7 @@ This section introduces some notions and notations of quantum computing and quan
 
 \subsection{$Qubits$.}
 Classical information is stored in bits, while quantum information is stored in qubits. 
-A qubit has two basic states, marked as $\ket{0}$ or $\ket{1}$. A qubit also can be in any linear superposition state $\ket{\phi}=a\ket{0}+b\ket{1}$, where a and b are complex numbers and $a^{2}+b^{2}=1$. Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in the state $\ket{1}$ with the probability of $|b|^{2}$. 
+A qubit has two basic states, marked as $\ket{0}$ or $\ket{1}$. A qubit also can be in any linear superposition state $\ket{\phi}=a\ket{0}+b\ket{1}$, where a and b are complex numbers and $a^{2}+b^{2}=1$. Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in the state $\ket{1}$ with the probability $|b|^{2}$. 
 \subsection{$Quantum \ Gate$.}
 Suppose $U$ is a unitary operator on a single qubit, then there are real numbers $\alpha, \beta, \delta, \gamma$. Such that $U$ satisfies the following equation,
  \begin{equation}
@@ -731,17 +730,17 @@ is a directed edge on $\mathcal{AG}_{P}$.
 	Fig.~\ref{LAGPAG} (b) is the partial architecture graph of IBM Q20, an initial mapping is 
 	$\tau=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\ \textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},\ 
 	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\ \textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\ \textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
-	$g_{0}=\left \langle \textit{q}_\textit{2},\textit{q}_\textit{1}\right \rangle $ is executable, since 
-	$\left \langle \tau(\textit{q}_\textit{2}),\tau(\textit{q}_\textit{2})\right \rangle =\left \langle \textup{q}_{\textup{5}},\textup{q}_{\textup{0}}\right \rangle $ exists in $\mathcal{AG}_{P}$.
-	But $g_{3}=\left \langle \textit{q}_\textit{1},\textit{q}_\textit{3}\right \rangle $ is not executable, since 
-	$\left \langle \tau(\textit{q}_\textit{1}),\tau(\textit{q}_\textit{3})\right \rangle =\left \langle \textup{q}_{\textup{0}},\textup{q}_{\textup{6}}\right \rangle $  does not exist in $\mathcal{AG}_{P}$.
+	$g_{0}=\left \langle \textit{q}_\textit{2},\textit{q}_\textit{1}\right \rangle $ is not executable, since 
+	$\left \langle \tau(\textit{q}_\textit{2}),\tau(\textit{q}_\textit{1})\right \rangle =\left \langle \textup{q}_{\textup{6}},\textup{q}_{\textup{0}}\right \rangle $ does not  exists in $\mathcal{AG}_{P}$.
+	But $g_{3}=\left \langle \textit{q}_\textit{1},\textit{q}_\textit{3}\right \rangle $ is executable, since 
+	$\left \langle \tau(\textit{q}_\textit{1}),\tau(\textit{q}_\textit{3})\right \rangle =\left \langle \textup{q}_{\textup{0}},\textup{q}_{\textup{5}}\right \rangle $  exist in $\mathcal{AG}_{P}$.
 \end{example}
 
 A quantum circuit transformation problem mainly includes the following four steps~\ref{processing}, among which the third step of isomorphism and the fourth step of the circuit transformation problem are both NPC~\cite{2018QubitSiraichi}
 \begin{figure}[h!] 
 	\centering
 	\includegraphics[scale=0.4]{uml.jpg}		 
-	\caption{processing}
+	\caption{Circuit transformation process}
 	\label{processing}	
 	 \end{figure}
 \begin{enumerate}
@@ -765,11 +764,11 @@ A conversion method is designed to use the layered bundle format to determine wh
 \subsubsection{Shortest Distance}
 Given $PAG$, the shortest distance between two qubits can be calculated. In this paper, the shortest distance matrix $dist[i][j]$ is calculated by $Floyd-Warshall$ algorithm, which represents the shortest distance from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, and the distance of each edge is 1. 
 
-For IBM QX2, QX3, QX4, QX5, the SWAP operation needs seven gates (three $CNOT$ gates and four $H$ gates). Only four $H$ gates are needed to change directions between two adjacent qubits. For a $CNOT$ gate $\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
-Two qubits are mapped to $\textup{q}_{\textup{i}}$ and $\textup{q}_{\textup{j}}$ respectively, with $\ \tau(\textit{q}_\textit{i})=\textup{q}_{\textup{i}},\ \tau(\textit{q}_\textit{j})=\textup{q}_{\textup{j}}$. then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[i][j]-1)$. If they move to adjacent positions, but there is no edge from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, they need to add four $H$ gates to adjust their directions. For IBM Q20, in which all edges are bidirectional, the SWAP operation requires three gates (three $CNOT$ gates), 
+For IBM QX2, QX3, QX4, QX5, the SWAP operation needs 7 gates (3 $CNOT$ gates and 4 $H$ gates). Only 4 $H$ gates are needed to change directions between two adjacent qubits. For a $CNOT$ gate $\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
+Two qubits are mapped to $\textup{q}_{\textup{i}}$ and $\textup{q}_{\textup{j}}$ respectively, with $\ \tau(\textit{q}_\textit{i})=\textup{q}_{\textup{i}},\ \tau(\textit{q}_\textit{j})=\textup{q}_{\textup{j}}$. then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[i][j]-1)$. If they move to adjacent positions, but there is no edge from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, they need to add 4 $H$ gates to adjust their directions. For IBM Q20, in which all edges are bidirectional, the SWAP operation requires 3 gates (3 $CNOT$ gates), 
 and there is no need to change the direction. Thus the cost between them is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[i][j]-1)$. The time complexity of this step is $O (N^{3})$.
 \begin{example}
-	Take the QX5 structure as an example. Suppose there is a $CNOT$ gate $g=\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, \ $\textit{q}_\textit{i}$ is mapped to $\textup{q}_{1}$,  $\textit{q}_\textit{j}$ is mapped to $\textup{q}_{\textup{14}}$, and the shortest distance between them  is $dist[1][14]=3$. There are three shortest paths to move $\textup{q}_{\textup{1}}$ to the adjacent position of 
+	Take the QX5 structure as an example. Suppose there is a $CNOT$ gate $g=\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, \ $\textit{q}_\textit{i}$ is mapped to $\textup{q}_{1}$,  $\textit{q}_\textit{j}$ is mapped to $\textup{q}_{\textup{14}}$, and the shortest distance between them  is $dist[1][14]=3$. There are 3 shortest paths to move $\textup{q}_{\textup{1}}$ to the adjacent position of 
 $\textup{q}_{\textup{14}}$:
 $\Pi=\{\pi_{0},\pi_{1},\pi_{2}\}$
 $\pi_{0}={\textup{q}_{\textup{1}}\rightarrow \textup{q}_{\textup{2}} \rightarrow \textup{q}_{\textup{3}} \rightarrow \textup{q}_{\textup{14}}}$,
@@ -883,7 +882,7 @@ Gate $g_{1}$ can be executed directly under the $\tau_{0}$ mapping, so it is dir
 but $g_{0}$ cannot be executed under the mapping $\tau_{0}$. 
 Now the gate that cannot be executed in $L_{0}$ is $g_{0}$. 
 Thus circuit transformation is required. 
-Nodes that cannot be exchanged join the set to be swapped $swap_nodes=\{\textup{q}_{\textup{0}},\textup{q}_\textup{6}\}$
+Nodes that cannot be exchanged join the set to be swapped $swap\_nodes=\{\textup{q}_{\textup{0}},\textup{q}_\textup{6}\}$
 The shortest path is $paths=\{\{\textup{q}_{\textup{6}}\rightarrow \textup{q}_{\textup{1}} \rightarrow \textup{q}_{0} \},\{\textup{q}_\textup{6}\rightarrow \textup{q}_\textup{5} \rightarrow \textup{q}_\textup{0} \}\}$, 
 and then we traverse the shortest path to calculate candidate set.
 The two endpoints of the edge passed by the shortest path should intersect the swa set and join the candidate set.
@@ -988,27 +987,27 @@ The main purpose of this article is to add as few additional auxiliary gates as 
 
 The longer the quantum execution time, the greater the error introduced, so we want to shorten the life cycle of qubits as much as possible. In the algorithm based on Tabu Search, there is a Tabu list naturally, which satisfies our needs. This paper tested two evaluation functions, one uses the depth of the generated circuit as the evaluation criterion~\ref{cost_depth}, and the other uses the number of auxiliary gates in the generated circuit as the evaluation criterion~\ref{cost_num}.
 \begin{equation}
-	cost_{L_{i}}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= \sum_{g \in L}(dist[g.control][g.target])
+	cost(SWAP(\textup{q}_\textup{m},\textup{q}_\textup{n}))= \sum_{g \in L_{i}}(dist[g.control][g.target])
 	\label{cost_num}
 	\end{equation}
 	\begin{equation}
-		cost_{L_{i}}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})
+		cost(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})
 		\label{cost_depth}
 		\end{equation}
 $cost_{L_i}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j})$ represents the cost of executing all gates of the current layer $L_i$ 
 after swapping $\textup{q}_\textup{i}, \ \textup{q}_\textup{j}$. We only calculate the distance of the unmapped gates of the after the SWAP operation as in the equation~(\ref{cost_depth}) or the depth between the unmapped gates as in the equation~(\ref{cost_num}).
 
 \subsubsection{Look ahead }
-Since the number of qubits used in current quantum circuits is small,  the number of gates in each layer after layering is small. If we only consider the gates of one layer when choosing the swap algorithm, the swap algorithm selected by the algorithm only satisfies the requirement of the ith layer. The output of the ith (i<n) layer is used as the input of the (i+1)-th layer. Note that the swap algorithm of the ith layer will affect the mapping of the (i+1)-th layer. Thus we take the circuit of the $(i+x)$th $(i+x< n)$ layer into consideration. However, in terms of priority, it is necessary to give priority to the execution of the gate set of the ith layer, so we introduce an attenuation factor $\delta$, which controls the influence of the (i+x)-th layer gate set on the circuit swap of the ith layer. Each time the algorithm is swapped, the gates of the latter layer or several layers are considered together. Experiments show that for $x=2,\ \delta=0.9$, the final effect is the best. Our evaluation function can be rewritten as
+Since the number of qubits used in current quantum circuits is small,  the number of gates in each layer after layering is small. If we only consider the gates of one layer when choosing the swap algorithm, the swap algorithm selected by the algorithm only satisfies the requirement of the ith layer. The output of the ith $(i<n)$ layer is used as the input of the $(i+1)$th layer. Note that the swap algorithm of the ith layer will affect the mapping of the $(i+1)$th layer. Thus we take the circuit of the $(i+x)$th $(i+x< n)$ layer into consideration. However, in terms of priority, it is necessary to give priority to the execution of the gate set of the ith layer, so we introduce an attenuation factor $\delta$, which controls the influence of the $(i+x)$th layer gate set on the circuit swap of the ith layer. Each time the algorithm is swapped, the gates of the latter layer or several layers are considered together. Experiments show that for $x=2,\ \delta=0.9$, the final effect is the best. Our evaluation function can be rewritten as
  \begin{equation}
 	 	\begin{aligned}
-			cost_{h}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))=&\sum_{g \in L_{i}}(dist[g.control][g.target])+\\
+			cost(SWAP(\textup{q}_\textup{m},\textup{q}_\textup{n}))=&\sum_{g \in L_{i}}(dist[g.control][g.target])+\\
 	&\delta \times \sum_{j=i}^{i+x}\sum_{g \in L_{j}}(dist[g.control][g.target])
 	\label{cost_num}
 	\end{aligned}
  \end{equation}
 	\begin{equation}
-		cost_{h}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})+\delta \times Depth(\sum_{j=i}^{i+x}L_{j}).
+		cost(SWAP(\textup{q}_\textup{m},\textup{q}_\textup{n}))= Depth(L_{i})+\delta \times Depth(\sum_{j=i}^{i+x}L_{j}).
 		\label{cost_depth}
 		\end{equation}
 \subsubsection{Complexity}
@@ -1019,13 +1018,13 @@ and the candidate set size is $(|E_{P}|-1)$. Each SWAP will make the total dista
 The experiment in this paper is performed on a 2.3GHz Linux machine with 64G memory. This paper compares  $CSI$  algorithm 
 and circuit transformation algorithm based on Tabu Search $QCTS$ with the $wghtgraph$ in~\cite{2020Qubit} and the heuristic algorithm $ A^{*}$  in~\cite{Zulehner2017}.
  
-First, we compared the efficiency of initial mapping on $\tau_{optm}$~\cite{Zulehner2017}, $\tau_{wghtgraph}$~\cite{2020Qubit} and $\tau_{CSI}$. In order to observe the results of these two initial mapping algorithms intuitively, we used the same circuit transformation $ A^{*}$ algorithm to compare the initial mapping algorithms~\cite{Zulehner2017}.
+First, we compared the efficiency of initial mapping on $\tau_{optm}$~\cite{Zulehner2017},  $\tau_{CSI}$ and $\tau_{wghtgraph}$~\cite{2020Qubit}. In order to observe the results of these two initial mapping algorithms intuitively, we used the same circuit transformation $ A^{*}$ algorithm to compare the initial mapping algorithms~\cite{Zulehner2017}.
 
 Among 159 circuits, experiments show that within five minutes $\tau_{optm}$ can deal with 121 circuits, $\tau_{wghtgraph}$  can deal with 106 circuits, $\tau_{CSI}$  can deal with  131 circuits. There are 103 circuits that they can handle. Comparing $\tau_{wghtgraph}$ algorithm and $\tau_{CSI}$ algorithm, the $\tau_{wghtgraph}$ algorithm has 21 circuits with fewer SWAPs and 19 circuits with a small depth, and the $\tau_{CSI}$ algorithm has 54 circuits with fewer SWAPs and 60 circuits with a small depth, and they have 25 circuits with equal depth and  29 circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 22.4418\%, 
 and the depth is reduced by 11.2482\%.
 
 Comparing $\tau_{optm}$ algorithm and $\tau_{CSI}$ algorithm, the $\tau_{optm}$ algorithm has one circuit with fewer SWAPs and two circuits with a small depth, and the $\tau_{CSI}$ algorithm has 99 circuits with fewer SWAPs and 98 circuits with a small depth, 
-and they have four circuits with equal depth and four circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 27.0219\%, and the depth is reduced by 14.1242\%. As shown in Table~\ref{tab1}, there are 104 circuits. Three initial mappings are compared with the depth of the generated circuits under the $A^{*}$ algorithm, and the number of SWAP gates added.$\tau_{CSI}$/$\tau_{optm}$  calculate the efficiency improvement of the former upon the latter, the formula is $(n_{optm}-n_{CSI})/n_{optm}$.
+and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 27.0219\%, and the depth is reduced by 14.1242\%. As shown in Table~\ref{tab1}, there are 104 circuits. Three initial mappings are compared with the depth of the generated circuits under the $A^{*}$ algorithm, and the number of SWAP gates added.$\tau_{CSI}$/$\tau_{optm}$  calculate the efficiency improvement of the former upon the latter, the formula is $(n_{optm}-n_{CSI})/n_{optm}$.
 \begin{table}
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|}
@@ -1042,14 +1041,14 @@ and they have four circuits with equal depth and four circuits with equal SWAPs.
 	\label{tab1}
 	\end{table}
 
-	We compared the use of two indicators ($QCTS_{dep}$ and $QCTS_{num}$) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by $QCTS_{num}$ is 1.93\% smaller than $QCTS_{dep}$ on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a SWAP gate, the circuit needs to add three CNOT gates, and the depth will be increased by 3. While the number of SWAP gates added is small, the circuit depth reduces accordingly. Thus we use SWAP quantity first to give better results. 
+	We compared the use of two indicators ($QCTS_{dep}$ and $QCTS_{num}$) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by $QCTS_{num}$ is 1.93\% smaller than $QCTS_{dep}$ on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a SWAP gate, the circuit needs to add 3 CNOT gates, and the depth will be increased by 3. While the number of SWAP gates added is small, the circuit depth reduces accordingly. Thus we use SWAP quantity first to give better results. 
 
 	Finally, we compared $QCTS$ transformation and $wgtgraph$ calculation.  Since the $ wgtgraph $ algorithm only uses 2-qubit gates, 
 	it is impossible to compare the depth of the generated circuit,  So we compared the number of SWAP gates added and compared the time. Since large circuits may not successfully handle for a long time, we consider it meaningless.  This paper sets a five-minute timeout period and tested 159 circuits.  $QCTS_{num}$ only takes 461 seconds, $QCTS_{dep}$ takes 485 seconds,  and $ wgtgraph $ run 159 circuits in 1908 seconds,  but only 98 files get results,  64 of them there are 66 circuits for small circuits to get results,  49 medium circuits only have 35 circuits for results,  and no circuit output in 44 large circuits. Although Tabu Search can quickly produce results on large circuits, in contrast,  more auxiliary gates add.  In 98 small and medium-sized circuits with the results obtained by $wgtgraph$,  the number of SWAP gates added by $ wgtgraph $ is 26.87\% less than $QCTS_{num}$ on average,  and the number of SWAP gates added by $ wgtgraph $ is 24.89\% less than $QCTS_{dep}$ on average. Tabu Search can quickly output converted circuits on large circuits, but $ wgtgraph $ cannot get results in a short time. The detailed results of the circuit comparisons are in the appendix. 
    
  \begin{table}
 	\centering
-	\begin{tabular}{|p{2cm}<{\centering}|p{1.5cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|}
+	\begin{tabular}{|p{1.7cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|}
 	\hline
 	\multirow{2}*{benchmarks}&\multirow{2}*{\#circ.}&\multicolumn{2}{c|}{$QCTS_{num}$}&\multicolumn{2}{c|}{$QCTS_{dep}$} & \multicolumn{2}{c|}{$wgtgraph$} & \multicolumn{2}{c|}{$SABRE$} \\
 		\cline{3-10}		
