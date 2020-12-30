@@ -80,25 +80,38 @@ The biggest problem facing quantum information processing is the problem of quan
 		\item We propose an algorithm ($CSI$) to obtain the initial mapping, which can be reduced to subgraph isomorphism. Thus we use a state-of-the-art subgraph isomorphism algorithm to generate part of the initial mapping and then complete the mapping based on the connectivity between qubits.
 		\item We propose a heuristic circuit transformation algorithm based on Tabu Search~\cite{Glover1990} ($QCTS$), which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. $QCTS$ can complete the search of the 159 circuits~\cite{Zulehner2017} only with a few minutes, but another heuristic search cannot deal with them in a few minutes. Even some heuristic methods may not handle large circuits.
 	\end{enumerate}
-	The rest of this paper is organised as follows. In Section~\ref{Background} we recall some background of quantum computing and quantum information,	and analyze the problems that need to be dealt with for the transformation of quantum circuits in Section~\ref{Problem Analysis}. Section~\ref{Solution} describes and analyses our algorithm in detail. The experiment and results are reported in Section~\ref{Experiment}, and last section concludes the paper and discusses future research.
+
+The rest of this paper is organised as follows.
+In Section~\ref{Background} we recall some background of quantum computing and quantum information.
+We propose the problems of the transformation of quantum circuits in Section~\ref{Problem Analysis}.
+Section~\ref{Solution} describes and analyses our algorithm in detail.
+The experimental results are reported in Section~\ref{Experiment}. 
+The last section concludes the paper and discusses future research.
+
 
 \section{Background}
 \label{Background}
 This section introduces some notions and notations of quantum computing and quantum information.
 
-\subsection{$Qubits$.}
+\subsection{Qubits}
 Classical information is stored in bits, while quantum information is stored in qubits. 
-A qubit has two basic states, marked as $\ket{0}$ or $\ket{1}$. A qubit also can be in any linear superposition state $\ket{\phi}=a\ket{0}+b\ket{1}$, where a and b are complex numbers and $a^{2}+b^{2}=1$. Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in the state $\ket{1}$ with the probability $|b|^{2}$. 
-\subsection{$Quantum \ Gate$.}
-Suppose $U$ is a unitary operator on a single qubit, then there are real numbers $\alpha, \beta, \delta, \gamma$. Such that $U$ satisfies the following equation,
+Besides two basic states $\ket{0}$ and $\ket{1}$,
+a qubit can be in any linear superposition state with the $\ket{\phi}=a\ket{0}+b\ket{1}$,
+where $a,b\in \mathbb{C}$ satisfy $|a|^{2}+|b|^{2}=1$.
+Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in the state $\ket{1}$ with the probability $|b|^{2}$.
+
+\subsection{Quantum Gate}
+Suppose $U$ is a unitary operator on a single qubit, then there are real numbers $\alpha, \beta, \delta, \gamma$
+such that $U$ satisfies the following equation,
  \begin{equation}
 	U=e^{i\alpha}R_{z}(\beta)R_{y}(\gamma)R_{z}(\delta)
 \end{equation}
 where $R_{z}(\beta)$ represents a rotation by $\beta$ about the $\hat{z}$ axis, 
 and $R_{y}(\gamma)$ represents a rotation by $\gamma$ about the $\hat{y}$ axis.
 
-Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{common_gates}. Physical qubit and logical qubit are represented by $\textup{q}$, $\textit{q}$, respectively.
- {
+Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{common_gates}.
+Physical qubit and logical qubit are represented by $\textup{q}$, $\textit{q}$, respectively.
+{
 \begin{figure}
 	 \scalefont{0.7}
 	 \begin{center}
@@ -195,13 +208,28 @@ Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{com
 \end{tikzpicture}
 \end{center}
 
-\caption{The symbols of common quantum gates and their matrices }
-	\label{common_gates}
+\caption{The symbols of common quantum gates and their matrices}\label{common_gates}
 \end{figure}	 
 
 }
- \subsection{$Quantum \ Circuit$.}
- A quantum logical circuit $LC$ (see Fig.~\ref{OriginalCircuit}) consists of quantum gates interconnected by quantum wires~\cite{Daei2020}. A quantum wire is a mechanism for moving quantum data from one location to another. Each line represents a qubit, and the gate operation on the line acts on the corresponding qubit. The width $w$ of a circuit refers to the number of qubits in the circuit. The depth $d$ of a circuit refers to the number of layers executed in parallel. The directed acyclic graph (see Fig.~\ref{DAG}) of a circuit is obtained by parallelizing and layering the circuit by topological sorting. In this paper, circuits with a depth less than 100 are called small-scale circuits, circuits with a depth greater than 1000 are called large-scale circuits, and the rest are medium-scale circuits. The execution order of a quantum logical circuit graph is from left to right. The depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6, and the width is 5. It is unnecessary to consider single quantum gates in circuit transformation since the qubit is $local$~\cite{2013Optimization}. Architecture graph $\mathcal{AG}_{L}$  is generated by regarding qubits in $LC$ as nodes $V$  and 2-qubit gates as edges $E$. Our initial mapping tries to finding subgraphs isomorphic to the logical architecture graph ($LAG$) on the physical architecture graph ($PAG$).
+
+\subsection{Quantum Circuit}
+A quantum logical circuit $LC$ (see Fig.~\ref{OriginalCircuit})
+consists of quantum gates interconnected by quantum wires~\cite{Daei2020}.
+A quantum wire is a mechanism for moving quantum data from one location to another.
+Each line represents a qubit, and the gate operation on the line acts on the corresponding qubit.
+The width $w$ of a circuit refers to the number of qubits in the circuit.
+The depth $d$ of a circuit refers to the number of layers executed in parallel.
+The directed acyclic graph (see Fig.~\ref{DAG}) of a circuit is obtained by parallelizing and layering the circuit by topological sorting.
+In this paper, circuits with a depth less than 100 are called small-sized circuits,
+circuits with a depth greater than 1000 are called large-sized circuits,
+and the rest are medium-sized circuits.
+The execution order of a quantum logical circuit graph is from left to right.
+The depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6, and the width is 5.
+It is unnecessary to consider single quantum gates in circuit transformation since the qubit is \emph{local}~\cite{2013Optimization}.
+Architecture graph $\mathcal{AG}_{L}$ is generated by regarding qubits in $LC$ as nodes $V$ and 2-qubit gates as edges $E$.
+Our initial mapping tries to finding subgraphs isomorphic to the logical architecture graph ($LAG$) on the physical architecture graph ($PAG$).
+
 \begin{figure}[h!] 
 	\begin{center}
 		  {\scalefont{1.0}
@@ -271,7 +299,7 @@ Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{com
 \end{center}
 	\caption{The directed acyclic graph ($DAG$) of original circuit in Fig.~\ref{OriginalCircuit}}
 	\label{DAG}
-  \end{figure}
+\end{figure}
 
 \begin{figure}[h!]
 	\begin{center}
@@ -412,8 +440,17 @@ Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{com
  \end{figure}
 
 \subsection{Architectures}
-We mainly discuss the physical circuit of IBM. Let $\mathcal{\mathcal{AG}_{P}}=(V_{P}, E_{P})$ denote the architecture graph of the physical circuit, where $V_{P} $ denotes the physical qubit set, and $E_{P}$ represents the directed edge that the $CNOT$ gates can execute. Fig.~\ref{IBM} (a) and (b) are $PAG$ of the 5-qubit of IBM QX2, (c) and (d) are $PAG$ of 16$-$qubit of IBM QX3, 
-and (e) are the $PAG$ of IBM Q20. The arrow in the figure indicates that the qubit at the beginning of the arrow can control the qubit at the end of the arrow, and the 2-qubit gate operations can only be performed between  qubits with edges connected. IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits. Fig.~\ref{LAGPAG}(a) is the logical architecture of the original circuit of Fig.~\ref{OriginalCircuit}, and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
+We mainly discuss the physical circuit of IBM.
+Let $\mathcal{\mathcal{AG}_{P}}=(V_{P}, E_{P})$ denote the architecture graph of the physical circuit,
+where $V_{P}$ denotes the physical qubit set and $E_{P}$ represents the directed edge that the $CNOT$ gates can execute.
+Fig.~\ref{IBM} (a) and (b) are $PAG$ of the 5-qubit of IBM QX2,
+(c) and (d) are $PAG$ of 16$-$qubit of IBM QX3,
+and (e) are the $PAG$ of IBM Q20.
+The arrow in the figure indicates that the qubit at the beginning of the arrow can control the qubit at the end of the arrow,
+and the 2-qubit gate operations can only be performed between qubits with edges connected.
+IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits.
+Fig.~\ref{LAGPAG}(a) is the logical architecture of the original circuit of Fig.~\ref{OriginalCircuit},
+and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
 
 \begin{figure}
 	{
@@ -714,10 +751,11 @@ and (e) are the $PAG$ of IBM Q20. The arrow in the figure indicates that the qub
 \label{IBM}
 \end{figure}
 
+
 \section{Problem Analysis}
 \label{Problem Analysis}
 
-\subsubsection{Problem in qubit Mapping}
+\paragraph{Problem in qubit Mapping}
 Lloyd proved that almost all gates of two qubits could be represented by general quantum gates~\cite{Lloyd1995Almost}. Single qubit gates and $CNOT$ gates are used as basic gates since they are commonly used to implement any quantum circuit supported by the IBM QX architecture. Before circuit transformation, the circuit should be simplified to a circuit with only single quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}. We insert auxiliary gates (see Fig.~\ref{Decomposition}) so that two non-adjacent qubits can move to adjacent positions in logic or change direction between two adjacent qubits (see Fig.~\ref{Transformate}). The introduction of auxiliary gates may lead to errors, leading to a large deviation between the final results and the actual situation. The quantum system is easy to interact with the surrounding environment, resulting in errors. In the NISQ era, quantum error correction is difficult to achieve. Due to the decoherence problem of quantum, the quantum operation needs to be completed in a coherent period, and the time of quantum in the coherent state is short. Therefore, it is necessary to improve the parallelism of qubits as much as possible to minimize the depth of the quantum circuit. This is the focus of this paper. We hope to find a circuit transformation algorithm to make the output circuit with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
 
 Given the logical circuit $LC$, physical structure $\mathcal{AG}_{P}$, 
@@ -1066,9 +1104,24 @@ and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The S
 	\caption{Compare $\tau_{optm}$, $\tau_{wghtgraph}$, and $\tau_{QCTS}$ }
 	\label{tabextra}
 	\end{table}
- \section{Conclusion}
- \label{Conclusion}
- This paper proposes a heuristic SWAP method $QCTS$ based on Tabu Search to overcome the shortcomings of previous works and proposes $CSI$  algorithm to generate high-quality initial mapping.  Experimental results show that the initial mapping generated by $QCTS$ dramatically reduces the number of SWAP gates inserted  and achieves multiple optimization goals in the circuit transformation phase,  and results can obtain in a short time.  Most small and medium-sized circuits can obtain in a few seconds. The result can obtain within a few minutes, even for a large circuit, but the cost of insertion may be equal to or more than $wgtgraph$. We introduce a look-ahead plan to make each selected SWAP more in line with the constraints of the back gates.  In future work, we will reduce the number of auxiliary gates inserted as much as possible based on increasing speed. In theory, our method applies to all NISQ devices,  but further experiments are needed. Since our analog circuit ignores the noise generated by the circuit, we may introduce quantum noise to the circuits.
+	
+
+\section{Conclusion}
+\label{Conclusion}
+This paper proposed a heuristic SWAP method $QCTS$ based on Tabu Search to overcome the shortcomings of previous works,
+and proposed $CSI$ algorithm to generate high-quality initial mapping.
+Experimental results showed that
+the initial mapping generated by $QCTS$ dramatically reduced the number of SWAP gates inserted
+and achieved multiple optimization goals in the circuit transformation phase,
+and results could be obtained in a short time.
+Most small and medium-sized circuits could be obtained in a few seconds.
+The result could be obtained within a few minutes, even for a large circuit,
+but the cost of insertion might be equal to or more than $wgtgraph$.
+We introduced a look-ahead plan to make each selected SWAP more in line with the constraints of the back gates.
+In future, we would study how to reduce the number of auxiliary gates inserted as much as possible based on increasing speed,
+and apply the proposed method to more NISQ devices to get useful experimental data.
+Since our analog circuit ignores the noise generated by the circuit,
+we would introduce quantum noise to the circuits.
 
 \appendix
 \section{Experimental details of the SWAP gates added by the output circuit}
