@@ -48,10 +48,6 @@ Li, G., Ding, Y., Xie, Y.: Tackling the qubit mapping problem for nisq-era
 Li, S., Zhou, X., Feng, Y.: Qubit mapping based on subgraph isomorphism and
   filtered depth-limited search  (2020)
 
-\bibitem{Lloyd1995Almost}
-Lloyd, Seth: Almost any quantum logic gate is universal. Physical Review
-  Letters  \textbf{75}(2), ~346 (1995)
-
 \bibitem{Matsuo2019}
 Matsuo, A., Yamashita, S.: An efficient method for quantum circuit placement
   problem on a 2-d grid pp. 162--168 (05 2019).
