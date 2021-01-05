@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2020/W32TeX)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: samplepaper.aux
+The style file: splncs04.bst
+Database file #1: mybibliography.bib
+Warning--empty journal in 2019Almeida
+Warning--empty journal in 2018Integer
+Warning--empty journal in Cowtan2019
+Warning--empty journal in Daei2020
+Warning--empty journal in 2019CNOT
+Warning--empty journal in Li2018
+Warning--empty journal in 2020Qubit
+Warning--empty journal in Matsuo2019
+Warning--empty journal in 2019Murali
+Warning--empty journal in Paler2018
+Warning--empty journal in 2013Optimization
+Warning--empty journal in 2018QubitSiraichi
+Warning--empty journal in Sun2020
+Warning--empty journal in Tannu2019
+Warning--empty journal in 2017Temporal
+Warning--empty journal in 2019Zhang
+You've used 25 entries,
+            2850 wiz_defined-function locations,
+            745 strings with 8719 characters,
+and the built_in function-call counts, 13351 in all, are:
+= -- 1030
+> -- 460
+< -- 16
++ -- 190
+- -- 164
+* -- 919
+:= -- 1777
+add.period$ -- 23
+call.type$ -- 25
+change.case$ -- 157
+chr.to.int$ -- 0
+cite$ -- 41
+duplicate$ -- 1246
+empty$ -- 1173
+format.name$ -- 186
+if$ -- 2821
+int.to.chr$ -- 0
+int.to.str$ -- 25
+missing$ -- 248
+newline$ -- 81
+num.names$ -- 50
+pop$ -- 504
+preamble$ -- 1
+purify$ -- 132
+quote$ -- 0
+skip$ -- 290
+stack$ -- 0
+substring$ -- 687
+swap$ -- 611
+text.length$ -- 16
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 100
+warning$ -- 16
+while$ -- 95
+width$ -- 27
+write$ -- 240
+(There were 16 warnings)

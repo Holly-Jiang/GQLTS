@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  31 DEC 2020 15:31
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  5 JAN 2021 20:59
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -573,6 +573,9 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \float@box=\box113
 \@float@everytoks=\toks47
 \@floatcapt=\box114
+) (c:/texlive/2020/texmf-dist/tex/latex/tools/enumerate.sty
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks48
 ) (c:/texlive/2020/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
 \multirow@colwidth=\skip62
@@ -632,40 +635,55 @@ Package: relsize 2013/03/29 ver 4.1
 \c@algocf=\count329
 \algocf@algoframe=\box121
 \algocf@algobox=\box122
+) (./samplepaper.aux
+
+LaTeX Warning: Label `cost_num' multiply defined.
+
+
+LaTeX Warning: Label `cost_depth' multiply defined.
+
+
+LaTeX Warning: Label `tab4' multiply defined.
+
+
+LaTeX Warning: Label `tab5' multiply defined.
+
+
+LaTeX Warning: Label `tab8' multiply defined.
+
 )
-No file samplepaper.aux.
 \openout1 = `samplepaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 27.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 27.
-(c:/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 28.
+ (c:/texlive/2020/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 27.
-LaTeX Font Info:    ... okay on input line 27.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
  ABD: EveryShipout initializing macros
-LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
  (c:/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
  (c:/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 50.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 51.
  (c:/texlive/2020/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
@@ -674,37 +692,156 @@ a shorter form with \titlerunning prior to \maketitle
 [1
 
 ]
+Underfull \vbox (badness 1009) has occurred while \output is active []
 
-LaTeX Warning: Citation `2018QuantumPreskill' on page 2 undefined on input line 60.
-
-
-LaTeX Warning: Citation `2019CNOT' on page 2 undefined on input line 64.
-
-
-LaTeX Warning: Citation `2019Quantum' on page 2 undefined on input line 64.
+ [2] [3]
+LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 114.
 
 
-LaTeX Warning: Citation `2017Temporal' on page 2 undefined on input line 65.
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.40996> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `2018Integer' on page 2 undefined on input line 65.
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.14998> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `2019Almeida' on page 2 undefined on input line 65.
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.40996> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `2019Murali' on page 2 undefined on input line 65.
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.14998> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `2018QubitSiraichi' on page 2 undefined on input line 67.
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.40996> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `Shafaei2013' on page 2 undefined on input line 69.
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.14998> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `Guerreschi2018' on page 2 undefined on input line 71.
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.40996> not available
+(Font)              size <5> substituted on input line 114.
 
 
-LaTeX Warning: Citation `Matsuo2019' on page 2 undefined on input line 71.
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.14998> not available
+(Font)              size <5> substituted on input line 114.
 
-[2
+<xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> [4] <xymatrix 11x7 2537>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 347.
+
+LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 347.
+
+
+LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.6> not available
+(Font)              size <5> substituted on input line 347.
+
+
+LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 347.
+
+
+LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.6> not available
+(Font)              size <5> substituted on input line 347.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<xymatrix 9x4 858> <xymatrix 21x4 1670>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5]
+
+LaTeX Warning: Text page 6 contains only floats.
+
+[6]
+File: uml.jpg Graphic file (type bmp)
+<uml.jpg>
+ [7] [8] [9]
+
+LaTeX Warning: Command \textless invalid in math mode on input line 853.
+
+[10] [11]
+
+LaTeX Warning: Command \textless invalid in math mode on input line 862.
+
+[12] [13] [14] [15] [16] [17] [18] (./samplepaper.bbl
+Underfull \hbox (badness 7963) in paragraph at lines 7--10
+[]\TU/lmr/m/n/9 Almeida, A., Dueck, G., Silva, A.: Finding optimal qubit permuta-
+ []
+
+
+Underfull \hbox (badness 8132) in paragraph at lines 7--10
+\TU/lmr/m/n/9 tions for ibm’s quantum computer architectures pp. 1–6 (08 2019).
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--70
+[]\TU/lmr/m/n/9 Nash, B., Gheorghiu, V., Mosca, M.: Quantum circuit optimizations
+ []
+
+
+Underfull \hbox (badness 4673) in paragraph at lines 67--70
+\TU/lmr/m/n/9 for nisq architectures. Quantum Science and Technology \TU/lmr/bx/n/9 5 \TU/lmr/m/n/9 (02 2020).
+ []
+
+[19]
+Underfull \hbox (badness 2922) in paragraph at lines 98--101
+[]\TU/lmr/m/n/9 Tannu, S., Qureshi, M.: Not all qubits are created equal: A case for
+ []
+
+
+Underfull \hbox (badness 2261) in paragraph at lines 108--112
+\TU/lmr/m/n/9 Aided Design of Integrated Circuits and Systems \TU/lmr/bx/n/9 PP\TU/lmr/m/n/9 ,  1–1 (01 2020).
+ []
+
+) [20]
+Overfull \vbox (120.34187pt too high) has occurred while \output is active []
+
+ [21]
+Overfull \vbox (42.65169pt too high) has occurred while \output is active []
+
+ [22]
+Overfull \vbox (64.2517pt too high) has occurred while \output is active []
+
+ [23]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [24]
+Overfull \vbox (95.24287pt too high) has occurred while \output is active []
+
+ [25]
+Overfull \vbox (53.1527pt too high) has occurred while \output is active []
+
+ [26]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [27] [28] (./samplepaper.aux)
+
+LaTeX Font Warning: Size substitutions with differences
+(Font)              up to 1.85002pt have occurred.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 17909 strings out of 479418
+ 323228 string characters out of 5888105
+ 806266 words of memory out of 5000000
+ 35029 multiletter control sequences out of 15000+600000
+ 547942 words of font info for 115 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 60i,28n,60p,1930b,1438s stack positions out of 5000i,500n,10000p,200000b,80000s
+
+Output written on samplepaper.pdf (28 pages).

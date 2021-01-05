@@ -14,6 +14,7 @@
 \usepackage{qcircuit}
 \usepackage{tabularx} 
 \usepackage{float}
+\usepackage{enumerate}
 \usepackage{multirow}
 
 \usepackage[linesnumbered,ruled,lined]{algorithm2e}
@@ -50,35 +51,36 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-	The process of circuit transformation is to find an automatic method to map any logical quantum circuits to physical circuits effectively in an acceptable time, and add as few auxiliary gates as possible. We mainly propose an initial mapping algorithm based on a combined subgraph isomorphism algorithm and a circuit transformation algorithm based on Tabu Search ($QCTS$). Our experimental results show that the algorithm is effective. Compared with the initial mapping based on the $VF2$ algorithm, auxiliary gates added to our initial mapping are reduced by 22.26\%, and the depth of the output circuit is reduced by 11.17\%. $QCTS$ is scalable on large-scale circuits with less overhead, compared with other state-of-the-art algorithms.
+	The process of circuit transformation is to find an automatic method to map any logical quantum circuits to physical circuits effectively in an acceptable time, and add as few auxiliary gates as possible. We mainly propose an qubits assignment algorithm based on a combined subgraph isomorphism algorithm($CSI$) and a circuit transformation algorithm based on Tabu Search ($QCTS$). Our experimental results show that the algorithm is effective. Compared with the qubits assignment based on the $VF2$ algorithm, auxiliary gates added to our qubits assignment are reduced by 22.26\%, and the depth of the output circuit is reduced by 11.17\%. $QCTS$ is scalable on large-scale circuits with less overhead, compared with other state-of-the-art algorithms.
 \keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu Search}
 \end{abstract}
 \section{Introduction}
 \label{Introduction}
-Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In March 2017, IBM developed the first 5-qubit backend called IBM QX2.  In June, it launched the 16-qubit backend called IBM QX3. The revised versions of 5-qubit and 16-qubit are called IBM QX4 and IBM QX5, respectively. IBM Q experience provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework $Qiskit$\footnote{https://www.qiskit.org/.}. In order to use these quantum computer resources, we must map a logical quantum circuit to a given physical circuit and satisfy some necessary physical constraints. This requires a set of highly efficient and automatic mapping procedures. Quantum circuit transformation is an important part of the quantum circuit compilation. The main idea is to convert the input logical circuit ($LC$) into a physical circuit ($PC$) and satisfy the physical constraints.
+Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In March 2017, IBM developed the first 5-qubit backend called IBM QX2.  In June, it launched the 16-qubit backend called IBM QX3. The revised versions of 5-qubit and 16-qubit are called IBM QX4 and IBM QX5, respectively. IBM Q experience provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework $Qiskit$\footnote{https://www.qiskit.org/.}. We must map a logical quantum circuit to a given physical circuit and satisfy some necessary physical constraints, since the design of quantum algorithms does not refer to the connectivity constraints of any hardware. This requires a set of highly efficient and automatic mapping procedures. Quantum circuit transformation is an important part of quantum circuit compilation. The main idea is to transform the input logical circuit ($LC$) into a physical circuit ($PC$) and satisfy the physical constraints. We call the initial mapping as qubits assignment, and circuit mapping adjustment as circuit transformation.
 
-The biggest problem facing quantum information processing is the problem of quantum decoherence. The entanglement of the quantum system with the surrounding environment and quantum measurement will cause the disappearance of quantum coherence. It is unrealistic to use quantum error correction in the circuit mapping process since there are only dozens of quantum in the NISQ era~\cite{2018QuantumPreskill}. Quantum gate operations are limited in physical circuits. They can only be performed between adjacent qubits. Thus it is necessary to convert circuits by adding auxiliary gates to satisfy logical and physical constraints. This process may introduce many errors, which brings a huge challenge to circuit compilation because noise has a greater impact on the final circuit and may make the result meaningless. The quantum coherence time is concise. The longest coherence time of a superconducting quantum chip is still within 10us-100us, the time of a single quantum gate is about 20ns, the time of a 2-qubit gate is about 40ns, and the time of a measurement operation is about 300ns-1us. 
+The biggest problem facing quantum information processing is the problem of quantum decoherence. Due to the decoherence problem of quantum bits, the quantum operation needs to be completed in a coherent period, and the time of quantum bits in the coherent state is short. The entanglement of the quantum system with the surrounding environment will lead to quantum decoherence. It is unrealistic to use quantum error correction in the circuit mapping process since there are only dozens of quantum in the NISQ era~\cite{2018QuantumPreskill}. Quantum gate operations are limited in physical circuits. They can only be performed between adjacent qubits. Thus it is necessary to transform circuits by adding auxiliary gates to satisfy logical and physical constraints. The process may introduce many errors, which brings a huge challenge to circuit compilation because noise has a greater impact on the final circuit and may make the result meaningless. The quantum coherence time is short. The longest coherence time of a superconducting quantum chip is still within 10us-100us, the time of a single quantum gate is about 20ns, the time of a 2-qubit gate is about 40ns, and the time of a measurement operation is about 300ns-1us. 
 
-There are currently five main methods for solving the qubit allocation problem.
-\begin{enumerate}
+In general, qubits assignment can be carried out prior to the circuit transformation. Paler used a heuristic method to find the qubits assignment and IBM's compiler to benchmark~\cite{Paler2018}. The preliminary results show that the cost can be reduced by up to 10\% only by placing qubits differently from the default position (trivial placement) only in the actual circuit instance on the actual NISQ device. In 2018, a novel reverse traversal technique was proposed in~\cite{Li2018}, which selects the qubits assignment by considering the whole circuit. In~\cite{Xiangzhen2020}, Zhou proposed an annealing algorithm to find a good qubits assignment, but it is unstable and cannot be used in practice. In~\cite{2020Qubit}, Li use $VF2$ subgraph isomorphism algorithm to generate an qubits assignment. Compared with $VF2$ mapping, our algorithm $CSI$ reduces the number of SWAP gates by 22.29\% and the depth by 11.17\%.
+There are currently five main methods for solving the quantum circuit transformation problem.
+\begin{enumerate}[1)]
 	\item \emph{Unitary matrix factorization algorithm.} The first method uses the unitary matrix factorization algorithm to rearrange the quantum circuit from the beginning while retaining the input circuit~\cite{2019CNOT,2019Quantum}.
-	\item \emph{Converting into some existing problems.} The second method converts the quantum circuit transformation problem into some existing problems, such as AI planning~\cite{2017Temporal,2018Integer}, Integer Linear Programming (ILP)~\cite{2019Almeida}, Satisfiability Modulo Theory (SMT)~\cite{2019Murali}, and use tools for these problems to find acceptable results. However, these methods may run for a long time and can only be applied to a small number of qubits. Furthermore, these tools cannot take advantage of some of the properties of quantum mapping.
-	\item \emph{Precise methods.} 
-	The precise method is only suitable for simple quantum structures and cannot be extended to complex quantum structures~\cite{2018QubitSiraichi}.
+	\item \emph{Converting into some existing problems.} The second method converts the quantum circuit transformation problem into some existing problems, such as AI planning~\cite{2017Temporal,2018Integer}, Integer Linear Programming (ILP)~\cite{2019Almeida}, Satisfiability Modulo Theory (SMT)~\cite{2019Murali}. They use tools to find acceptable results. However, these methods may run for a long time and can only be applied to a small number of qubits. Furthermore, these tools cannot take advantage of some of the properties of quantum mapping.
+	\item \emph{Exact methods.} 
+	The exact method is only suitable for simple quantum architecture and cannot be extended to complex quantum architecture~\cite{2018QubitSiraichi}.
 	\item \emph{Graph theory.} 
-	In~\cite{Shafaei2013}, Shafaei used the minimum linear arrangement problem in graph theory to model the problem of reducing the interaction distance. It divided a given circuit into several sub-circuits and applied the minimum linear arrangement problem, respectively. Then it turns non-adjacent gates in the sub-circuits into adjacent circuits by adding auxiliary gates. Finally, it used the minimum linear permutation problem to find an appropriate permutation and bubble sort to calculate the number of SWAP gates needed.
+	In~\cite{Shafaei2013}, Shafaei used the minimum linear permutation problem in graph theory to model the problem of reducing the interaction distance. It divides a given circuit into several subcircuits and applies the minimum linear permutation problem, respectively. Then it turns non-adjacent gates in the subcircuits into adjacent gates by adding auxiliary gates. Finally, it uses the minimum linear permutation problem to find an appropriate permutation and bubble sort to calculate the number of SWAP gates needed.
    
-	In~\cite{Guerreschi2018} and~\cite{Matsuo2019}, they proposed a two-step approach to reformulate the subtasks of gate scheduling as a graph problem. For example, according to the graph coloring problem and the maximum subgraph isomorphism problem to minimize the number of auxiliary gates. Both of them moved a qubit from the initial position to the target position in the best possible path with minimal cost. The former defined a priority to get the initial mapping, and the latter purely solved the problem of position movement. They all divided the swapping of qubits into three categories. The first is a movement that is beneficial to both qubits; the second considers one advantageous, but the other is not mapped; the third is that one is advantageous, and the other is harmful. Then they calculate the scores from the initial position to the target position according to the types and move.
+	In~\cite{Guerreschi2018} and~\cite{Matsuo2019}, they proposed a two-step method to reduce the quantum circuit transformation to the graph problem to minimize the number of auxiliary gates, based on the graph coloring problem and the largest subgraph isomorphism problem. Both of them moved a qubit from the initial position to the target position in the minimal cost path. The former defined a priority to get the qubits assignment, and the latter purely solved the problem of position movement. They all divided the swapping of qubits into three categories. The first is a movement that is beneficial to both qubits; the second considers one advantageous, but the other is not mapped; the third is that one is advantageous, and the other is harmful. Then they calculate the scores from the initial position to the target position according to the types and move.
 	\item \emph{Heuristic search~\cite{Zulehner2017,Cowtan2019,Li2018,Xiangzhen2020,2018QubitSiraichi}.}
-	The circuit transformation algorithm hopes to find a minimum number of SWAPs. Heuristic search uses an evaluation function to obtain an acceptable solution in exponential time. Zulehner divided a given circuit into multiple layers, which can be implemented in a $CNOT$ constraint compatible manner~\cite{Zulehner2017}. A compatible mapping is then determined for each of these layers, which requires as few auxiliary gates as possible. The main idea is to determine the cheapest path from the root node to the target node (the lowest cost). Since the search space is usually exponential, complex mechanisms keep the paths considered as few as possible. Zhou designed a heuristic search algorithm with a novel selection mechanism~\cite{Xiangzhen2020}. He did not choose the lowest cost operation to apply but looked forward one step and then chose the best continuous operation. In this way, the algorithm can effectively avoid local minimum. Moreover, a pruning mechanism is introduced to reduce the search space's size and ensure that the program terminates in a reasonable amount of time. This algorithm's time complexity is $O(|V|^{4})$.
+	The circuit transformation algorithm hopes to find a minimum number of SWAPs. Heuristic search uses an evaluation function to obtain an acceptable solution in exponential time. Zulehner layered the circuits, grouped the circuits that could be executed in parallel into the same layer, and then determined compatible mappings for each of these layers to add as few auxiliary gates as possible. The main idea is to determine the cheapest path from the root node to the target node (the lowest cost). The algorithm keeps the paths considered as few as possible, since the search space is usually exponential. Zhou designed a heuristic search algorithm with a novel selection mechanism~\cite{Xiangzhen2020}. He did not choose the lowest cost operation to apply but looked forward one step and then chose the best continuous operation. In this way, the algorithm can effectively avoid local minimum. Moreover, a pruning mechanism is introduced to reduce the search space's size and ensure that the program terminates in a reasonable amount of time. This algorithm's time complexity is $O(|V|^{4})$.
 
-	Li proposed a SWAP-based search algorithm $SABRE$~\cite{Li2018}. Compared with previous search algorithms based on exhaustive mapping, $SABRE$ achieves exponential search complexity and ensures the scalability of $SABRE$ to adapt to the large quantum equipment in the NISQ era. By introducing the attenuation effect in the heuristic cost function, different hardware compatible circuits are generated by switching the number of gates in the circuit according to the circuit depth. This makes $SABRE$ suitable for NISQ devices with different characteristics and optimization goals. The routing algorithm implemented in $t\ket{ket}$ can ensure that any quantum circuit is compiled into any architecture~\cite{Cowtan2019}. The algorithm is divided into four stages: decomposing the input circuit into time steps, determining the initial position, routing across time steps, and finally cleaning up. The heuristic method in $t\ket{ket}$ matches or is better than the results of other circuit transformation systems in terms of depth and the total number of gates of the compiled circuit, and the running time is greatly reduced, allowing larger circuits to be routed. Tannu proposed a variation-aware qubit movement strategy, which takes advantage of the change in error rate and a change-aware qubit allocation strategy by trying to select the route with the lowest probability of failure~\cite{Tannu2019}. This strategy allocates program qubits to physical qubits to take advantage of SWAPs in the error rate, thereby minimizing the use of links with high error rates.
+	Li proposed a SWAP-based search algorithm $SABRE$~\cite{Li2018}. Compared with previous search algorithms based on exhaustive mapping, $SABRE$ achieves exponential search complexity and ensures the scalability of $SABRE$ to adapt to the large quantum equipment in the NISQ era. The heuristic cost function introduces the attenuation effect to control the influence of the gate on the selection, thereby generating different hardware compatible circuits. This makes $SABRE$ suitable for NISQ devices with different characteristics and optimization goals. The routing algorithm implemented in $t\ket{ket}$ can ensure that any quantum circuit is compiled into any architecture~\cite{Cowtan2019}. The algorithm is divided into four stages: decomposing the input circuit into time steps, determining the qubits assignment, routing across time steps, and finally cleaning up. The heuristics in $t/ket{ket}$ give the same or better results than other circuit transformation systems in terms of depth and total number of gates in the compiled circuit, with much shorter running times, and can handle larger circuits. Tannu proposed a variation-aware qubit movement strategy, which takes advantage of the change in error rate and a change-aware quantum circuit transformation strategy by trying to select the route with the lowest probability of failure~\cite{Tannu2019}. This strategy uses the error rate of SWAP to allocate logical qubits to physical qubits, thus avoiding paths with high error rates as much as possible.
 \end{enumerate} 
-In general, an initial algorithm can be used to generate an initial mapping. Paler used a heuristic method to find the initial mapping and IBM's compiler to benchmark~\cite{Paler2018}. The preliminary results show that the cost can be reduced by up to 10\% only by placing qubits differently from the default position (trivial placement) only in the actual circuit instance on the actual NISQ device. In 2018, a novel reverse traversal technique was proposed in~\cite{Li2018}, which selects the initial mapping method by considering the whole circuit. In~\cite{Xiangzhen2020}, an annealing algorithm, was proposed to find a favorable initial mapping. The initial heuristic mapping generated by the algorithm is unstable and cannot be used in practice. In~\cite{2020Qubit}, $VF2$ subgraph isomorphism algorithm was used to generate an initial mapping. Compared with $VF2$ mapping, our algorithm based on $CSI$ reduces the number of SWAP gates by 22.29\% and the depth by 11.17\%.
+
 The main contributions of this paper are as follows.
-	\begin{enumerate}
-		\item We propose an combined subgraph isomorphism algorithm ($CSI$) to obtain the initial mapping, which can be reduced to subgraph isomorphism. Thus we use a state-of-the-art subgraph isomorphism algorithm to generate part of the initial mapping and then complete the mapping based on the connectivity between qubits.
-		\item We propose a heuristic circuit transformation algorithm based on Tabu Search~\cite{Glover1990} ($QCTS$), which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. $QCTS$ can complete the search of the 159 circuits~\cite{Zulehner2017} only with a few minutes, but another heuristic search cannot deal with them in a few minutes. Even some heuristic methods may not handle large circuits.
+	\begin{enumerate}[a.]
+		\item We propose an combined subgraph isomorphism algorithm ($CSI$) to obtain the qubits assignment, which can be reduced to subgraph isomorphism. Thus we use a suitable subgraph isomorphism algorithm to generate part of the qubits assignment and then complete the mapping based on the connectivity between qubits.
+		\item We propose a heuristic circuit transformation algorithm based on Tabu Search ($QCTS$)~\cite{Glover1990}, which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. $QCTS$ can complete the search of the 159 circuits~\cite{Zulehner2017} only with a few minutes, but another heuristic search cannot deal with them in a few minutes, especially large circuits.
 	\end{enumerate}
 
 The rest of this paper is organised as follows.
@@ -102,7 +104,7 @@ Then $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in
 
 \subsection{Quantum Gate}
 Commonly used quantum gate symbols and their matrices are shown in Fig.~\ref{common_gates}.
-Physical qubit and logical qubit are represented by $\textup{q}$, $\textit{q}$, respectively.
+A physical qubit or logical qubit is represented by $\textup{q}$, $\textit{q}$, respectively.
 {
 \begin{figure}
 	 \scalefont{0.7}
@@ -210,17 +212,17 @@ A quantum logical circuit $LC$ (see Fig.~\ref{OriginalCircuit})
 consists of quantum gates interconnected by quantum wires~\cite{Daei2020}.
 A quantum wire is a mechanism for moving quantum data from one location to another.
 Each line represents a qubit, and the gate operation on the line acts on the corresponding qubit.
+The execution order of a quantum logical circuit graph is from left to right.
 The width $w$ of a circuit refers to the number of qubits in the circuit.
 The depth $d$ of a circuit refers to the number of layers executed in parallel.
 The directed acyclic graph (see Fig.~\ref{DAG}) of a circuit is obtained by parallelizing and layering the circuit by topological sorting.
+For example, the depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6, and the width is 5.
 In this paper, circuits with a depth less than 100 are called small-sized circuits,
 circuits with a depth greater than 1000 are called large-sized circuits,
 and the rest are medium-sized circuits.
-The execution order of a quantum logical circuit graph is from left to right.
-The depth of the circuit (see Fig.~\ref{OriginalCircuit}) is 6, and the width is 5.
 It is unnecessary to consider single quantum gates in circuit transformation since the qubit is \emph{local}~\cite{2013Optimization}.
 Architecture graph $\mathcal{AG}_{L}$ is generated by regarding qubits in $LC$ as nodes $V$ and 2-qubit gates as edges $E$.
-Our initial mapping tries to find subgraphs isomorphic to the logical architecture graph ($LAG$) on the physical architecture graph ($PAG$).
+
 
 \begin{figure}[h!] 
 	\begin{center}
@@ -384,66 +386,59 @@ Our initial mapping tries to find subgraphs isomorphic to the logical architectu
 			}
 \end{center}
 	
-	\caption{(a) The architecture graph of original circuit in Fig.~\ref{OriginalCircuit}. (b) The partial architecture graph of IBM Q20 }
+	\caption{(a) The architecture graph of original circuit in Fig.~\ref{OriginalCircuit}. (b) The partial architecture graph of IBM Q20.}
 	\label{LAGPAG}
 \end{figure}
 	
-\begin{figure}[h!] 				
+\begin{figure}[h!] 			
 	\centerline{ 
-\Qcircuit @C=1.2em @R=1.5em {
-							 &  \ctrl{1}  		&     \qw \\
-							 &   \targ      		&       \qw   \\	 
-							&					&      						 
-					}
-					  \qquad    \qquad
-  \Qcircuit @C=1.2em @R=0.75em {
-	 &   \gate{H}  		&\targ 			&\gate{H}     	&    \qw  	 \\
-	 &   \gate{H}      	&\ctrl{-1}      &\gate{H} 		&   \qw 	    \\	 
-	&					&				& 				&						 
-					  }
+\Qcircuit @C=1.2em @R=0.5em {
+							 &  \ctrl{2}  		&    \qw &   &    &  \gate{H}  		&\targ 			&\gate{H}     	&  \qw \\
+							 &					&      	& 	\push{\rule{.3em}{0em}=\rule{.3em}{0em}}&	   &			& 				&	\\	 
+							 &   \targ      	&    \qw 	&    &   &   \gate{H}      	&\ctrl{-2}      &\gate{H} 		&     \qw   \\	 
+							&					&      	&		   &			&				& 				&					 
+					}			
   }
-
-  \caption{Transformation of gate direction}
-  \label{Transformate}
+  \centerline{ 
+	\Qcircuit @C=1.2em @R=0.6em {
+							\lstick{\textit{q}_\textit{0}} &  \qswap  				&    \rstick{\textit{q}_\textit{1}} \qw &&&&  \lstick{\textit{q}_\textit{0}} 	&  \ctrl{2}  		&  \targ  		&  \ctrl{2}  		&    \rstick{\textit{q}_\textit{1}} \qw &&&&  \lstick{\textit{q}_\textit{0}}  &  \ctrl{2}  		&   \gate{H}  		&\ctrl{2} 			&\gate{H}     	&\ctrl{2}			&    \rstick{\textit{q}_\textit{1}}\qw  \\
+							&		\qwx	&&&\push{\rule{.3em}{0em}=\rule{.3em}{0em}}&		&  	&					&			
+							&		&      	& 		&	\push{\rule{.3em}{0em}=\rule{.3em}{0em}}					&					&				&					&         			&&&&			 \\
+							\lstick{\textit{q}_\textit{1}} &   \qswap\qwx	   		&     \rstick{\textit{q}_\textit{0}}  \qw &&&&    \lstick{\textit{q}_\textit{1}} 	&   \targ      		&  \ctrl{-2}    &   \targ      		&     \rstick{\textit{q}_\textit{0}}  \qw   &&&&  \lstick{\textit{q}_\textit{1}}  &   \targ      		&   \gate{H}      	&   \targ      		&\gate{H} 		&\targ      		&    \rstick{\textit{q}_\textit{0}}\qw 	   \\	 
+																	&			&&&&		&  	&					&					&					&       		& 					&						&					&				&					&         			&&&&			 
+						} 
+}
+						\caption{The above circuit changes the direction of the $CNOT$ gate by adding four H gates, and  below is the circuit of the SWAP gate.}
+						\label{Decomposition}
 \end{figure}
-\begin{figure}[h!] 				
-   \centerline{ 
-					\Qcircuit @C=1.2em @R=2.05em {
-											\lstick{\textit{q}_\textit{0}} &  \qswap  				&    \rstick{\textit{q}_\textit{1}} \qw \\
-											\lstick{\textit{q}_\textit{1}} &   \qswap\qwx	   		&     \rstick{\textit{q}_\textit{0}}  \qw   \\	 
-																					&					&      						 
-										}
-										\qquad    \qquad
-\Qcircuit @C=1.2em @R=1.22em {
-					   \lstick{\textit{q}_\textit{0}} 	&  \ctrl{1}  		&  \targ  		&  \ctrl{1}  		&    \rstick{\textit{q}_\textit{1}} \qw \\
-					   \lstick{\textit{q}_\textit{1}} 	&   \targ      		&  \ctrl{-1}    &   \targ      		&     \rstick{\textit{q}_\textit{0}}  \qw   \\	 
-										&					&				&					&      						 
-				   }
-					 \qquad    \qquad
- \Qcircuit @C=1.2em @R=0.75em {
-	\lstick{\textit{q}_\textit{0}}  &  \ctrl{1}  		&   \gate{H}  		&\ctrl{1} 			&\gate{H}     	&\ctrl{1}			&    \rstick{\textit{q}_\textit{1}}\qw  	 \\
-	\lstick{\textit{q}_\textit{1}}  &   \targ      		&   \gate{H}      	&   \targ      		&\gate{H} 		&\targ      		&    \rstick{\textit{q}_\textit{0}}\qw 	    \\	 
-					&					&					&					&       		& 					&						 
-					 }
- }
-
-   \caption{Decomposition of a SWAP gate	   }
-   \label{Decomposition}
- \end{figure}
 
 \subsection{Architectures}
 We mainly discuss the physical circuits of IBM Q series.
 Let $\mathcal{\mathcal{AG}_{P}}=(V_{P}, E_{P})$ denote the architecture graph of the physical circuit,
 where $V_{P}$ denotes the physical qubit set and $E_{P}$ represents the directed edge set that the $CNOT$ gates.
 Fig.~\ref{IBM} (a) and (b) are $PAG$ of the 5-qubit of IBM QX2,
-(c) and (d) are $PAG$ of 16$-$qubit of IBM QX3,
-and (e) are the $PAG$ of IBM Q20.
-An arrow in the figure indicates that the qubit at the beginning of the arrow can control the qubit at the end of the arrow,
+(c) and (d) are $PAG$ of 16-qubit of IBM QX3,
+and (e) is the $PAG$ of IBM Q20.
+The arrow direction in the figure indicates the control direction of the gate,
 and the 2-qubit gate operations can only be performed between qubits with edges connected.
 IBM physical circuit only supports single quantum gates and $CNOT$ gates between two adjacent qubits.
-Fig.~\ref{LAGPAG}(a) is the logical architecture of the original circuit of Fig.~\ref{OriginalCircuit},
+Fig.~\ref{LAGPAG}(a) is the logical architecture graph of the original circuit in Fig.~\ref{OriginalCircuit},
 and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20. 
 
+Given a logical circuit $LC$, a physical structure $\mathcal{AG}_{P}$, a qubits assignment $\tau$, and a $CNOT$ gate $g=\left \langle \textit{q}_\textit{i},\textit{q}_\textit{j}\right \rangle $, where $\textit{q}_\textit{i}$ is the control qubit,$\textit{q}_\textit{j}$ is the target qubit.
+$\left \langle\tau(\textit{q}_\textit{i}),\tau(\textit{q}_\textit{j})\right \rangle $ 
+is a directed edge on $\mathcal{AG}_{P}$, if gate $g$ is executable.
+
+\begin{example}
+	Fig.~\ref{LAGPAG} (a) is the logical structure of Fig.~\ref{OriginalCircuit}, 
+	Fig.~\ref{LAGPAG} (b) is the partial architecture graph of IBM Q20, a qubits assignment is 
+	$\tau=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\ \textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},\ 
+	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\ \textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\ \textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
+	$g_{0}=\left \langle \textit{q}_\textit{2},\textit{q}_\textit{1}\right \rangle $ is not executable, since 
+	$\left \langle \tau(\textit{q}_\textit{2}),\tau(\textit{q}_\textit{1})\right \rangle =\left \langle \textup{q}_{\textup{6}},\textup{q}_{\textup{0}}\right \rangle $ does not  exists in $\mathcal{AG}_{P}$.
+	But $g_{3}=\left \langle \textit{q}_\textit{1},\textit{q}_\textit{3}\right \rangle $ is executable, since 
+	$\left \langle \tau(\textit{q}_\textit{1}),\tau(\textit{q}_\textit{3})\right \rangle =\left \langle \textup{q}_{\textup{0}},\textup{q}_{\textup{5}}\right \rangle $  exist in $\mathcal{AG}_{P}$.
+\end{example}
 \begin{figure}
 	{
 	\scalefont{0.8}
@@ -747,26 +742,9 @@ and Fig.~\ref{LAGPAG}(b) is the partial architecture graph of IBM Q20.
 \section{Problem Analysis}
 \label{Problem Analysis}
 
-\paragraph{Problem in qubit Mapping}
-Single qubit gates and $CNOT$ gates are used as basic gates since they are commonly used to implement any quantum circuit supported by the IBM QX architecture. Before circuit transformation, the circuit should be simplified to a circuit with only single quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}. We insert auxiliary gates (see Fig.~\ref{Decomposition}) so that two non-adjacent qubits can move to adjacent positions or change direction between two adjacent qubits (see Fig.~\ref{Transformate}). The introduction of auxiliary gates may lead to errors, leading to a large deviation between the final results and the actual situation. The quantum system is easy to interact with the surrounding environment, resulting in errors. In the NISQ era, quantum error correction is difficult to achieve. Due to the decoherence problem of quantum bits, the quantum operation needs to be completed in a coherent period, and the time of quantum bits in the coherent state is short. Therefore, it is necessary to improve the parallelism of qubits as much as possible to minimize the depth of the quantum circuit. This is the focus of this paper. We hope to find a circuit transformation algorithm to make the output circuit with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
-
-Given the logical circuit $LC$, physical structure $\mathcal{AG}_{P}$, 
-and an initial mapping $\tau$, $CNOT$ gate $g=\left \langle \textit{q}_\textit{i},\textit{q}_\textit{j}\right \rangle $, 
-$\left \langle\tau(\textit{q}_\textit{i}),\tau(\textit{q}_\textit{j})\right \rangle $ 
-is a directed edge on $\mathcal{AG}_{P}$, if gate $G$ is executable.
-
-\begin{example}
-	Fig.~\ref{LAGPAG} (a) is the logical structure of Fig.~\ref{OriginalCircuit}, 
-	Fig.~\ref{LAGPAG} (b) is the partial architecture graph of IBM Q20, an initial mapping is 
-	$\tau=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\ \textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},\ 
-	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\ \textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\ \textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
-	$g_{0}=\left \langle \textit{q}_\textit{2},\textit{q}_\textit{1}\right \rangle $ is not executable, since 
-	$\left \langle \tau(\textit{q}_\textit{2}),\tau(\textit{q}_\textit{1})\right \rangle =\left \langle \textup{q}_{\textup{6}},\textup{q}_{\textup{0}}\right \rangle $ does not  exists in $\mathcal{AG}_{P}$.
-	But $g_{3}=\left \langle \textit{q}_\textit{1},\textit{q}_\textit{3}\right \rangle $ is executable, since 
-	$\left \langle \tau(\textit{q}_\textit{1}),\tau(\textit{q}_\textit{3})\right \rangle =\left \langle \textup{q}_{\textup{0}},\textup{q}_{\textup{5}}\right \rangle $  exist in $\mathcal{AG}_{P}$.
-\end{example}
-
-A quantum circuit transformation problem mainly includes the following four steps, among which the third step of isomorphism and the fourth step of the circuit transformation problem are both NPC~\cite{2018QubitSiraichi}
+\paragraph{Problem in qubit Mapping.}
+Single qubit gates and $CNOT$ gates are used as basic gates, since they are commonly used to implement any quantum circuit supported by the IBM QX architecture. Before circuit transformation, the circuit should be simplified to a circuit with only single quantum gates and $CNOT$ gates~\cite{2005Mttnen,1995Barenco}. We insert auxiliary gates (see Fig.~\ref{Decomposition}) to move two non-adjacent quantum positions to adjacent positions or change the direction of the $CNOT$ gate, but this process may introduce errors. The introduction of auxiliary gates may lead to errors. We hope to find a circuit transformation algorithm to make the output circuit with the minimum number of auxiliary gates and the circuit depth in an acceptable amount of time.
+A quantum circuit transformation problem mainly includes the following four steps. Isomorphism and transformation are both NPCs~\cite{2018QubitSiraichi}.
 \begin{figure}[h!] 
 	\centering
 	\includegraphics[scale=0.4]{uml.jpg}		 
@@ -775,28 +753,28 @@ A quantum circuit transformation problem mainly includes the following four step
 	 \end{figure}
 \begin{enumerate}
 	\item \emph{ Preprocess the logical quantum circuit.} 
-	It includes extracting the $LAG$ of the circuit, adjusting the life cycle of qubits (this part of the work is done by Zhang~\cite{2019Zhang}),  and calculating the shortest path of the physical circuit.
+	It includes extracting the $LAG$ of the circuit, adjusting the life cycle of qubits (the work is done by Zhang~\cite{2019Zhang}),  and calculating the shortest path of the physical circuit.
 	\item \emph{Compute isomorphic substructures.}
-	It uses the subgraph isomorphism algorithm to find part of the initial mapping, which is done by Sun~\cite{Sun2020}   
-	\item \emph{Generate high-quality initial mapping.} We perform mapping completion because the remaining nodes cannot satisfy all isomorphism requirements. According to the connectivity between the unmapped node and the mapped nodes. The unmapped node is mapped to the mapped node's neighborhood, which satisfies the connectivity of part of the structure and reduces the length of the shortest path.  
-	\item \emph{Transforming logical circuits to meet physical constraints}
-	Circuit transformation problems need to be solved before implementing quantum circuits since quantum algorithms are usually designed without referring to any specific hardware's connectivity constraints. Therefore, circuit transformation forms a necessary stage of any quantum compiler.
+	It uses the subgraph isomorphism algorithm to find part of the qubits assignment, which is done by Sun~\cite{Sun2020}   
+	\item \emph{Generate high-quality qubits assignment.} We perform mapping completion because the remaining nodes cannot satisfy all isomorphism requirements. According to the connectivity between the unmapped node and the mapped nodes. Unmapped nodes are mapped to the neighborhood of mapped nodes, which satisfies the connectivity of part of the structure and reduces the length of the shortest path.  
+	\item \emph{Transforming logical circuits to meet physical constraints.}
+	Circuit transformation problems need to be solved before implementing quantum circuits, since he design of quantum algorithms does not refer to the connectivity constraints of any hardware. Therefore, circuit transformation forms a necessary stage of any quantum compiler.
 \end{enumerate}
 
 \section{Solution}
 \label{Solution}
-The solution proposed in this paper mainly includes preprocessing, initial mapping, and circuit transformation algorithm based on Tabu Search.
+The solution proposed in this paper mainly includes preprocessing, qubits assignment, and circuit transformation algorithm based on Tabu Search. In this section we will introduce them in detail.
 \subsection{Preprocessing}
 Before transforming the SWAP circuit based on Tabu Search, we need to preprocess it to get more convenient data to shorten our search time and space. In the preprocessing stage, we adjust the circuit of the input openQASM program to shorten the life cycle of qubits. Then we use Breadth-First Search (BFS) to calculate the shortest distance between each node on the architecture graph.
 \subsubsection{Circuit Adjustment}
-In order to shorten the life cycle of qubits and improve the parallelism of qubits, we use a layered method to analyze the life cycle of qubits~\cite{2019Zhang} and pack the operations that can be executed in parallel into a $bundle$, forming a layered bundle format.
-A conversion method is designed to use the layered bundle format to determine which operations can be moved, which reduces the life cycle of these qubits. The algorithm reduces the error rate of quantum programs by 11\%. On most quantum workloads, the longest qubit lifetime and the average qubit lifetime can be reduced by more than 20\%, and the execution time of some quantum programs can also be reduced.
+We use a layered method to analyze the life cycle of qubits~\cite{2019Zhang} and pack the gates that can be executed in parallel into a $bundle$, forming a layered bundle format.
+A conversion method is designed to use the layered bundle format to determine which gates can be moved, which reduces the life cycle of these qubits. The algorithm reduces the error rate of quantum programs by 11\%. In most quantum workloads, the longest qubit lifetime and the average qubit lifetime can be reduced by more than 20\%, and the execution time of some quantum programs can also be reduced.
 \subsubsection{Shortest Distance}
-Given $PAG$, the shortest distance between two qubits can be calculated. In this paper, the shortest distance matrix $dist[i][j]$ is calculated by $Floyd-Warshall$ algorithm, which represents the shortest distance from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, and the distance of each edge is 1. 
+Given $PAG$ and the distance of each edge is 1, we can use $Floyd-Warshall$ calculate the shortest distance matrix $dist[i][j]$, which represents the shortest distance from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$. 
 
-For IBM QX2, QX3, QX4, QX5, the SWAP operation needs 7 gates (3 $CNOT$ gates and 4 $H$ gates). Only 4 $H$ gates are needed to change directions between two adjacent qubits. For a $CNOT$ gate $\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
-Two qubits are mapped to $\textup{q}_{\textup{i}}$ and $\textup{q}_{\textup{j}}$ respectively, with $\ \tau(\textit{q}_\textit{i})=\textup{q}_{\textup{i}},\ \tau(\textit{q}_\textit{j})=\textup{q}_{\textup{j}}$. then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[i][j]-1)$. If they move to adjacent positions, but there is no edge from $\textup{q}_{\textup{i}}$ to $\textup{q}_{\textup{j}}$, we need to add 4 $H$ gates to adjust their directions. For IBM Q20, in which all edges are bidirectional, the SWAP operation requires 3 gates (3 $CNOT$ gates), 
-and there is no need to change the direction. Thus the cost between them is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[i][j]-1)$. The time complexity of this step is $O (N^{3})$.
+For IBM QX2, QX3, QX4, QX5, the SWAP operation needs 7 gates (3 $CNOT$ gates and 4 $H$ gates). Only 4 $H$ gates are needed to change the direction of an adjacent $CNOT$ gate. 
+For a $CNOT$ gate $g=\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
+two qubits are mapped to $\textup{q}_{\textup{i}}$ and $\textup{q}_{\textup{j}}$ respectively, with $\ \tau(\textit{q}_\textit{i})=\textup{q}_{\textup{m}},\ \tau(\textit{q}_\textit{j})=\textup{q}_{\textup{n}}$. Then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[m][n]-1)$. For IBM Q20, in which all edges are bidirectional, a SWAP operation requires 3 $CNOT$ gates. Thus the cost between them is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[m][n]-1)$. The time complexity is $O (N^{3})$.
 \begin{example}
 	Take the QX5 structure as an example. Suppose there is a $CNOT$ gate $g=\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, \ $\textit{q}_\textit{i}$ is mapped to $\textup{q}_{1}$,  $\textit{q}_\textit{j}$ is mapped to $\textup{q}_{\textup{14}}$, and the shortest distance between them  is $dist[1][14]=3$. There are 3 shortest paths to move $\textup{q}_{\textup{1}}$ to the adjacent position of 
 $\textup{q}_{\textup{14}}$:
@@ -809,22 +787,20 @@ $cost_{\pi_{0}}=18,\ cost_{\pi_{1}}=14,\ cost_{\pi_{2}}=14$, respectively.
 \end{example}
 
 \subsubsection{Circuit Layering}
-Quantum gates acting on different qubits can be executed in parallel, so we can layer quantum circuits to improve the parallelism of qubits and shorten the life cycle of qubits. Thus, we layer the adjusted circuit, traverse the entire program sequentially, and add gates that can be executed parallel to one layer. Otherwise, a new layer is added. The $CNOT$ gate is represented by $\left \langle  \textit{q}_\textit{i}, \textit{q}_\textit{j} \right \rangle $, $\textit{q}_\textit{i}$ is the control qubit, and $\textit{q}_\textit{j}$ is the target qubit. $L(LC)=\{\mathcal{L}_{0},\mathcal{L}_{1},...,\mathcal{L}_{n}\}$ represents the layered circuit, and $\mathcal{L}_{i} \ (0 \le i \le n) $ represents a quantum gate set that can be executed in parallel. The quantum gate set separated by the dotted line in Fig.~\ref{OriginalCircuit} are the following $\mathcal{L}_{0}=\{g_{0},g_{1}\},\mathcal{L}_{1}=\{g_{2}\},
+Quantum gates acting on different qubits can execute in parallel. Thus, we layer the adjusted circuit, traverse the entire program sequentially. Otherwise, a new layer is added. $L(LC)=\{\mathcal{L}_{0},\mathcal{L}_{1},...,\mathcal{L}_{n}\}$ represents the layered circuit, where $\mathcal{L}_{i} \ (0 \le i \le n) $ represents a quantum gate set that can be executed in parallel. The quantum gate set separated by the dotted line in Fig.~\ref{OriginalCircuit} are the following $\mathcal{L}_{0}=\{g_{0},g_{1}\},\mathcal{L}_{1}=\{g_{2}\},
  \mathcal{L}_{2}=\{g_{3},g_{4}\},\mathcal{L}_{3}=\{g_{5},g_{6}\},\mathcal{L}_{4}=\{g_{7}\},\mathcal{L}_{5}=\{g_{8}\}$.
 
 At the same time, we generate logical circuit architecture graph $\mathcal{AG_{L}}=(V_{L},E_{L})$, which is an undirected graph. $V_{L}$ contains the vertices and the degree of each vertex, and $E_{L}$ represents the set of undirected edges that the $CNOT$ gates can execute.
 
 \subsection{Initial Mapping}
-It has been proved that the initial mapping has an important influence on $qubit$  $ assignment$,  and the subgraph isomorphism can be reduced to $qubit$ $ assignment$, so we want to use the subgraph isomorphism algorithm to find an initial mapping that helps to minimize auxiliary gates in transformation stage.
+It has been proved that the qubits assignment has an important influence on quantum circuit transformation,  and the subgraph isomorphism can be reduced to $qubit$ $ assignment$, so we want to use the subgraph isomorphism algorithm to find an qubits assignment that helps to minimize auxiliary gates in transformation stage.
 
-In $PAG$, it is almost impossible to find a subgraph that exactly matched nodes $LAG$, so we hope to find a partial mapping that can maximize the number of match. $SubgraphCompare$~\cite{Sun2020} compares several state-of-the-art subgraph isomorphism algorithm composition. 
-It shows that using the filtering and sorting ideas of \emph{GraphQL} algorithm to process candidate nodes, and the local candidates' calculation method \emph{LFTJ} based on set-intersection to enumerate the results is the best. Since $SubgraphCompare$ used in this paper is only suitable for fully connected subgraph isomorphism, there may be no 2-qubit gate operation between one qubit and other qubits in our circuit. The architecture graph formed in this way cannot use $SubgraphCompare$ to generate part of the initial mapping because the subgraph isomorphism will first match the node with the largest degree,  and we hope to minimize the impact on the logical dependency graph. Therefore, we artificially connect the isolating qubit to the qubit with the largest degree in the logical architecture diagram.
+In $PAG$, it is almost impossible to find a subgraph that exactly matched nodes $LAG$, so we hope to find a partial mapping that can maximize the number of matched nodes. $SubgraphCompare$~\cite{Sun2020} compares several state-of-the-art subgraph isomorphism algorithm composition. 
+It shows that using the filtering and sorting ideas of \emph{GraphQL} algorithm to process candidate nodes, and the local candidates' calculation method \emph{LFTJ} based on set-intersection to enumerate the results is the best. We artiﬁcially connect the isolating qubit to the qubit with the largest degree in the logical architecture diagram, since $SubgraphCompare$ cannot handle the not connected graph. We want to minimize the impact of logical dependency graph, so match it with the node with the largest degree.
 
-We use $SubgraphCompare$ generate partial mappings denoted by $T$. The logical architecture graph  $\mathcal{AG_{L}}$ 
-and physical architecture graph $\mathcal{AG_{P}}$ generated by the preprocessing process regard as undirected graph as input. The output of $CSI$ algorithm is a file containing all the isomorphism processes. We only choose the case with the most homogeneous nodes as the $CSI$ result, since only some nodes may be matched during the algorithm. Then we complete the unmapped nodes in the partial mapping based on the connectivity of the nodes or the degree of the nodes. The mapping completion algorithm based on node connectivity is show in Algorithm~\ref{algorithm_initial}.
 \begin{algorithm}  
 	\label{algorithm_initial}
-	\caption{initial mapping algorithm $CSI$}  
+	\caption{qubits assignment algorithm $CSI$}  
 	\LinesNumbered  
 	\KwIn{$\mathcal{AG_{L}}$: The architecture of logical circuit \\ 
 	$\mathcal{AG_{P}}$: The architecture of physical circuit\\
@@ -852,9 +828,7 @@ and physical architecture graph $\mathcal{AG_{P}}$ generated by the preprocessin
 				$cans \leftarrow$ initialing an empty candidate node list \tcp*{sorted by the connectivity of nodes }
 				$m \leftarrow 1$; \\
 				\While{$m \leq queryAdj[q\_id].length$}{
-					\If{$\tau[m]\neq-1$}{
-						$cans \leftarrow cans \cup \{ m\}$;	
-					}
+					$cans \leftarrow cans \cup \{ m\}$;	
 					$m \leftarrow m+1$;
 				}
 				\While{$cans\ is\ not\ empty$}{
@@ -879,40 +853,38 @@ and physical architecture graph $\mathcal{AG_{P}}$ generated by the preprocessin
 	\end{algorithm}
 	
 	The input of Algorithm~\ref{algorithm_initial} is a target graph ($\mathcal{AG}_{P}$), query graph ($\mathcal{AG}_{L}$), and the partial mappings $T$. First, we initialize an empty queue $Q$,  which stores unmatched nodes in the map $\tau \in T$.
-	Then it traverses $\tau$ and adds the unmatched nodes to the queue.  For the remaining unmatched points, we try to map them with the nodes that do not match in the more concentrated area of $\mathcal{AG}_{P}$. Finally, a dense isomorphic subgraph is generated, which can reduce subsequent SWAP operations. We would try to match the remaining unmatched nodes randomly, but this may lead to mapping to a position far away from other nodes. If the unmatched point has an edge adjacent to the matched point in the query graph, it will be matched to its adjacent position first. If the adjacent position has been matched, it will be matched to the adjacent unmatched node. Finally, it gets all initial candidate mappings and outputs them to the file.
+	Then we traverse $\tau$ and adds the unmatched nodes to the queue.  For the remaining unmatched nodes, we try to map them with the nodes that do not match in the more concentrated area of $\mathcal{AG}_{P}$. Finally, a dense graph is generated, which can reduce subsequent SWAP operations. We would try to match the remaining unmatched nodes randomly, but this may lead to mapping to a node far away from other nodes. If the unmatched node has an edge adjacent to the matched point in the query graph, it will be matched to one of the adjacent nodes first.  Finally, it gets all initial candidate mappings and outputs them to the file.
 
-Lines 2-7 calculate the maximum number of qubits $l$ that match in the mapping relations between logical qubits and physical qubits obtained by the $SubgraphCompare$ algorithm. Lines 8-49 completes the logical qubit unmapped nodes in the mapping algorithm with the number of matches equal to $l$ in the mapping relations, and we use the greedy strategy to allocate. In line 11, we initialized an empty queue $Q$, which stores unmapped logical qubits. In lines 12-18, we traverse the map and add the unmapped qubits to $Q$. We loop until $Q$ becomes empty, and all logical qubits map to physical qubits. We take out the first element in $Q$. Lines 21 and 22 respectively are used to get the adjacency matrices of $\mathcal{AG}_{P}$ and $\mathcal{AG}_{L}$. Line 23 initializes an empty map $cans$, and the keys sort in descending order. The key consists of the number of nodes connected to $q\_id$ in the adjacency matrix and map in the current mapping algorithm, and the nodes constitute a unique key. Lines 25-31 traverse the point $m$ connected to $q\_id$ in the adjacency matrix. If the node $m$ has not been mapped, the node stores in $cans$. Lines 32-47 traverse the $cans$, select the node with the largest number of connections to $q\_id$ in the $cans$, and it has been mapped to the node ($cans.first$) on $PAG$. The $t\_id$ in line 33 is the node with the largest number of $q\_id$ connections corresponding to the node on $PAG$. Line 35  removes the object to match in the $cans$ from the $cans$. Lines 36-43  select the node adjacent to the $t\_id$ in the adjacency matrix of the $t\_id$, and map the $q\_id$ to the node.
+	In Algorithm~\ref{algorithm_initial}, lines 2-7 calculate the maximum number of qubits $l$ that match in the mapping $T$ between logical qubits and physical qubits obtained by the $SubgraphCompare$. Lines 3-44 completes the logical qubit unmapped nodes in the mapping algorithm with the number of matched nodes equal to $l$. In line 6, we initialized an empty queue $Q$, which stores unmapped logical qubits. In lines 8-13, we traverse the map and add the unmapped qubits to $Q$. We loop until $Q$ is empty, and all logical qubits map to physical qubits. We take out the first element in $Q$ to $q\_id$. Lines 15 and 16 respectively are used to get the adjacency matrices of $\mathcal{AG}_{P}$ and $\mathcal{AG}_{L}$. Line 18 initializes an empty map $cans$, sorted by the connectivity in descending order. Lines 25-31 traverse the point $m$ connected to $q\_id$ in the adjacency matrix. If the node $m$ has not been mapped, the node stores in $cans$. Lines 32-47 traverse the $cans$, select the node with the largest number of connections to $q\_id$ in the $cans$, and it has been mapped to the node ($cans.first$) on $PAG$. The $t\_id$ in line 33 is the node with the largest number of $q\_id$ connections corresponding to the node on $PAG$. Line 35  removes the object to match in the $cans$ from the $cans$. Lines 36-43  select the node adjacent to the $t\_id$ in the adjacency matrix of the $t\_id$, and map the $q\_id$ to the node.
 	\begin{example}
-		Following the previous example, we first use  $CSI$ algorithm for $LAG$(see Fig.~\ref{LAGPAG} (a)) and $PAG$ (see Fig.~\ref{IBM} (e)) to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$. We use one of the partial mapping set as an example
+		Following the previous example, we first use  $CSI$ algorithm for $LAG$(see Fig.~\ref{LAGPAG} (a)) and $PAG$ (see Fig.~\ref{IBM} (e)) to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$. Then we use one of the partial mapping set as an example
 $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow \textup{q}_{\textup{10}},\textit{q}_\textit{1}\rightarrow -1,
 	\textit{q}_\textit{2}\rightarrow \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow \textup{q}_{\textup{11}}\}, \ 0 \le i \textless n$. 
-	$\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to the physical structure in the subgraph isomorphism stage,	so we need to perform mapping completion. Algorithm~\ref{algorithm_initial} completes the partial mapping with the maximum mapped nodes in $T$ as the initial mapping. In this example, the maximum number of mapped nodes is 4. Next, we demonstrate that $\tau_{0}$ is mapped and completed, and the unmapped nodes in $\tau_{0}$ are added to the queue $Q, \ Q=\{\textit{q}_\textit{1}\}$, and the loop ends until $Q$ is empty. We put the first element of $Q$ into $q\_id$, and delete it from $Q$.  
-	Then we get the adjacency matrix of the query graph and the target graph, and traversing the node $\textit{q}_\textit{m}$ connected to $q\_id$ in the adjacency matrix. If the node $\textit{q}_\textit{m}$ is matched, then we put $\textit{q}_\textit{m}$ into the candidate nodes list $cans$, which is sorted by the connectivity of $\textit{q}_\textit{m}$ and $q\_id$. Thus we get $cans=[\textit{q}_\textit{3},\textit{q}_\textit{2},\textit{q}_\textit{4},\textit{q}_\textit{0}]$.	Thereafter, we traverse $cans$ and take out of the first element $value=\textit{q}_\textit{3}$ in $cans$, and calculate the value $t\_id=\textup{q}_{\textup{5}}$ of $\textit{q}_\textit{m}$ in the current mapping $\tau_{0}(\textit{q}_\textit{3})$. Finally, we map $q\_id$ to the node connected to $t\_id$ and not yet mapped. If the nodes connected to $t\_id$ have been mapped, the loop continues. In this example, it can be directly mapped to $\textup{q}_{\textup{0}}$. In the end, we get $ \tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{10},\textit{q}_\textit{1}\rightarrow \textup{q}_{0},	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
+	$\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to the physical structure in the subgraph isomorphism stage,	so we need to perform mapping completion. Algorithm~\ref{algorithm_initial} completes the partial mapping with the maximum mapped nodes in $T$ as the qubits assignment. In the example, the maximum number of mapped nodes is 4. Next, we demonstrate how $\tau_{0}$ is completed. We add all unmapped nodes the queue $Q, \ Q=\{\textit{q}_\textit{1}\}$, and the loop ends until $Q$ is empty. We put the first element of $Q$ into $q\_id$, and delete it from $Q$.  
+	Then we get the adjacency matrix of the query graph and the target graph, and traversing the nodes $\textit{q}_\textit{m}$ in the adjacency matrix. We put $\textit{q}_\textit{m}$ into the candidate nodes list $cans$, which is sorted by the connectivity of $\textit{q}_\textit{m}$ and $q\_id$. Thus we get $cans=\{\textit{q}_\textit{3},\textit{q}_\textit{2},\textit{q}_\textit{4},\textit{q}_\textit{0}$.	Thereafter, we traverse $cans$ and take out of the first element $value=\textit{q}_\textit{3}$ in $cans$, and calculate the phycical nodes $t\_id=\textup{q}_{\textup{5}}$, $\tau_0(\textit{q}_\textit{3})=\textup{q}_{\textup{5}}$. Finally, we map $q\_id$ to the node connected to $t\_id$ and not yet mapped. If the nodes connected to $t\_id$ have been mapped, the loop continues. In this example, it can be directly mapped to $\textup{q}_{\textup{0}}$. In the end, we get $ \tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{10},\textit{q}_\textit{1}\rightarrow \textup{q}_{0},	\textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$.
 	\end{example}
 \subsection{Swap Minimization}
 \subsubsection{Tabu Search}
-Tabu Search algorithm~\cite{Glover1990} is a type of heuristic algorithm. Tabu Search uses a tabu table to avoid searching for repeated spaces, thereby avoiding deadlock. The algorithm uses amnesty rules to jump out of the optimal local solution to ensure the diversity of transformed results. The circuit transformation operation in this paper mainly relies on the idea of the Tabu Search algorithm, aiming to deal with the large-scale circuits that the current algorithm is difficult to handle and hoping to get a result closer to the optimum solution in a short time.
+Tabu Search algorithm is a type of heuristic algorithm~\cite{Glover1990}. Tabu Search uses a tabu list to avoid searching for repeated spaces, thereby avoiding deadlock. The algorithm uses amnesty rules to jump out of the optimal local solution to ensure the diversity of transformed results. The circuit transformation mainly relies on the Tabu Search algorithm, aiming to deal with the large-scale circuits that the current algorithm is difficult to handle and the output circuit closer to the optimum solution in a short time.
 
 
-There are mainly the following objects in Tabu Search: neighborhood fields, neighborhood action, tabu table, candidate set sum, tabu object, evaluation function, and amnesty rules. All the edges that can be swapped in the current map are the neighborhood fields in Tabu Search. The tabu table fits the parallelism requirements of qubits. We try not to use the recently operated qubits as much as possible, which are added to the tabu table, at the same time. The candidate set selects several neighborhood objects with the best target value or evaluation value from the neighborhood fields to join the candidate set. It can be obtained by the observation that many SWAP operations are meaningless, so in order to save search space, we should perform pruning. Only the swap of edges adjacent to the gate node with at least one edge is meaningful. Thus our neighborhood fields are the shortest path on $PAG$ of the gates. 
-Their qubits are not adjacent to the current layer, and the edges on these shortest paths are all part of the neighborhood fields.
-The tabu object is the object in the tabu table. The evaluation function selects a SWAP evaluation formula from the candidate set, 
-generally taking the objective function as the evaluation function. The evaluation function satisfies some gate mapping operations, 
+There are mainly the following objects in Tabu Search: neighborhood field, neighborhood action, tabu list, candidate set, tabu object, evaluation function, and amnesty rule. All the edges that can be swapped in the current map are the neighborhood fields in Tabu Search. The tabu list avoids local minimum and fits the parallelism requirements of qubits. The tabu object is the object in the tabu list. We try not to use the recently swapped qubits as much as possible, which are added to the tabu list, at the same time. The candidate set selects some neighborhood objects from the neighborhood fields.  We perform pruning to save search space, since only the swap of edges adjacent to the gate node with at least one edge is meaningful. We select the edge in the shortest path that has an intersection with the qubits contained in the gate as the candidate set.
+The tabu object is the object in the tabu list. The evaluation function selects a SWAP evaluation formula from the candidate set, 
+generally taking the objective function as the evaluation function. The evaluation function satisfies some gate operations, 
 and the number of SWAP gates added should be small, and the depth of the entire circuit should be small. The amnesty rule is that when all objects in the candidate set are banned,  or after one object is banned, the target value will be greatly reduced. In order to achieve the global optimum, the tabu object can be added to the candidate set.
 
-The calculation of the neighborhood fields is shown in Algorithm~\ref{algorithm_neighborhood}. The input is the current circuit mapping $\tau_{p}$, $ qubits $ represents the mapping of physical qubits to logical qubits, Where $ j = qubits [i] $ means that the ith physical qubit has been mapped to the j-th logical qubit. $ locations $ represents the mapping of logical qubits to physical qubits, Where $ j = locations [i] $ means that the ith logical qubit has been mapped to the j-th physical qubit.
-the current layer list of all gates currentLayers $cl$, all the gates nextLayer of the next layer $nl$, and the output is a candidate set of the current mapping, The mapping generated by a transformation, where the physical mapping $ qubits $   and the logical mapping $ locations $ are changed synchronously. $E$ is the edge of all the shortest paths in the physical architecture graph of all gates in the current layer. The weight of the edge is the number of times each edge appears in the path. Lines 22-37 swap all the edges of this path and add them to the candidate set, and calculate the cost of each candidate.
+The calculation of the neighborhood fields is shown in Algorithm~\ref{algorithm_neighborhood}. The input is the current circuit mapping $\tau_{p}$, $ qubits $ represents the mapping of physical qubits to logical qubits, Where $ j = qubits [i] $ means that the i-th physical qubit has been mapped to the j-th logical qubit. $ locations $ represents the mapping of logical qubits to physical qubits, Where $ j = locations [i] $ means that the ith logical qubit has been mapped to the j-th physical qubit.
+The current layer list of all gates $cl$, and the output is a candidate set of the current mapping. $E$ is the edge of all the shortest paths in the physical architecture graph of all gates in the current layer. Lines 17-35 swap all the edges of this path and add them to the candidate set, and calculate the cost of each candidate.
 
 
 \begin{example}
 	Under the mapping $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_{\textup{10}},\textit{q}_\textit{1}\rightarrow \textup{q}_{\textup{0}},
 \textit{q}_\textit{2}\rightarrow  \textup{q}_{\textup{6}},\textit{q}_\textit{3}\rightarrow  \textup{q}_{\textup{5}},\textit{q}_\textit{4}\rightarrow  \textup{q}_{\textup{11}}\}$, 
 for $L_{0}=\{g_{0},g_{1}\}$, $dist_{cnot}(g_{0})=3,\ dist_{cnot}(g_{1})=3$. 
-Gate $g_{1}$ can be executed directly under the $\tau_{0}$ mapping, so it is directly deleted from $L_{0}$,
-but $g_{0}$ cannot be executed under the mapping $\tau_{0}$. 
-Now the gate that cannot be executed in $L_{0}$ is $g_{0}$. 
+Gate $g_{1}$ can be executed directly under the $\tau_{0}$ mapping, so we delete it from $L_{0}$,
+but $g_{0}$ cannot be executed under the mapping $\tau_{0}$.
 Thus circuit transformation is required. 
-Nodes that cannot be exchanged join the set to be swapped $swap\_nodes=\{\textup{q}_{\textup{0}},\textup{q}_\textup{6}\}$
+Nodes that cannot be executable join the set $swap\_nodes=\{\textup{q}_{\textup{0}},\textup{q}_\textup{6}\}$
 The shortest path is $paths=\{\{\textup{q}_{\textup{6}}\rightarrow \textup{q}_{\textup{1}} \rightarrow \textup{q}_{0} \},\{\textup{q}_\textup{6}\rightarrow \textup{q}_\textup{5} \rightarrow \textup{q}_\textup{0} \}\}$, 
 and then we traverse the shortest path to calculate candidate set.
 The two endpoints of the edge passed by the shortest path should intersect the swap set and join the candidate set.
@@ -927,7 +899,6 @@ so the current candidate set is $\{SWAP(\textup{q}_\textup{6},\textup{q}_\textup
 	$qubits$: The mapping from physical qubits to logical qubits \\
 	$locations$: The mapping from logical qubits to physical qubits \\
 	$cl$: Gates included in the current layer of circuits \\
-	$nl$: Gates included in the next $d$ layer of circuits \\
 	}
 	\KwOut{$results$: The set of candidate solution }  
 	\textbf{Initialize}  $results \leftarrow$ $\emptyset$;\\
@@ -974,21 +945,21 @@ so the current candidate set is $\{SWAP(\textup{q}_\textup{6},\textup{q}_\textup
 					return $results$;
 	\end{algorithm}
 
-	The circuit mapping algorithm based on Tabu Search takes a layered circuit and an initial mapping as input and outputs a circuit that can be executed on the specified architecture graph. Algorithm~\ref{algorithm_Tabu} performs a Tabu Search on the gates of each layer of the layered circuit and obtains the transformed circuit of each layer. The transformed circuit mapping of each layer is used as the initial mapping of the circuit of the next layer. Lines 2 to 3 regard the initial mapping $\tau_{ini}$ as the best mapping $\tau_{best}$ and the current mapping $\tau_{curr}$. Lines 4 to 17 cyclically check whether all the current layer gates can be executed under the mapping $\tau_{curr}$. If it does not satisfy the execution of all gates or the number of iterations has not reached the given maximum number, the search will continue. Otherwise, the search will terminate. Line 5  gets the current mapping candidate, and line 6 finds the best mapping in the candidate set. The mapping will first remove the overlapping elements of the candidate set and the Tabu table. Then from the remaining candidates, we choose a mapping with the lowest cost. Lines 7 to 12 are the amnesty rules. When the best candidate is not found, the candidate set elements are all the same as the tabu list elements. The amnesty rule selects the lowest cost mapping in the candidate set as the best candidate mapping. Lines 13-16 update the best mapping $\tau_{best}$ and the current mapping $\tau_{curr}$, and add the SWAPs operation performed by the best mapping to the tabu list $tl$, indicating that this SWAPs has just been performed, and the algorithm should try to avoid re-swap the just swapped qubits. Then it will judge whether the algorithm stop condition is satisfied. The stopping condition determines whether the number of iterations has reached the maximum number, or the current mapping satisfies the execution of all gates in the current layer. If the stop condition is not satisfied, continue to loop.
+	The circuit mapping algorithm based on Tabu Search takes a layered circuit and an qubits assignment as input and outputs a circuit that can be executed in the specified architecture graph(see Algorithm~\ref{algorithm_Tabu}). The transformed circuit mapping of each layer is used as the qubits assignment of the next layer circuit. Lines 2 to 3 regard the qubits assignment $\tau_{ini}$ as the best mapping $\tau_{best}$ and the current mapping $\tau_{curr}$. Lines 4 to 17 cyclically check whether all the current layer gates can execute under the mapping $\tau_{curr}$. If it does not satisfy the execution of all gates or the number of iterations has not reached the given maximum number, the search will continue. Otherwise, the search will terminate. Line 5  gets the current mapping candidate, and line 6 finds the best mapping in the candidate set. The mapping will first remove the overlapping elements of the candidate set and the tabu list. Then from the remaining candidates, we choose a mapping with the lowest cost. Lines 7 to 12 are the amnesty rules. When the best candidate is not found, the candidate set elements are all the same as the tabu list elements. The amnesty rule selects the lowest cost mapping in the candidate set as the best candidate mapping. Lines 13-16 update the best mapping $\tau_{best}$ and the current mapping $\tau_{curr}$, and add the SWAPs operation performed by the best mapping to the tabu list $tl$, indicating that this SWAPs has just been performed, and the algorithm should try to avoid re-swap the just swapped qubits. Then it will judge whether the algorithm stop condition is satisfied. The stopping condition determines whether the number of iterations has reached the maximum number, or the current mapping satisfies the execution of all gates in the current layer. If the stop condition is not satisfied, continue to loop.
 \begin{example}
-	We continue the previous example. Tabu Search requires an initial solution and then searches based on this solution. Before searching, we need to get a series of initial candidate SWAP sets and select the one with the lower evaluation score as the initial solution.
+	We continue the previous example. Tabu Search requires an initial solution and then searches based on this solution.  We use the initial mapping as the initial solution. We need to get a series of initial candidate SWAP sets and select the one with the lower evaluation scores.
 For $L_{0}=\{g_{0},g_{1}\}$, the initial candidate set is 
 $\{SWAP(\textup{q}_\textup{6},\textup{q}_\textup{1}),$ $SWAP(\textup{q}_\textup{1},\textup{q}_\textup{0}),$ $SWAP(\textup{q}_\textup{6},\textup{q}_\textup{5}),$ $SWAP(\textup{q}_\textup{5},\textup{q}_\textup{0}) \}$, and the costs are
 $cost(SWAP(\textup{q}_\textup{6},\textup{q}_\textup{1}))=3.0,$ $cost(SWAP(\textup{q}_\textup{1},\textup{q}_\textup{0}))=3.0,$\\ $cost(SWAP(\textup{q}_\textup{6},\textup{q}_\textup{5}))=3.0,$ $cost(SWAP(\textup{q}_\textup{5},\textup{q}_\textup{0}))=3.0$, respectively.
-The algorithm will choose the first SWAP operation, at this time the mapping becomes $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_\textup{10},\textit{q}_\textit{1}\rightarrow  \textup{q}_\textup{0},
+The algorithm will choose the first SWAP operation, the mapping becomes $\tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textup{q}_\textup{10},\textit{q}_\textit{1}\rightarrow  \textup{q}_\textup{0},
 \textit{q}_\textit{2}\rightarrow  \textup{q}_\textup{1},\textit{q}_\textit{3}\rightarrow  \textup{q}_\textup{5},\textit{q}_\textit{4}\rightarrow  \textup{q}_\textup{11}\}$. 
-The Tabu Search loops to determine whether it has reached the stop condition when the current iteration number reaches the limits or the current mapping satisfies the execution of all gates in $L_{0}$. It can be seen that the current mapping has satisfied the execution of $g_{0}$. Thus the search of the current layer is over, and the Tabu Search of the next layer is continued.
+The Tabu Search loops to determine whether it has reached the stop condition. It can be seen that the current mapping has satisfied the execution of $g_{0}$. Thus the search of the current layer is over, and the Tabu Search of the next layer is continued.
 \end{example}
 			\begin{algorithm} 
 			\label{algorithm_Tabu}
 				\caption{Tabu Search }  
 				\LinesNumbered  
-				\KwIn{$\tau_{ini}$: The initial mapping \\
+				\KwIn{$\tau_{ini}$: The qubits assignment \\
 				$tl$: Tabu list 
 				}
 				\KwOut{$\tau_{best}$: The final state and SWAPs}  
@@ -1013,22 +984,22 @@ The Tabu Search loops to determine whether it has reached the stop condition whe
 				return $\tau_{best}$
 				\end{algorithm}
 \subsubsection{Evaluation function design }
-The main purpose of this article is to add as few auxiliary gates as possible or the depth of the generated circuit is relatively small.
+Our purpose is to add as few gates as possible to the circuit or the depth of the generated circuit is relatively small.
 
-The longer the quantum execution time, the greater the error introduced, so we want to shorten the life cycle of qubits as much as possible. In the algorithm based on Tabu Search, there is a Tabu list naturally, which satisfies our needs. This paper tested two evaluation functions, one uses the depth of the generated circuit as the evaluation criterion~\ref{cost_depth}, and the other uses the number of auxiliary gates in the generated circuit as the evaluation criterion~\ref{cost_num}.
+We test two evaluation functions, one uses the depth of the generated circuit as the evaluation criterion~\ref{cost_depth}, and the other uses the number of auxiliary gates in the generated circuit as the evaluation criterion~\ref{cost_num}.
 \begin{equation}
 	cost(SWAP(\textup{q}_\textup{m},\textup{q}_\textup{n}))= \sum_{g \in L_{i}}(dist[g.control][g.target])
 	\label{cost_num}
-	\end{equation}
+\end{equation}
 	\begin{equation}
 		cost(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j}))= Depth(L_{i})
 		\label{cost_depth}
 		\end{equation}
-$cost_{L_i}(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j})$ represents the cost of executing all gates of the current layer $L_i$ 
+$cost(SWAP(\textup{q}_\textup{i},\textup{q}_\textup{j})$ represents the cost of executing all gates of the current layer $L_i$ 
 after swapping $\textup{q}_\textup{i}, \ \textup{q}_\textup{j}$. We only calculate the distance of the unmapped gates of the after the SWAP operation as in the equation~(\ref{cost_depth}) or the depth between the unmapped gates as in the equation~(\ref{cost_num}).
 
 \subsubsection{Look ahead }
-Since the number of qubits used in current quantum circuits is small,  the number of gates in each layer after layering is small. If we only consider the gates of one layer when choosing the swap algorithm, the swap algorithm selected by the algorithm only satisfies the requirement of the i-th layer. The output of the i-th $(i<n)$ layer is used as the input of the $(i+1)$th layer. Note that the swap algorithm of the i-th layer will affect the mapping of the $(i+1)$th layer. Thus we take the circuit of the $(i+x)$th $(i+x< n)$ layer into consideration. However, in terms of priority, it is necessary to give priority to the execution of the gate set of the i-th layer, so we introduce an attenuation factor $\delta$, which controls the influence of the $(i+x)$th layer gate set on the circuit swap of the i-th layer. Each time the algorithm is swapped, the gates of the latter layer or several layers are considered together. Experiments show that for $x=2,\ \delta=0.9$, the final effect is the best. Our evaluation function can be rewritten as
+We deserved that the number of gates in each layer after layering is small. If we only consider the gates of current layer when choosing the swap, the swap only satisfies the requirement of the i-th layer. The output of the i-th $(i<n)$ layer is used as the input of the $(i+1)$-th layer. Note that the swap algorithm of the i-th layer will affect the mapping of the $(i+1)$-th layer. Thus we take the circuit of the $(i+x)$-th $(i+x< n)$ layer into consideration. However, it is necessary to give priority to the execution of the gate set of the i-th layer, so we introduce an attenuation factor $\delta$, which controls the influence of the $(i+x)$-th layer gate set on the circuit swap of the i-th layer. Experiments show that for $x=2,\ \delta=0.9$, the final effect is the best. Our evaluation function can be rewritten as
  \begin{equation}
 	 	\begin{aligned}
 			cost(SWAP(\textup{q}_\textup{m},\textup{q}_\textup{n}))=&\sum_{g \in L_{i}}(dist[g.control][g.target])+\\
@@ -1041,20 +1012,20 @@ Since the number of qubits used in current quantum circuits is small,  the numbe
 		\label{cost_depth}
 		\end{equation}
 \subsubsection{Complexity}
-Given logical circuit architecture graph  $\mathcal{AG_{L}}=(V_{L},E_{L})$, physical circuit architecture graph $\mathcal{AG_{P}}=(V_{P},E_{P})$, the initial mapping $\tau$, the depth of the circuit $d$, the number of qubits $V_{L}$, TS deals with one layer at a time, and searches at most $d$ times. Starting from the initial mapping, we first delete the executable gates of the first layer under the initial mapping. Then, the edges of all the shortest paths of all the gates that are not executed in the current layer are added to the candidate set where at least one node is a node of the gate mapping. In the worst case, the shortest path length is $(|E_{P}|-1)$, 
+Given logical circuit architecture graph  $\mathcal{AG_{L}}=(V_{L},E_{L})$, physical circuit architecture graph $\mathcal{AG_{P}}=(V_{P},E_{P})$, the qubits assignment $\tau$, the depth of the circuit $d$, the number of qubits $V_{L}$, Tabu Search deals with one layer at a time, and searches at most $d$ times. Starting from the qubits assignment, we first delete the executable gates of the first layer under the qubits assignment. Then, the edges of all the shortest paths of all the gates that are not executed in the current layer are added to the candidate set where at least one node is a node of the gate mapping. In the worst case, the shortest path length is $(|E_{P}|-1)$, 
 and the candidate set size is $(|E_{P}|-1)$. Each SWAP will make the total distance between the gates smaller. In the worst case, the number of SWAPs is $(|E_{P}|-1)^{|E_{P}|-2}$, but our selection strategy will make the number of SWAPs significantly reduced. Our time complexity is $d*((|E_{P}|-1))^{(|E_{P}|-2)}$, and the space complexity is the size of our candidate set $(E_{P}-1)$.
 \section{Experiment}
 \label{Experiment}
 The experiment in this paper is performed on a 2.3GHz Linux machine with 64G memory. This paper compares  $CSI$  algorithm 
 and circuit transformation algorithm based on Tabu Search $QCTS$ with the $wghtgraph$ in~\cite{2020Qubit} and the heuristic algorithm $ A^{*}$  in~\cite{Zulehner2017}.
  
-First, we compared the efficiency of initial mapping on $\tau_{optm}$~\cite{Zulehner2017},  $\tau_{CSI}$ and $\tau_{wghtgraph}$~\cite{2020Qubit}. In order to observe the results of these two initial mapping algorithms intuitively, we used the same circuit transformation $ A^{*}$ algorithm to compare the initial mapping algorithms~\cite{Zulehner2017}.
+First, we compared the efficiency of qubits assignment on $\tau_{optm}$~\cite{Zulehner2017},  $\tau_{CSI}$ and $\tau_{wghtgraph}$~\cite{2020Qubit}. In order to observe the results of these two qubits assignment algorithms intuitively, we used the same circuit transformation $ A^{*}$ algorithm to compare the qubits assignment algorithms~\cite{Zulehner2017}.
 
 Among 159 circuits, experiments show that within five minutes $\tau_{optm}$ can deal with 121 circuits, $\tau_{wghtgraph}$  can deal with 106 circuits, $\tau_{CSI}$  can deal with  131 circuits. There are 103 circuits that they can handle. Comparing $\tau_{wghtgraph}$ algorithm and $\tau_{CSI}$ algorithm, the $\tau_{wghtgraph}$ algorithm has 21 circuits with fewer SWAPs and 19 circuits with a small depth, and the $\tau_{CSI}$ algorithm has 54 circuits with fewer SWAPs and 60 circuits with a small depth, and they have 25 circuits with equal depth and  29 circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 22.4418\%, 
 and the depth is reduced by 11.2482\%.
 
 Comparing $\tau_{optm}$ algorithm and $\tau_{CSI}$ algorithm, the $\tau_{optm}$ algorithm has one circuit with fewer SWAPs and two circuits with a small depth, and the $\tau_{CSI}$ algorithm has 99 circuits with fewer SWAPs and 98 circuits with a small depth, 
-and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 27.0219\%, and the depth is reduced by 14.1242\%. As shown in Table~\ref{tab1}, there are 104 circuits. Three initial mappings are compared with the depth of the generated circuits under the $A^{*}$ algorithm, and the number of SWAP gates added.$\tau_{CSI}$/$\tau_{optm}$  calculate the efficiency improvement of the former upon the latter, the formula is $(n_{optm}-n_{CSI})/n_{optm}$.
+and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The SWAPs of the $\tau_{CSI}$ algorithm is relatively reduced by 27.0219\%, and the depth is reduced by 14.1242\%. As shown in Table~\ref{tab1}, there are 104 circuits. Three qubits assignment algorithms are compared with the depth of the generated circuits under the $A^{*}$ algorithm, and the number of SWAP gates added.$\tau_{CSI}$/$\tau_{optm}$  calculate the efficiency improvement of the former upon the latter, the formula is $(n_{optm}-n_{CSI})/n_{optm}$.
 \begin{table}
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|}
@@ -1071,9 +1042,9 @@ and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The S
 	\label{tab1}
 	\end{table}
 
-	We compared the use of two indicators ($QCTS_{dep}$ and $QCTS_{num}$) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by $QCTS_{num}$ is 1.93\% smaller than $QCTS_{dep}$ on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a SWAP gate, the circuit needs to add 3 CNOT gates, and the depth will be increased by 3. While the number of SWAP gates added is small, the circuit depth reduces accordingly. Thus we use SWAP quantity first to give better results. 
+	We compared the use of two indicators ($QCTS_{dep}$ and $QCTS_{num}$) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by $QCTS_{num}$ is 1.93\% smaller than $QCTS_{dep}$ on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a SWAP gate, the circuit needs to add 3 $CNOT$ gates, and the depth will be increased by 3. While the number of SWAP gates added is small, the circuit depth reduces accordingly. Thus we use SWAP quantity first to give better results. 
 
-	Finally, we compared $QCTS$ transformation and $wgtgraph$ calculation.  Since the $ wgtgraph $ algorithm only uses 2-qubit gates, 
+	Finally, we compared $QCTS$ and $wgtgraph$.  Since the $ wgtgraph $ algorithm only uses 2-qubit gates, 
 	it is impossible to compare the depth of the generated circuit,  So we compared the number of SWAP gates added and compared the time. Since large circuits may not successfully handle for a long time, we consider it meaningless.  This paper sets a five-minute timeout period and tested 159 circuits.  $QCTS_{num}$ only takes 461 seconds, $QCTS_{dep}$ takes 485 seconds,  and $ wgtgraph $ run 159 circuits in 1908 seconds,  but only 98 files get results,  64 of them there are 66 circuits for small circuits to get results,  49 medium circuits only have 35 circuits for results,  and no circuit output in 44 large circuits. Although Tabu Search can quickly produce results on large circuits, in contrast,  more auxiliary gates are added.  In 98 small and medium-sized circuits with the results obtained by $wgtgraph$,  the number of SWAP gates added by $ wgtgraph $ is 26.87\% less than $QCTS_{num}$ on average,  and the number of SWAP gates added by $ wgtgraph $ is 24.89\% less than $QCTS_{dep}$ on average. Tabu Search can quickly output converted circuits on large circuits, but $ wgtgraph $ cannot get results in a short time. The detailed results of the circuit comparisons are in the appendix. 
    
  \begin{table}
@@ -1100,11 +1071,9 @@ and they have 4 circuits with equal depth and 4 circuits with equal SWAPs. The S
 
 \section{Conclusion}
 \label{Conclusion}
-This paper proposed a heuristic SWAP method $QCTS$ based on Tabu Search to overcome the shortcomings of previous works,
-and proposed $CSI$ algorithm to generate high-quality initial mapping.
+We proposes $CSI$ algorithm to generate high-quality qubits assignment  and a heuristic SWAP method $QCTS$ based on Tabu Search to overcome the shortcomings of previous works.
 Experimental results showed that
-the initial mapping generated by $QCTS$ dramatically reduced the number of SWAP gates inserted
-and achieved multiple optimization goals in the circuit transformation phase,
+the qubits assignment generated by $CSI$ reduced the number of SWAP gates inserted
 and results could be obtained in a short time.
 Most small and medium-sized circuits could be obtained in a few seconds.
 The result could be obtained within a few minutes, even for a large circuit,
@@ -1115,13 +1084,16 @@ and apply the proposed method to more NISQ devices to get useful experimental da
 Since our analog circuit ignores the noise generated by the circuit,
 we would introduce quantum noise to the circuits.
 
+\bibliographystyle{splncs04}
+\bibliography{mybibliography}
+\newpage
 \appendix
 \section{Experimental details of the SWAP gates added by the output circuit}
 \begin{table}[H]
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|c|}
 	\hline
-	Circuit &  qubit  & CNOT &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
+	Circuit &  qubit  & $CNOT$ &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
 	 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 	\hline
 	decod24-enable\_126 & 6 & 149 & 28 & 42 & 60 & 16 \\ 
@@ -1185,7 +1157,7 @@ rd32\_270 & 5 & 36 & 3 & 3 & 6 & 6 \\
 		\begin{center}  
 		\begin{tabular}{|c|c|c|c|c|c|c|}
 		\hline
-		Circuit &  qubit  & CNOT &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
+		Circuit &  qubit  & $CNOT$ &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
 		 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 		\hline
 		rd53\_130 & 7 & 448 & 89 & 100 & 190 & 49 \\ 
@@ -1249,7 +1221,7 @@ total & 551 & 9244 & 1372 & 1738 & 3481 & 800 \\
 			\begin{center}  
 			\begin{tabular}{|c|c|c|c|c|c|c|}
 			\hline
-			Circuit &  qubit  & CNOT &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
+			Circuit &  qubit  & $CNOT$ &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
 			 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 			\hline
 			max46\_240 & 10 & 11844 & 3473 & 4545 & - & - \\ 
@@ -1314,7 +1286,7 @@ adr4\_197 & 13 & 1498 & 516 & 670 & - & - \\
 					\begin{center}  
 					\begin{tabular}{|c|c|c|c|c|c|c|}
 					\hline
-					Circuit &  qubit  & CNOT &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
+					Circuit &  qubit  & $CNOT$ &$QCTS_{num}$& $QCTS_{dep}$  & optm 	 & wghtgr 	\\
 					 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 					\hline
 					hwb6\_56 & 7 & 2952 & 698 & 933 & 909 & - \\ 
@@ -1338,7 +1310,7 @@ con1\_216 & 9 & 415 & 86 & 118 & 177 & - \\
 						\begin{center}  
 						\begin{tabular}{|c|c|c|c|c|c|c|}
 						\hline
-						Circuit &  qubit  & CNOT &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
+						Circuit &  qubit  & $CNOT$ &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
 						 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 						\hline
 						decod24-enable\_126 & 6 & 149 & 190 & 233 & 275 & 470 \\
@@ -1401,7 +1373,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 							\begin{center}  
 							\begin{tabular}{|c|c|c|c|c|c|c|}
 							\hline
-							Circuit &  qubit  & CNOT &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
+							Circuit &  qubit  & $CNOT$ &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
 							 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 							\hline
 							ex-1\_166 & 3 & 9 & 12 & 9 & 9 & 28 \\
@@ -1465,7 +1437,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 								\begin{center}  
 								\begin{tabular}{|c|c|c|c|c|c|c|}
 								\hline
-								Circuit &  qubit  & CNOT &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
+								Circuit &  qubit  & $CNOT$ &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
 								 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 								\hline
 								ising\_model\_10 & 10 & 90 & 52 & 90 & 90 & 107 \\
@@ -1500,7 +1472,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 									\begin{center}  
 									\begin{tabular}{|c|c|c|c|c|c|c|}
 									\hline
-									Circuit &  qubit  & CNOT &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
+									Circuit &  qubit  & $CNOT$ &depths &$QCTS_{num}$& $QCTS_{dep}$  & optm 	  	\\
 									 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 									\hline
 									max46\_240 & 10 & 11844 & 14257 & 22263 & 25479 & - \\
@@ -1546,6 +1518,4 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 									\caption{Comparison of  the depth of the output circuit on the IBM Q20}  
 									\label{tab9}
 								\end{table}
-\bibliographystyle{splncs04}
-\bibliography{mybibliography}
-									\end{document}
+\end{document}
