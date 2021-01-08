@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  7 JAN 2021 21:19
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.7.30)  8 JAN 2021 20:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -691,44 +691,49 @@ Title too long for running head. Please supply
 a shorter form with \titlerunning prior to \maketitle
 [1
 
-] [2] [3]
-LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 117.
+] [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3] <xymatrix
+LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 124.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.40996> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.14998> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 117.
+(Font)              size <5> substituted on input line 124.
 
-<xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> [4] <xymatrix 11x7 2537>
+3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> [4] <xymatrix 11x7 2537>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 350.
-
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
 (Font)              size <5> substituted on input line 350.
@@ -752,22 +757,19 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Underfull \vbox (badness 2384) has occurred while \output is active []
-
- [5]
+[5] [6]
 File: uml.jpg Graphic file (type bmp)
 <uml.jpg>
- [6]
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [7] [8] [9]
 
-LaTeX Warning: Command \textless invalid in math mode on input line 856.
+LaTeX Warning: Command \textless invalid in math mode on input line 851.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 865.
+LaTeX Warning: Command \textless invalid in math mode on input line 860.
 
 [10] [11] [12] [13] [14] [15] [16] [17] (./samplepaper.bbl
 Underfull \hbox (badness 7963) in paragraph at lines 7--10
@@ -830,12 +832,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 17909 strings out of 479418
- 323228 string characters out of 5888105
- 810550 words of memory out of 5000000
- 35029 multiletter control sequences out of 15000+600000
- 547942 words of font info for 115 fonts, out of 8000000 for 9000
+ 17911 strings out of 479418
+ 323282 string characters out of 5888105
+ 803169 words of memory out of 5000000
+ 35030 multiletter control sequences out of 15000+600000
+ 547950 words of font info for 116 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 60i,28n,60p,1924b,1438s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,28n,60p,1906b,1438s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on samplepaper.pdf (28 pages).
