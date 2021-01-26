@@ -85,7 +85,7 @@ We adjust the lifetime of qubits through parallelization, and use \textit{Subgra
 The main contributions of this paper are as follows.
 	\begin{enumerate}
 		\item We propose a combined subgraph isomorphism algorithm (\textit{CSI}) to generate the initial mapping, which can be reduced to subgraph isomorphism. Thus we use a suitable subgraph isomorphism algorithm to generate part of the initial mapping and then complete the mapping based on the connectivity between qubits.
-		\item We propose a heuristic circuit transformation algorithm based on Tabu Search (\textit{QCTS})~\cite{Glover1990}, which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. 
+		\item We propose a heuristic circuit transformation algorithm based on Tabu Search (\textit{TST})~\cite{Glover1990}, which can handle large circuits in a short time at a low cost. Compared with the previous precise search and heuristic algorithms, it can complete the circuit transformation in a shorter time. 
 		\item  We propose a look-ahead heuristic function that considers the factors of the current gates and the behind gates and filters out a swap that is beneficial to the current gates and also brings the behind gates closer.
 	\end{enumerate}
 
@@ -1011,7 +1011,7 @@ and the candidate set size is $(|E_{P}|-1)$. Each \textit{SWAP} will make the to
 \section{Experiment}
 \label{Experiment}
 The experiment in this paper is performed on a 2.3GHz Linux machine with 64G memory. This paper compares  \textit{CSI}  algorithm 
-and circuit transformation algorithm based on Tabu Search \textit{QCTS} with the $wghtgraph$ in~\cite{2020Qubit} and the heuristic algorithm $ A^{*}$  in~\cite{Zulehner2017}.
+and circuit transformation algorithm based on Tabu Search \textit{TST} with the $wghtgraph$ in~\cite{2020Qubit} and the heuristic algorithm $ A^{*}$  in~\cite{Zulehner2017}.
  
 First, we compare the efficiency of initial mapping on $\tau_{optm}$~\cite{Zulehner2017},  $\tau_{CSI}$ and $\tau_{wghtgraph}$~\cite{2020Qubit}. In order to observe the results of these two initial mapping algorithms intuitively, we used the same circuit transformation $ A^{*}$ algorithm to compare the initial mapping algorithms~\cite{Zulehner2017}.
 
@@ -1036,16 +1036,16 @@ and they have 4 circuits with equal depth and 4 circuits with equal auxiliary ga
 	\label{tab1}
 	\end{table}
 
-	We compare the use of two indicators (\textit{QCTS$_{dep}$} and \textit{QCTS$_{num}$}) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by \textit{QCTS$_{num}$} is 1.93\% smaller than \textit{QCTS$_{dep}$} on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a \textit{SWAP} gate, the circuit needs to add 3 \textit{CNOT} gates, and the depth will be increased by 3. While the number of \textit{SWAP} gates added is small, the circuit depth reduces accordingly. Thus we use \textit{SWAP} quantity first to give better results. 
+	We compare the use of two indicators (\textit{TST$_{dep}$} and \textit{TST$_{num}$}) that prioritize smaller depth and fewer auxiliary gates. The two indicators were used as objective functions, and 159 circuits were tested. The depth of the final circuit obtained by \textit{TST$_{num}$} is 1.93\% smaller than \textit{TST$_{dep}$} on average, and the number of auxiliary gates added is 4.53\% smaller on average. Inserting a \textit{SWAP} gate, the circuit needs to add 3 \textit{CNOT} gates, and the depth will be increased by 3. While the number of \textit{SWAP} gates added is small, the circuit depth reduces accordingly. Thus we use \textit{SWAP} quantity first to give better results. 
 
-	Finally, we compare \textit{QCTS} and \textit{wgtgraph}.  Since the \textit{wgtgraph} algorithm only uses 2-qubit gates, 
-	it is impossible to compare the depth of the generated circuit,  So we compared the number of \textit{SWAP} gates added and compared the time. Since large circuits may not successfully handle for a long time, we consider it meaningless.  This paper sets a five-minute timeout period and tested 159 circuits.  \textit{QCTS$_{num}$} only takes 461 seconds, \textit{QCTS$_{dep}$} takes 485 seconds,  and \textit{wgtgraph} run 159 circuits in 1908 seconds,  but only 98 files get results,  64 of them there are 66 circuits for small-scale circuits to get results,  49 medium-scale circuits only have 35 circuits for results,  and no circuit output in 44 large circuits. Although Tabu Search can quickly produce results on large circuits, in contrast,  more auxiliary gates are added.  In 98 small-scale and medium-scale circuits with the results obtained by \textit{wgtgraph},  the number of \textit{SWAP} gates added by \textit{wgtgraph} is 26.87\% less than \textit{QCTS$_{num}$} on average,  and the number of \textit{SWAP} gates added by \textit{wgtgraph} is 24.89\% less than \textit{QCTS$_{dep}$} on average. Tabu Search can quickly output converted circuits on large circuits, but \textit{wgtgraph} cannot get results in a short time. \textit{SABRE} processes 159 circuits with a five-minute limit for each circuit. Only 23 circuits are successful for small-scale circuits, 6 for medium-scale circuits, and 1-scale for large circuits. The detailed results of the circuit comparisons are in the appendix. 
+	Finally, we compare \textit{TST} and \textit{wgtgraph}.  Since the \textit{wgtgraph} algorithm only uses 2-qubit gates, 
+	it is impossible to compare the depth of the generated circuit,  So we compared the number of \textit{SWAP} gates added and compared the time. Since large circuits may not successfully handle for a long time, we consider it meaningless.  This paper sets a five-minute timeout period and tested 159 circuits.  \textit{TST$_{num}$} only takes 461 seconds, \textit{TST$_{dep}$} takes 485 seconds,  and \textit{wgtgraph} run 159 circuits in 1908 seconds,  but only 98 files get results,  64 of them there are 66 circuits for small-scale circuits to get results,  49 medium-scale circuits only have 35 circuits for results,  and no circuit output in 44 large circuits. Although Tabu Search can quickly produce results on large circuits, in contrast,  more auxiliary gates are added.  In 98 small-scale and medium-scale circuits with the results obtained by \textit{wgtgraph},  the number of \textit{SWAP} gates added by \textit{wgtgraph} is 26.87\% less than \textit{TST$_{num}$} on average,  and the number of \textit{SWAP} gates added by \textit{wgtgraph} is 24.89\% less than \textit{TST$_{dep}$} on average. Tabu Search can quickly output converted circuits on large circuits, but \textit{wgtgraph} cannot get results in a short time. \textit{SABRE} processes 159 circuits with a five-minute limit for each circuit. Only 23 circuits are successful for small-scale circuits, 6 for medium-scale circuits, and 1-scale for large circuits. The detailed results of the circuit comparisons are in the appendix. 
    
  \begin{table}
 	\centering
 	\begin{tabular}{|p{1.7cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|}
 	\hline
-	\multirow{2}*{benchmarks}&\multirow{2}*{\#circ.}&\multicolumn{2}{c|}{\textit{QCTS$_{num}$}}&\multicolumn{2}{c|}{\textit{QCTS$_{dep}$}} & \multicolumn{2}{c|}{\textit{wgtgraph}} & \multicolumn{2}{c|}{\textit{SABRE}} \\
+	\multirow{2}*{benchmarks}&\multirow{2}*{\#circ.}&\multicolumn{2}{c|}{\textit{TST$_{num}$}}&\multicolumn{2}{c|}{\textit{TST$_{dep}$}} & \multicolumn{2}{c|}{\textit{wgtgraph}} & \multicolumn{2}{c|}{\textit{SABRE}} \\
 		\cline{3-10}		
 	&&\#succ.&time&\#succ.&time&\#succ.&time&\#succ.&time\\
 	\hline
@@ -1058,14 +1058,14 @@ and they have 4 circuits with equal depth and 4 circuits with equal auxiliary ga
 	total&159&159&484&159&501&98&-&&\\
 	\hline
 	\end{tabular} 
-	\caption{Compare $\tau_{optm}$, $\tau_{wghtgraph}$, and $\tau_{QCTS}$ }
+	\caption{Compare $\tau_{optm}$, $\tau_{wghtgraph}$, and $\tau_{TST}$ }
 	\label{tabextra}
 	\end{table}
 	
 
 \section{Conclusion}
 \label{Conclusion}
-We proposes a \textit{CSI} algorithm to generate high-quality initial mappings and a heuristic \textit{SWAP} method \textit{QCTS} based on Tabu Search to overcome the shortcomings of previous works.
+We proposes a \textit{CSI} algorithm to generate high-quality initial mappings and a heuristic \textit{SWAP} method \textit{TST} based on Tabu Search to overcome the shortcomings of previous works.
 Experimental results showed that
 the initial mappings generated by \textit{CSI} reduced the number of \textit{SWAP} gates inserted
 and results could be obtained in a short time.
@@ -1086,7 +1086,7 @@ We would introduce quantum noise to the circuits, since our simulate circuits ig
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|c|}
 	\hline
-	Circuit &  qubit  & \textit{CNOT} &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	 & wghtgr 	\\
+	Circuit &  qubit  & \textit{CNOT} &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	 & wghtgr 	\\
 	 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 	\hline
 	decod24-enable\_126 & 6 & 149 & 28 & 42 & 60 & 16 \\ 
@@ -1150,7 +1150,7 @@ rd32\_270 & 5 & 36 & 3 & 3 & 6 & 6 \\
 		\begin{center}  
 		\begin{tabular}{|c|c|c|c|c|c|c|}
 		\hline
-		Circuit &  qubit  & \textit{CNOT} &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	 & wghtgr 	\\
+		Circuit &  qubit  & \textit{CNOT} &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	 & wghtgr 	\\
 		 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 		\hline
 		rd53\_130 & 7 & 448 & 89 & 100 & 190 & 49 \\ 
@@ -1214,7 +1214,7 @@ total & 551 & 9244 & 1372 & 1738 & 3481 & 800 \\
 			\begin{center}  
 			\begin{tabular}{|c|c|c|c|c|c|c|}
 			\hline
-			Circuit &  qubit  & \textit{CNOT} &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	 & wghtgr 	\\
+			Circuit &  qubit  & \textit{CNOT} &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	 & wghtgr 	\\
 			 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 			\hline
 			max46\_240 & 10 & 11844 & 3473 & 4545 & - & - \\ 
@@ -1279,7 +1279,7 @@ adr4\_197 & 13 & 1498 & 516 & 670 & - & - \\
 					\begin{center}  
 					\begin{tabular}{|c|c|c|c|c|c|c|}
 					\hline
-					Circuit &  qubit  & \textit{CNOT} &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	 & wghtgr 	\\
+					Circuit &  qubit  & \textit{CNOT} &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	 & wghtgr 	\\
 					 name	&   no. 	&	no. & added&  added &  added 	&  added\\
 					\hline
 					hwb6\_56 & 7 & 2952 & 698 & 933 & 909 & - \\ 
@@ -1303,7 +1303,7 @@ con1\_216 & 9 & 415 & 86 & 118 & 177 & - \\
 						\begin{center}  
 						\begin{tabular}{|c|c|c|c|c|c|c|}
 						\hline
-						Circuit &  qubit  & \textit{CNOT} &depths &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	  	\\
+						Circuit &  qubit  & \textit{CNOT} &depths &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	  	\\
 						 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 						\hline
 						decod24-enable\_126 & 6 & 149 & 190 & 233 & 275 & 470 \\
@@ -1366,7 +1366,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 							\begin{center}  
 							\begin{tabular}{|c|c|c|c|c|c|c|}
 							\hline
-							Circuit &  qubit  & \textit{CNOT} &depths &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	  	\\
+							Circuit &  qubit  & \textit{CNOT} &depths &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	  	\\
 							 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 							\hline
 							ex-1\_166 & 3 & 9 & 12 & 9 & 9 & 28 \\
@@ -1430,7 +1430,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 								\begin{center}  
 								\begin{tabular}{|c|c|c|c|c|c|c|}
 								\hline
-								Circuit &  qubit  & \textit{CNOT} &depths &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	  	\\
+								Circuit &  qubit  & \textit{CNOT} &depths &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	  	\\
 								 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 								\hline
 								ising\_model\_10 & 10 & 90 & 52 & 90 & 90 & 107 \\
@@ -1465,7 +1465,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 									\begin{center}  
 									\begin{tabular}{|c|c|c|c|c|c|c|}
 									\hline
-									Circuit &  qubit  & \textit{CNOT} &depths &\textit{QCTS$_{num}$}& \textit{QCTS$_{dep}$}  & optm 	  	\\
+									Circuit &  qubit  & \textit{CNOT} &depths &\textit{TST$_{num}$}& \textit{TST$_{dep}$}  & optm 	  	\\
 									 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 									\hline
 									max46\_240 & 10 & 11844 & 14257 & 22263 & 25479 & - \\
