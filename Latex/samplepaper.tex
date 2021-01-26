@@ -51,8 +51,9 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-	The process of circuit transformation is to find an automatic method to map any logical quantum circuits to physical circuits effectively in an acceptable time, and add as few auxiliary gates as possible. We mainly propose an initial mapping algorithm based on a combined subgraph isomorphism algorithm (\textit{CSI}) and a circuit transformation algorithm based on Tabu Search (\textit{QCTS}). Our experimental results show that the algorithm is effective. Compared with the initial mapping based on the \textit{VF2} algorithm, auxiliary gates added to our initial mapping are reduced by 22.26\%, and the depth of the output circuit is reduced by 11.17\%. \textit{QCTS} is scalable on large-scale circuits, compared with other state-of-the-art algorithms.
-\keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu Search}
+	The goal of quantum circuits transformation is to construct a mapping from logical quantum circuits to physical ones in acceptable time, and in the mean time use auxiliary gates as few as possible. In this paper, we present an effective approach to construct such a mapping. It has two keys steps. One is applying a combined subgraph isomorphism (\textit{CSI}) to initialize the mapping, the other is dynamically adjusting the mapping using Tabu Search based transformation (\textit{TST}). The experiments show the improvement of our method in the following aspects. Comparing the VF2 algorithm, for initializing the mapping, \textit{CSI} save 22.26\% auxiliary gates and reduces the depth of output circuits by 11.76\%. (\textit{TST}) is of more scalable than many state-of-the-art algorithm.
+	
+	\keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu Search}
 \end{abstract}
 
 \section{Introduction}
@@ -794,8 +795,7 @@ At the same time, we generate logical circuit architecture graph $\mathcal{AG_{L
 It has been proved that the initial mapping has an important  influence on quantum circuit transformation,  and the subgraph isomorphism can be reduced to initial mapping problem. Thus we use the subgraph isomorphism algorithm to find a partial initial mapping that helps to minimize auxiliary gates added by the output circuit.
 
 In \textit{PAG}, it is almost impossible to find a subgraph that exactly matched nodes \textit{LAG}. Thus we regard the mapping with the largest number of matching nodes as the partial mapping. \textit{SubgraphCompare}~\cite{Sun2020} compares several state-of-the-art subgraph isomorphism algorithm composition. 
-It shows that using the filtering and sorting ideas of \emph{GraphQL} algorithm to process candidate nodes, and the local candidates calculation method \emph{LFTJ} based on set-intersection to enumerate the results is the best. We artiﬁcially connect the isolating qubits to the qubits with the largest degree in the logical architecture graph, since \textit{SubgraphCompare} cannot handle the not connected graph. We want to minimize the impact of logical dependency graph, so match it with the node with the largest degree.
-
+It shows that using the filters and sorting ideas of \textit{GraphQL} algorithm to process candidate nodes, and the local candidates calculation method \textit{LFTJ} based on set-intersection to enumerate the results is the best. We artificially connect the isolating qubits to the qubits with the largest degree in the logical architecture graph, since \textit{SubgraphCompare} cannot handle the not connected graph. We want to minimize the impact of logical dependency graph, so match it with the node with the largest degree.
 \begin{algorithm}  
 	\label{algorithm_initial}
 	\caption{initial mapping algorithm \textit{CSI}}  
