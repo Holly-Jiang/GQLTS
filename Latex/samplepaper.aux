@@ -1,8 +1,7 @@
 \relax 
-\citation{qiskit}
 \citation{2018QuantumPreskill}
 \providecommand \oddpage@label [2]{}
-\@writefile{toc}{\contentsline {title}{Quantum Circuit Transformation Based on Subgraph Isomorphism and Tabu Search\unskip {}}{1}\protected@file@percent }
+\@writefile{toc}{\contentsline {title}{Quantum Circuit Transformation Based on Subgraph Isomorphism and Tabu search\unskip {}}{1}\protected@file@percent }
 \@writefile{toc}{\authcount {3}}
 \@writefile{toc}{\contentsline {author}{First Aaaaaaauthor \and Second Author \and Third Author}{1}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}\protected@file@percent }
@@ -18,11 +17,12 @@
 \citation{2018QubitSiraichi}
 \citation{Shafaei2013}
 \citation{Guerreschi2018,Matsuo2019}
-\citation{}
+\citation{Zulehner2017}
 \citation{Xiangzhen2020}
 \citation{Li2018}
 \citation{Cowtan2019}
 \citation{Tannu2019}
+\citation{Sun2020}
 \citation{Glover1990}
 \citation{Glover1990}
 \citation{Daei2020}
@@ -36,42 +36,40 @@
 \newlabel{common_gates}{{1}{5}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Original circuit}}{5}\protected@file@percent }
 \newlabel{OriginalCircuit}{{2}{5}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The directed acyclic graph ($DAG$) of original circuit in Fig.\nobreakspace  {}2\hbox {}}}{6}\protected@file@percent }
-\newlabel{DAG}{{3}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The directed acyclic graph ($DAG$) of original circuit in Fig.\nobreakspace  {}2\hbox {}}}{5}\protected@file@percent }
+\newlabel{DAG}{{3}{5}}
 \newlabel{LLAG}{{2}{6}}
 \newlabel{PPAG}{{2}{6}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) The architecture graph of original circuit in Fig.\nobreakspace  {}2\hbox {}. (b) The partial architecture graph of IBM Q20.}}{6}\protected@file@percent }
 \newlabel{LAGPAG}{{4}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The above circuit changes the direction of the \textit  {CNOT} gate by adding four H gates, and below is the circuit of the \textit  {SWAP} gate.}}{6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The above circuits changes the direction of the CNOT gate by adding four H gates, and below is the circuits of SWAP gate.}}{6}\protected@file@percent }
 \newlabel{Decomposition}{{5}{6}}
 \@writefile{toc}{\contentsline {paragraph}{Architectures}{6}\protected@file@percent }
 \citation{2005Mttnen,1995Barenco}
 \citation{2018QubitSiraichi}
+\citation{2019Zhang}
+\citation{Sun2020}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces IBM QX architectures}}{7}\protected@file@percent }
 \newlabel{IBM}{{6}{7}}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Problem Analysis}{7}\protected@file@percent }
 \newlabel{Problem Analysis}{{3}{7}}
 \citation{2019Zhang}
-\citation{Sun2020}
 \@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Circuit transformation process}}{8}\protected@file@percent }
 \newlabel{processing}{{7}{8}}
 \@writefile{toc}{\contentsline {section}{\numberline {4}Solution}{8}\protected@file@percent }
 \newlabel{Solution}{{4}{8}}
-\citation{2019Zhang}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preprocessing}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Circuit Adjustment}{9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preprocessing}{8}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Shortest Distance}{9}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Circuit Layering}{9}\protected@file@percent }
-\citation{Sun2020}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Initial Mapping}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Initial Mapping and Completion}{9}\protected@file@percent }
 \newlabel{algorithm_initial}{{1}{11}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Initial mapping algorithm \textit  {CSI}}}{11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Swap Minimization}{12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Tabu Search}{12}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Initial mapping algorithm CSI}}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Adjustment}{12}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Tabu search}{12}\protected@file@percent }
 \newlabel{algorithm_neighborhood}{{2}{14}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Calculate the candidate sets }}{14}\protected@file@percent }
 \newlabel{algorithm_Tabu}{{3}{15}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Tabu Search }}{15}\protected@file@percent }
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Tabu search }}{15}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{Evaluation functions }{15}\protected@file@percent }
 \newlabel{cost_num}{{1}{15}}
 \newlabel{cost_depth}{{2}{15}}
@@ -86,7 +84,7 @@
 \@writefile{toc}{\contentsline {subsubsection}{Complexity}{16}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5}Experiments}{16}\protected@file@percent }
 \newlabel{Experiment}{{5}{16}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compare $\tau _{optm}$, $\tau _{\textit  {wgtgraph}}$, and $\tau _{CSI}$ }}{17}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compare optm, wgtgraph, and CSI.}}{17}\protected@file@percent }
 \newlabel{tab1}{{1}{17}}
 \bibstyle{splncs04}
 \bibdata{mybibliography}
@@ -94,7 +92,7 @@
 \bibcite{1995Barenco}{2}
 \bibcite{2018Integer}{3}
 \bibcite{Cowtan2019}{4}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Compare $\tau _{optm}$, $\tau _{wghtgraph}$, and $\tau _{TST}$ }}{18}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Compare optm, wghtgraph, SABRE and TSA.}}{18}\protected@file@percent }
 \newlabel{tabextra}{{2}{18}}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{18}\protected@file@percent }
 \newlabel{Conclusion}{{6}{18}}
@@ -119,16 +117,16 @@
 \bibcite{Xiangzhen2020}{23}
 \bibcite{2019Zhang}{24}
 \bibcite{Zulehner2017}{25}
-\@writefile{toc}{\contentsline {section}{\numberline {A}Experimental details of the \textit  {SWAP} gates added by the output circuits}{21}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparison of the number of \textit  {SWAP} gates added by the output circuit on the IBM Q20 }}{21}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A}Experimental details of the SWAP gates added by the output circuits}{21}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Comparison of the number of SWAP gates added by the output circuit on the IBM Q20 }}{21}\protected@file@percent }
 \newlabel{tab2}{{3}{21}}
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparison of the number of \textit  {SWAP} gates added by the output circuit on the IBM Q20 }}{22}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Comparison of the number of SWAP gates added by the output circuit on the IBM Q20 }}{22}\protected@file@percent }
 \newlabel{tab3}{{4}{22}}
 \newlabel{tab4}{{A}{23}}
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Comparison of the number of \textit  {SWAP} gates added by the output circuit on the IBM Q20 }}{23}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Comparison of the number of SWAP gates added by the output circuit on the IBM Q20 }}{23}\protected@file@percent }
 \newlabel{tab4}{{5}{23}}
 \newlabel{tab5}{{A}{24}}
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Comparison of the number of \textit  {SWAP} gates added by the output circuit on the IBM Q20 }}{24}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Comparison of the number of SWAP gates added by the output circuit on the IBM Q20 }}{24}\protected@file@percent }
 \newlabel{tab5}{{6}{24}}
 \@writefile{toc}{\contentsline {section}{\numberline {B}Experimental details of the depths of the output circuits}{25}\protected@file@percent }
 \@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Comparison of the depth of the output circuit on the IBM Q20}}{25}\protected@file@percent }
