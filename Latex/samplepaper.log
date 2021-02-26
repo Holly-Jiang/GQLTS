@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.30)  19 FEB 2021 23:19
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.30)  26 FEB 2021 20:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -772,30 +772,30 @@ LaTeX Warning: Label `tab8' multiply defined.
 )
 \openout1 = `samplepaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
  ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 36.
+LaTeX Font Info:    Try loading font information for U+msa on input line 35.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 36.
+LaTeX Font Info:    Try loading font information for U+msb on input line 35.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 36.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 35.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
@@ -804,91 +804,42 @@ a shorter form with \titlerunning prior to \maketitle
 [1
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4634) has occurred while \output is active []
 
- [2]
-Underfull \vbox (badness 2158) has occurred while \output is active []
-
- [3] <xymatrix
-LaTeX Font Info:    Calculating math sizes for size <6.29997> on input line 120.
-
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.40996> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.14998> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <4.40996> not available
-(Font)              size <5> substituted on input line 120.
-
-
-LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.14998> not available
-(Font)              size <5> substituted on input line 120.
-
-3x2 196> <xymatrix 3x1 143> [4] <xymatrix 11x7 2537>
-LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 348.
+ [2] [3] [4] <xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 11x7 2537> [5]
+LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 354.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 348.
+(Font)              size <5> substituted on input line 354.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.6> not available
-(Font)              size <5> substituted on input line 348.
+(Font)              size <5> substituted on input line 354.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 348.
+(Font)              size <5> substituted on input line 354.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 348.
+(Font)              size <5> substituted on input line 354.
 
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<xymatrix 9x4 858> <xymatrix 21x4 1670>
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-Underfull \vbox (badness 1817) has occurred while \output is active []
-
- [5] [6]
+<xymatrix 9x4 858> <xymatrix 21x4 1670> [6]
 File: uml.jpg Graphic file (type bmp)
 <uml.jpg>
+ [7]
+Underfull \vbox (badness 3009) has occurred while \output is active []
 
+ [8] [9]
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Command \textless invalid in math mode on input line 853.
 
-[7] [8]
+[10] [11]
 
-LaTeX Warning: Command \textless invalid in math mode on input line 850.
+LaTeX Warning: Command \textless invalid in math mode on input line 865.
 
-[9]
-
-LaTeX Warning: Command \textless invalid in math mode on input line 861.
-
-[10] [11] [12] [13] [14] [15] [16] [17] (./samplepaper.bbl
+[12] [13] [14] [15] [16] [17] (./samplepaper.bbl
 Underfull \hbox (badness 7963) in paragraph at lines 7--10
 []\TU/lmr/m/n/9 Almeida, A., Dueck, G., Silva, A.: Finding optimal qubit permuta-
  []
@@ -942,19 +893,19 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [27] [28] (./samplepaper.aux)
 
 LaTeX Font Warning: Size substitutions with differences
-(Font)              up to 1.85002pt have occurred.
+(Font)              up to 1.4pt have occurred.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 26247 strings out of 492916
- 489373 string characters out of 6133344
- 741360 words of memory out of 5000000
- 29903 multiletter control sequences out of 15000+600000
- 547942 words of font info for 115 fonts, out of 8000000 for 9000
+ 26224 strings out of 492916
+ 488961 string characters out of 6133344
+ 692360 words of memory out of 5000000
+ 29881 multiletter control sequences out of 15000+600000
+ 545998 words of font info for 105 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 55i,29n,48p,1886b,1441s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,29n,48p,1836b,1441s stack positions out of 5000i,500n,10000p,200000b,80000s
 
 Output written on samplepaper.pdf (28 pages).
