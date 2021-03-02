@@ -35,7 +35,7 @@ ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-	The goal of quantum circuit adjustment is to construct mappings from logical quantum circuits to physical ones in an acceptable amount of time, and in the meantime to introduce  as few auxiliary gates as possible. We present an effective approach to constructing the mappings. It consists of two keys steps: one makes use of a combined subgraph isomorphism (CSI) to initialize a mapping, the other dynamically adjusts the mapping by using a Tabu search based adjustment (TSA). Our experiments show that, compared with the wghtgraph recently considered in the literature, CSI can save 22.26\% of auxiliary gates and reduce the depths of output circuits by 11.76\% on average in the initialization of the mapping, and  TSA has a better scalability than many state-of-the-art algorithms for adjusting mappings.
+	The goal of quantum circuit adjustment is to construct mappings from logical quantum circuits to physical ones in an acceptable amount of time, and in the meantime to introduce  as few auxiliary gates as possible. We present an effective approach to constructing the mappings. It consists of two keys steps: one makes use of a combined subgraph isomorphism and complement (CSIC) to initialize a mapping, the other dynamically adjusts the mapping by using a Tabu search based adjustment (TSA). Our experiments show that, compared with the wghtgraph recently considered in the literature, CSIC can save 22.26\% of auxiliary gates and reduce the depths of output circuits by 11.76\% on average in the initialization of the mapping, and  TSA has a better scalability than many state-of-the-art algorithms for adjusting mappings.
 	
 	
 	\keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu search}
@@ -47,12 +47,12 @@ The entanglement of a quantum system with its surrounding environment will lead 
 
 In the current work, we adjust the lifetime of qubits through parallelization, and use SubgraphCompare~\cite{Sun2020} to generate partial isomorphic subgraphs of logical circuits $LC$ and physical circuits $PC$ as part of the initial mapping. The advantage of the initial mapping result is that we use the appropriate subgraph isomorphism and the two-way connection of the logical circuit and the physical circuit to obtain a dense initial mapping, which avoids certain nodes from being mapped to remote locations. We use Tabu search~\cite{Glover1990} to generate circuits that can be executed on physical devices. Tabu search can avoid falling into local optimum and swapping the recently swapped qubits, thereby improve the parallelism of quantum gates. We add the  SWAPs associated with the gates on the shortest path to the candidate set, which greatly reduces the search space and improves the search speed. Our heuristic function not only considers the current gates but also the constraints of the gates already considered.
 
-We compared CSI with the start-of-art initial mapping method wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSI algorithm are reduced by 22.44\%, 27.02\%, and the depths are reduced by 11.25\%, 14.12\%, respectively. We Compared with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}, the adjustment algorithm is compared. In contrast, TSA can deal 159 circuits in a few minutes, but other algorithms are difficult to handle middle or large circuits. The number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than TSA$_{num}$ (resp. TSA$_{dep}$) on average. SABRE tested 159 circuits and only 29 circuits were successfully mapped within the five-minute limit.
+We compared CSIC with the start-of-art initial mapping method wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\%, 27.02\%, and the depths are reduced by 11.25\%, 14.12\%, respectively. We Compared with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}, the adjustment algorithm is compared. In contrast, TSA can deal 159 circuits in a few minutes, but other algorithms are difficult to handle middle or large circuits. The number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than TSA$_{num}$ (resp. TSA$_{dep}$) on average. SABRE tested 159 circuits and only 29 circuits were successfully mapped within the five-minute limit.
 
 %, but needs to control the decisiveness of the behind gates in the heuristic function.
 The main contributions of this paper are as follows.
 	\begin{enumerate}
-	\item We propose to use the combined subgraph isomorphism algorithm (CSI) to generate part of the initial mapping
+	\item We propose to use the combined subgraph isomorphism algorithm to generate part of the initial mapping
           %, which can be reduced to subgraph isomorphism. Thus we use a suitable subgraph isomorphism algorithm to generate part of the initial mapping
     and then complete the mapping based on the connectivity between qubits.
 	\item We propose a heuristic circuit adjustment algorithm based on Tabu search (TSA)~\cite{Glover1990}, which can handle large circuits in a shorter time at a lower cost, compared with existing precise search and heuristic algorithms.
@@ -793,7 +793,7 @@ $cost_{\pi_{0}}=18,\ cost_{\pi_{1}}=14,$ and $ cost_{\pi_{2}}=14$, respectively.
 
 \subsubsection{Circuit Layering}
 Quantum gates acting on different qubits can be executed in parallel. Therefore, we classify the gates that can be executed in parallel into one layer, otherwise we add a new layer. The notation $L(LC)=\{\mathcal{L}_{0},\mathcal{L}_{1},...,\mathcal{L}_{n}\}$ represents the layered circuit, where $\mathcal{L}_{i} \ (0 \le i \le n) $ stands for a quantum gate set that can be executed in parallel. The quantum gate set separated by the dotted line in Fig.~\ref{OriginalCircuit} are the following $\mathcal{L}_{0}=\{g_{0},g_{1}\},\mathcal{L}_{1}=\{g_{2}\},
- \mathcal{L}_{2}=\{g_{3},g_{4}\},\mathcal{L}_{3}=\{g_{5},g_{6}\},\mathcal{L}_{4}=\{g_{7}\},\mathcal{L}_{5}=\{g_{8}\}$.
+\mathcal{L}_{2}=\{g_{3},g_{4}\},\mathcal{L}_{3}=\{g_{5},g_{6}\},\mathcal{L}_{4}=\{g_{7}\},\mathcal{L}_{5}=\{g_{8}\}$.
 
 At the same time, we generate logical circuit architecture graph $\mathcal{AG_{L}}=(V_{L},E_{L})$, which is an undirected graph with $V_{L}$ being the set of vertices, and $E_{L}$ representing the set of undirected edges that the CNOT gates can execute.
 
@@ -806,7 +806,7 @@ In a physical architecture graph, it is almost impossible to find a subgraph tha
 It shows that the best performance can be achieved by using filters and the sorting ideas of the GraphQL algorithm to process candidate nodes, and the local candidates calculation method LFTJ based on set-intersection to enumerate the results. We artificially connect the isolating qubits to the qubits with the largest degree in the logical architecture graph, since SubgraphCompare cannot handle disconnected graphs. We would like to minimize the impact of logical dependency graphs, thus map isolated nodes to nodes with the largest degree.
 \begin{algorithm}  
 	\label{algorithm_initial}
-	\caption{Initial mapping algorithm CSI}  
+	\caption{Complementary mapping algorithm based on connectivity between qubits}  
 	\LinesNumbered  
 	\KwIn{$\mathcal{AG_{L}}$: The architecture of logical circuit \\ 
 	$\mathcal{AG_{P}}$: The architecture of physical circuit\\
@@ -860,7 +860,7 @@ In Algorithm~\ref{algorithm_initial}, Line 2 selects the partial mapping with th
 %logical qubit unmapped nodes in the candidate set.
  In Line 6, we initialize an empty queue $Q$, which stores unmapped logical qubits. In Lines 8-10, we traverse the mapping $\tau$ and add the unmapped qubits to $Q$. We iterate the loop until $Q$ is empty, and all logical qubits are mapped to physical qubits. We take out the first element in $Q$ to \textit{q}. Lines 13-14 are used to get the adjacency matrices of $\mathcal{AG}_{P}$ and $\mathcal{AG}_{L}$, respectively. Line 15 initializes an empty map $cans$, sort by a descending order of whether $\textit{q}_\textit{m}$ is mapped and the number of gate appearances. Line 16 store the nodes $\textit{q}_\textit{m}$ connected to \textit{q} in the adjacency matrix in $ cans$. Lines 17-28 traverse  $cans$, select the node $\textit{q}_\textit{m}$ that has been mapped to the node ($cans.first$) on physical architecture graph, and  has the largest number of connections to \textit{q} in $cans$, with $ \textsf{q}$ being the node that $\textit{q}_\textit{m}$ is mapped to  in $\tau$.  Line 20 deletes the node from $cans$. Lines 21-26 select the node $k$ adjacent to \textsf{q} in the adjacency matrix, and maps \textit{q} to that node.
 \begin{example}
-	Following the previous example, we first use the CSI algorithm for the logical architecture graph given in Fig.~\ref{LAGPAG} (a) and the physical architecture graph given in Fig.~\ref{IBM} (e) to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$. Then we use one of the partial mappings as an example.
+	Following the previous example, we first use the CSIC algorithm for the logical architecture graph given in Fig.~\ref{LAGPAG} (a) and the physical architecture graph given in Fig.~\ref{IBM} (e) to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$. Then we use one of the partial mappings as an example.
 	$\tau_{0}=\{\textit{q}_\textit{0}\rightarrow \textsf{q}_{\textsf{10}},\textit{q}_\textit{1}\rightarrow -1,
 	\textit{q}_\textit{2}\rightarrow \textsf{q}_{\textsf{6}},\textit{q}_\textit{3}\rightarrow \textsf{q}_{\textsf{5}},\textit{q}_\textit{4}\rightarrow \textsf{q}_{\textsf{11}}\}, \ 0 \le i \textless n$. 
 Here $\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to any physical node, so we need to perform a mapping completion. In this example, the maximum number of mapped nodes is 4. Next, we demonstrate how $\tau_{0}$ is completed. We add all unmapped nodes to the queue $Q, \ Q=\{\textit{q}_\textit{1}\}$, and end the loop ends when $Q$ is empty. We put the first element of $Q$ into \textit{q}, and delete it from $Q$.  
@@ -1021,21 +1021,21 @@ Given a logical circuit architecture graph  $\mathcal{AG_{L}}=(V_{L},E_{L})$ and
 and the size of the candidate set  is $(|E_{P}|-1)$. Each SWAP will make the total distance between the gates smaller. In the worst case, the number of SWAPs is $(|E_{P}|-1)^{|E_{P}|-2}$, but our selection strategy will make the number of SWAPs significantly reduced. Our time complexity is $d\times (|E_{P}|-1)^{(|E_{P}|-2)}$, and the space complexity is the size of our candidate set $(E_{P}-1)$.
 \section{Experiments}
 \label{Experiment}
-We compare the  CSI  algorithm 
+We compare the  CSIC  algorithm 
 and the circuit adjustment algorithm based on Tabu search TSA with the wghtgraph in~\cite{2020Qubit} and the heuristic algorithm $ A^{*}$  in~\cite{Zulehner2017}.
 All the experiments are conducted on a Windows machine with 3.3GHz CPU and 10G memory. 
  
-First, we compare the efficiency of initial mapping on optm~\cite{Zulehner2017},  CSI and wghtgraph~\cite{2020Qubit}. In order to  observe the results of these two initial mapping algorithms, we used the same circuit adjustment algorithm $A^{*}$~\cite{Zulehner2017}.
-We have tested 159 circuits. Within five minutes, optm,  wghtgraph, and CSI  can deal with 121, 106, and  131 circuits, respectively. There are 103 circuits that they can handle. We then compare the wghtgraph algorithm and the CSI algorithm more closely. The wghtgraph algorithm has 21 circuits with fewer auxiliary gates  and 19 circuits with smaller depths, and the CSI algorithm has 54 circuits with fewer auxiliary gates and 60 circuits with  smaller depths. They output 25 circuits with equal depth and  29 circuits with equal auxiliary gates. On average, the auxiliary gates of the CSI algorithm are reduced by 22.44\%, 
+First, we compare the efficiency of initial mapping on optm~\cite{Zulehner2017},  CSIC and wghtgraph~\cite{2020Qubit}. In order to  observe the results of these two initial mapping algorithms, we used the same circuit adjustment algorithm $A^{*}$~\cite{Zulehner2017}.
+We have tested 159 circuits. Within five minutes, optm,  wghtgraph, and CSIC  can deal with 121, 106, and  131 circuits, respectively. There are 103 circuits that they can handle. We then compare the wghtgraph algorithm and the CSIC algorithm more closely. The wghtgraph algorithm has 21 circuits with fewer auxiliary gates  and 19 circuits with smaller depths, and the CSIC algorithm has 54 circuits with fewer auxiliary gates and 60 circuits with  smaller depths. They output 25 circuits with equal depth and  29 circuits with equal auxiliary gates. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\%, 
 and the depths are reduced by 11.25\%.
 
-Next, we compare the optm algorithm and the CSI algorithm. The optm algorithm has one circuit with fewer auxiliary gates and two circuits with a small depth, while the CSI algorithm has 99 circuits with fewer auxiliary gates and 98 circuits with a small depth.  
-They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates. The auxiliary gates of the CSI algorithm are relatively reduced by 27.02\%, and the depths are reduced by 14.12\%. Table~\ref{tab1} shows the experimental data on 104 circuits. The three initial mapping algorithms are compared according to the depths of the generated circuits using the same $A^{*}$ algorithm, and the numbers of added auxiliary gates. The column headed by CSI/optm  shows the efficiency improvement of the former upon the latter $(n_{optm}-n_{CSI})/n_{optm}$.
+Next, we compare the optm algorithm and the CSIC algorithm. The optm algorithm has one circuit with fewer auxiliary gates and two circuits with a small depth, while the CSIC algorithm has 99 circuits with fewer auxiliary gates and 98 circuits with a small depth.  
+They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates. The auxiliary gates of the CSIC algorithm are relatively reduced by 27.02\%, and the depths are reduced by 14.12\%. Table~\ref{tab1} shows the experimental data on 104 circuits. The three initial mapping algorithms are compared according to the depths of the generated circuits using the same $A^{*}$ algorithm, and the numbers of added auxiliary gates. The column headed by CSIC /optm  shows the efficiency improvement of the former upon the latter $(n_{optm}-n_{CSIC })/n_{optm}$.
 \begin{table}
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|}
 	\hline
-	    	&  optm & wgtgraph &CSI& CSI/optm & CSI/wgtgraph\\
+	    	&  optm & wgtgraph &CSIC & CSIC /optm & CSIC /wgtgraph\\
 	\hline
 	 Depths 	&	168895	&   163422	&  145040 	& 14.12\%  &11.25\%   \\
 	\hline
@@ -1043,7 +1043,7 @@ They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates.
 	\hline
 	\end{tabular} 
 	\end{center} 
-	\caption{Compare optm, wgtgraph, and CSI.}
+	\caption{Compare optm, wgtgraph, and CSIC .}
 	\label{tab1}
 	\end{table}
 
@@ -1081,8 +1081,8 @@ They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates.
 
 \section{Conclusion}
 \label{Conclusion}
-We proposes to use the combined subgraph isomorphism algorithm to generate high-quality initial mappings and a heuristic Tabu search to perfrom circuit adjustment.
-Experimental results show that the initial mappings generated by CSI have fewer SWAP gates inserted and the results can be obtained in a short time. Most small and medium circuits can be handled in a few seconds.
+We propose a scalable algorithm for quantum circuit conversion. First, we use a combined subgraph isomorphism algorithm and complement the mapping based on the connectivity between qubits to generate a high-quality initial mapping. Secondly we used a look-ahead heuristic search using the influence of the pre-layer circuit mapping. Finally, we compared the initial mapping with the latest algorithm and also compared the overall efficiency with wghtgraph, SABRE, and $A^{*}$.
+Experimental results show that the initial mappings generated by CSIC have fewer SWAP gates inserted and the results can be obtained in a short time. Most small and medium circuits can be handled in a few seconds.
 For large circuits, the results can be obtained within a few minutes,
 but the cost of insertion may be lareger than that of wgtgraph.
 We introduce a look-ahead method to make each selected SWAP more in line with the constraints of the gates to be processes.
