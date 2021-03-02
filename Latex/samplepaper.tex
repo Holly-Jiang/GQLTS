@@ -768,7 +768,7 @@ A quantum circuit transformation mainly includes the following four steps. Isomo
 
 \section{Solution Details}
 \label{Solution Details}
-Our solution includes preprocessing, initial mapping, completion, and circuit adjustment, which will be presented in turn.
+Our solution includes preprocessing, isomorphism, completion, and circuit adjustment, which will be presented in turn.
 \subsection{Preprocessing}
 Before a circuit adjustment, we can preprocess it by collect my data so as to shorten our search time and space. In the preprocessing step, we adjust the input circuit described by an openQASM program to shorten the life cycle of qubits. Then we use Breadth-First Search (BFS) to calculate the shortest distance between each node on the architecture graph.
 
@@ -777,7 +777,7 @@ A conversion method is designed to use the layered bundle format to determine wh
 \subsubsection{Shortest Distance}
 Given a physical architecture graph and assume the distance of each edge is 1, we can use Floyd-Warshall algorithm to calculate the shortest distance matrix $dist[i][j]$, which represents the shortest distance from $\textsf{q}_{\textsf{i}}$ to $\textsf{q}_{\textsf{j}}$. 
 
-For IBM QX2, QX3, QX4, QX5, a SWAP needs 7 gates (3 CNOT gates and 4 $H$ gates). Only 4 $H$ gates are needed to change the direction of an adjacent CNOT gate. 
+For IBM QX2, QX3, QX4, QX5, a SWAP needs 7 gates (3 CNOT gates and 4 H gates). Only 4 H gates are needed to change the direction of an adjacent CNOT gate. 
 For a CNOT gate $g=\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $,
 the two qubits are mapped to $\textsf{q}_{m}$ and $\textsf{q}_{n}$, respectively, with $\tau(\textit{q}_\textit{i})=\textsf{q}_{\textsf{m}},\tau(\textit{q}_\textit{j})=\textsf{q}_{\textsf{n}}$. Then the cost of executing $g$ under the shortest distance path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[m][n]-1)$. For IBM Q20, in which all edges are bidirected, a SWAP requires 3 CNOT gates. Thus the cost between them is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[m][n]-1)$. The time complexity is $O (N^{3})$.
 \begin{example}
@@ -797,7 +797,7 @@ Quantum gates acting on different qubits can be executed in parallel. Therefore,
 
 At the same time, we generate logical circuit architecture graph $\mathcal{AG_{L}}=(V_{L},E_{L})$, which is an undirected graph with $V_{L}$ being the set of vertices, and $E_{L}$ representing the set of undirected edges that the CNOT gates can execute.
 
-\subsection{Initial Mapping and Completion}
+\subsection{Isomorphism and Completion}
 %It has been proved that the initial mapping has an important  influence on quantum circuit adjustment,  and the subgraph isomorphism can be reduced to initial mapping problem. Thus
 We use the subgraph isomorphism algorithm to find a partial initial mapping that promissingly minimize auxiliary gates added by the output circuit.
 
