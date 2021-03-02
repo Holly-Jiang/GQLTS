@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.30)  26 FEB 2021 20:16
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.10.30)  2 MAR 2021 13:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -804,11 +804,21 @@ a shorter form with \titlerunning prior to \maketitle
 [1
 
 ]
+Overfull \hbox (2.52539pt too wide) in paragraph at lines 50--51
+[]\TU/lmr/m/n/10 We compared CSI with the start-of-art initial mapping method wghtgraph [10]
+ []
+
+
 Underfull \vbox (badness 4634) has occurred while \output is active []
 
- [2] [3] [4] <xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 11x7 2537> [5]
-LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 354.
+ [2] [3] [4] <xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 11x7 2537>
 
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 354.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
 (Font)              size <5> substituted on input line 354.
@@ -825,21 +835,30 @@ LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.6> not available
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.6> not available
 (Font)              size <5> substituted on input line 354.
 
-<xymatrix 9x4 858> <xymatrix 21x4 1670> [6]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<xymatrix 9x4 858> <xymatrix 21x4 1670>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5]
+
+LaTeX Warning: Text page 6 contains only floats.
+
+[6]
 File: uml.jpg Graphic file (type bmp)
 <uml.jpg>
- [7]
-Underfull \vbox (badness 3009) has occurred while \output is active []
-
- [8] [9]
+ [7] [8] [9]
 
 LaTeX Warning: Command \textless invalid in math mode on input line 853.
 
-[10] [11]
+LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <9> not available
+(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 853.
 
 LaTeX Warning: Command \textless invalid in math mode on input line 865.
 
-[12] [13] [14] [15] [16] [17] (./samplepaper.bbl
+[10] [11] [12] [13] [14] [15] [16] [17] (./samplepaper.bbl
 Underfull \hbox (badness 7963) in paragraph at lines 7--10
 []\TU/lmr/m/n/9 Almeida, A., Dueck, G., Silva, A.: Finding optimal qubit permuta-
  []
@@ -900,11 +919,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 26224 strings out of 492916
- 488961 string characters out of 6133344
- 692360 words of memory out of 5000000
- 29881 multiletter control sequences out of 15000+600000
- 545998 words of font info for 105 fonts, out of 8000000 for 9000
+ 26254 strings out of 492916
+ 489725 string characters out of 6133344
+ 746393 words of memory out of 5000000
+ 29895 multiletter control sequences out of 15000+600000
+ 546086 words of font info for 116 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  55i,29n,48p,1836b,1441s stack positions out of 5000i,500n,10000p,200000b,80000s
 
