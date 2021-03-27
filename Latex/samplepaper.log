@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.30)  25 MAR 2021 21:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.30)  27 MAR 2021 17:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -761,18 +761,18 @@ LaTeX Warning: Label `tab8' multiply defined.
 )
 \openout1 = `samplepaper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
  (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count329
@@ -819,104 +819,85 @@ Package grfext Info: Graphics extension search list:
  (/usr/local/texlive/2019/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 )) ABD: EveryShipout initializing macros
-LaTeX Font Info:    Try loading font information for U+msa on input line 18.
+LaTeX Font Info:    Try loading font information for U+msa on input line 19.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 18.
+LaTeX Font Info:    Try loading font information for U+msb on input line 19.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 18.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 19.
  (/usr/local/texlive/2019/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-Package xypdf Info: Line width: 0.39998pt on input line 18.
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 35.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 35.
+Package xypdf Info: Line width: 0.39998pt on input line 19.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 36.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 36.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 35.
+(Font)              for symbol `textbraceleft' on input line 36.
 
 Title too long for running head. Please supply
 a shorter form with \titlerunning prior to \maketitle
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 41.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 42.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 41.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 42.
  [1
 
-{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \vbox (badness 4634) has occurred while \output is active []
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [2] [3] [4] <xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 11x7 2537>
+ [4] <xymatrix 3x2 196> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 3x1 143> <xymatrix 11x7 2537> [5]
+LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 284.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-LaTeX Font Info:    Calculating math sizes for size <7.20003> on input line 354.
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 354.
+(Font)              size <5> substituted on input line 284.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.6> not available
-(Font)              size <5> substituted on input line 354.
+(Font)              size <5> substituted on input line 284.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 354.
+(Font)              size <5> substituted on input line 284.
 
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <3.6> not available
-(Font)              size <5> substituted on input line 354.
+(Font)              size <5> substituted on input line 284.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<xymatrix 9x4 858> <xymatrix 21x4 1670>
+[6] [7] <xymatrix 21x4 1670>
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5] [6]
-<uml.jpg, id=48, 382.42876pt x 381.425pt>
-File: uml.jpg Graphic file (type jpg)
-<use uml.jpg>
-Package pdftex.def Info: uml.jpg  used on input line 754.
-(pdftex.def)             Requested size: 152.96878pt x 152.56729pt.
- [7] [8 <./uml.jpg>] [9]
+[8]
 
-LaTeX Warning: Command \textless invalid in math mode on input line 854.
+LaTeX Warning: Command \textless invalid in math mode on input line 878.
 
-LaTeX Font Info:    Try loading font information for OML+cmr on input line 854.
+LaTeX Font Info:    Try loading font information for OML+cmr on input line 878.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/it' in size <9> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 854.
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 878.
 
 
-LaTeX Warning: Command \textless invalid in math mode on input line 854.
+LaTeX Warning: Command \textless invalid in math mode on input line 878.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <9> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 854.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 878.
 
-
-LaTeX Warning: Command \textless invalid in math mode on input line 866.
-
-LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 866.
-
-LaTeX Warning: Command \textless invalid in math mode on input line 866.
-
-[10] [11] [12] [13] [14] [15] [16] [17] (./samplepaper.bbl
+[9] [10] [11] [12] [13] [14] [15] [16] (./samplepaper.bbl
 Underfull \hbox (badness 8038) in paragraph at lines 7--10
 []\OT1/cmr/m/n/9 Almeida, A., Dueck, G., Silva, A.: Find-ing op-ti-mal qubit per-mu-ta-
  []
@@ -926,7 +907,7 @@ Underfull \hbox (badness 8189) in paragraph at lines 7--10
 \OT1/cmr/m/n/9 tions for ibm's quan-tum com-puter ar-chi-tec-tures pp. 1--6 (08 2019).
  []
 
-[18]
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 67--70
 []\OT1/cmr/m/n/9 Nash, B., Ghe-o-rghiu, V., Mosca, M.: Quan-tum cir-cuit op-ti-miza-tions
  []
@@ -941,7 +922,7 @@ Underfull \hbox (badness 2951) in paragraph at lines 98--101
 []\OT1/cmr/m/n/9 Tannu, S., Qureshi, M.: Not all qubits are cre-ated equal: A case for
  []
 
-
+[18]
 Underfull \hbox (badness 2285) in paragraph at lines 108--112
 \OT1/cmr/m/n/9 Aided De-sign of In-te-grated Cir-cuits and Sys-tems \OT1/cmr/bx/n/9 PP\OT1/cmr/m/n/9 ,  1--1 (01 2020).
  []
@@ -980,18 +961,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 27301 strings out of 492616
- 503550 string characters out of 6129480
- 693122 words of memory out of 5000000
- 30821 multiletter control sequences out of 15000+600000
+ 27279 strings out of 492616
+ 503136 string characters out of 6129480
+ 686387 words of memory out of 5000000
+ 30801 multiletter control sequences out of 15000+600000
  550932 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,29n,65p,1469b,1374s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,29n,65p,1679b,1378s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on samplepaper.pdf (27 pages, 447047 bytes).
+Output written on samplepaper.pdf (27 pages, 431602 bytes).
 PDF statistics:
- 218 PDF objects out of 1000 (max. 8388607)
- 155 compressed objects within 2 object streams
+ 215 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

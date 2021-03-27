@@ -31,81 +31,72 @@
 \citation{Li2018}
 \citation{Cowtan2019}
 \citation{Tannu2019}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Background}{4}\protected@file@percent }
-\newlabel{Background}{{3}{4}}
-\@writefile{toc}{\contentsline {paragraph}{Qubits}{4}\protected@file@percent }
 \citation{Daei2020}
 \citation{2013Optimization}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Preliminary}{5}\protected@file@percent }
+\newlabel{Background}{{3}{5}}
+\@writefile{toc}{\contentsline {paragraph}{Qubits}{5}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Quantum Gates}{5}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The symbols of common quantum gates and their matrices}}{5}\protected@file@percent }
 \newlabel{common_gates}{{1}{5}}
 \@writefile{toc}{\contentsline {paragraph}{Quantum Circuit}{5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Architectures}{5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Original circuit}}{6}\protected@file@percent }
-\newlabel{OriginalCircuit}{{2}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The directed acyclic graph ($DAG$) of original circuit in Fig.\nobreakspace  {}2\hbox {}.}}{6}\protected@file@percent }
-\newlabel{DAG}{{3}{6}}
-\newlabel{LLAG}{{3}{6}}
-\newlabel{PPAG}{{3}{6}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) The architecture graph of original circuit in Fig.\nobreakspace  {}2\hbox {}. (b) The partial architecture graph of IBM Q20.}}{6}\protected@file@percent }
-\newlabel{LAGPAG}{{4}{6}}
 \citation{1995Barenco,2005Mttnen}
-\citation{2018QubitSiraichi}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The above circuits changes the direction of the CNOT gate by adding four H gates, and three equivalent circuits of SWAP gate are given below.}}{7}\protected@file@percent }
-\newlabel{Decomposition}{{5}{7}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces IBM QX architectures}}{7}\protected@file@percent }
-\newlabel{IBM}{{6}{7}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Problem Description and Solution Outline}{7}\protected@file@percent }
-\newlabel{Problem Description and Solution Outline}{{4}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A quantum circuit}}{6}\protected@file@percent }
+\newlabel{OriginalCircuit}{{2}{6}}
+\@writefile{toc}{\contentsline {paragraph}{Architectures}{6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Quantum Circuit Transformation}{6}\protected@file@percent }
+\newlabel{Problem Description and Solution Outline}{{4}{6}}
 \citation{2019Zhang}
 \citation{Sun2020}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Circuit transformation process}}{8}\protected@file@percent }
-\newlabel{processing}{{7}{8}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Solution Details}{8}\protected@file@percent }
-\newlabel{Solution Details}{{5}{8}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces IBM QX architectures}}{7}\protected@file@percent }
+\newlabel{IBM}{{3}{7}}
+\newlabel{LLAG}{{3}{7}}
+\newlabel{PPAG}{{3}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces (a) The architecture graph of original circuit in Fig.\nobreakspace  {}2\hbox {}. (b) The partial architecture graph of IBM Q20.}}{7}\protected@file@percent }
+\newlabel{LAGPAG}{{4}{7}}
+\citation{2018QubitSiraichi}
 \citation{2019Zhang}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Preprocessing}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{The Life Cycle of Qubits}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Shortest Distance}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Circuit Layering}{9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Isomorphism and Completion}{10}\protected@file@percent }
-\newlabel{algorithm_initial}{{1}{11}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Complementary mapping algorithm based on connectivity between qubits}}{11}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Adjustment}{12}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Tabu search}{12}\protected@file@percent }
-\newlabel{algorithm_neighborhood}{{2}{14}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Calculate the candidate sets }}{14}\protected@file@percent }
-\newlabel{algorithm_Tabu}{{3}{15}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Tabu search }}{15}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Evaluation functions }{15}\protected@file@percent }
-\newlabel{cost_num}{{1}{15}}
-\newlabel{cost_depth}{{2}{15}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Preprocessing}{8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Implenting a SWAP gate by using CNOT gates and H gates}}{9}\protected@file@percent }
+\newlabel{f:Decomposition}{{5}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Isomorphism and Completion}{9}\protected@file@percent }
+\newlabel{algorithm_initial}{{1}{10}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Complementary mapping algorithm based on connectivity between qubits}}{10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Adjustment}{11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Tabu search}{11}\protected@file@percent }
+\newlabel{algorithm_neighborhood}{{2}{12}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Calculate the candidate sets }}{12}\protected@file@percent }
+\newlabel{algorithm_Tabu}{{3}{13}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Tabu search }}{13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Evaluation functions }{14}\protected@file@percent }
+\newlabel{cost_num}{{1}{14}}
+\newlabel{cost_depth}{{2}{14}}
+\citation{2020Qubit}
+\citation{Zulehner2017}
+\citation{Zulehner2017}
+\citation{2020Qubit}
+\citation{Zulehner2017}
 \@writefile{toc}{\contentsline {subsubsection}{Look ahead }{15}\protected@file@percent }
-\citation{2020Qubit}
-\citation{Zulehner2017}
-\citation{Zulehner2017}
-\citation{2020Qubit}
-\citation{Zulehner2017}
-\newlabel{cost_num_look}{{3}{16}}
-\newlabel{cost_depth_look}{{4}{16}}
-\@writefile{toc}{\contentsline {subsubsection}{Complexity}{16}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments}{16}\protected@file@percent }
-\newlabel{Experiment}{{6}{16}}
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compare optm, wgtgraph, and CSIC .}}{17}\protected@file@percent }
-\newlabel{tab1}{{1}{17}}
+\newlabel{cost_num_look}{{3}{15}}
+\newlabel{cost_depth_look}{{4}{15}}
+\@writefile{toc}{\contentsline {subsubsection}{Complexity}{15}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Experiments}{15}\protected@file@percent }
+\newlabel{Experiment}{{5}{15}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compare optm, wgtgraph, and CSIC .}}{16}\protected@file@percent }
+\newlabel{tab1}{{1}{16}}
 \bibstyle{splncs04}
 \bibdata{mybibliography}
 \bibcite{2019Almeida}{1}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Compare optm, wghtgraph, SABRE TSA$_{num}$ and TSA$_{dep}$.}}{17}\protected@file@percent }
+\newlabel{tabextra}{{2}{17}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Conclusion}{17}\protected@file@percent }
+\newlabel{Conclusion}{{6}{17}}
 \bibcite{1995Barenco}{2}
 \bibcite{2018Integer}{3}
 \bibcite{Cowtan2019}{4}
 \bibcite{Daei2020}{5}
 \bibcite{Glover1990}{6}
 \bibcite{Guerreschi2018}{7}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Compare optm, wghtgraph, SABRE TSA$_{num}$ and TSA$_{dep}$.}}{18}\protected@file@percent }
-\newlabel{tabextra}{{2}{18}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Conclusion}{18}\protected@file@percent }
-\newlabel{Conclusion}{{7}{18}}
 \bibcite{2019CNOT}{8}
 \bibcite{Li2018}{9}
 \bibcite{2020Qubit}{10}
