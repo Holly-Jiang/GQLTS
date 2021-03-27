@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.30)  27 MAR 2021 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.10.30)  27 MAR 2021 21:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -906,27 +906,37 @@ Underfull \hbox (badness 8038) in paragraph at lines 7--10
  []
 
 
-Underfull \hbox (badness 8189) in paragraph at lines 7--10
-\OT1/cmr/m/n/9 tions for ibm's quan-tum com-puter ar-chi-tec-tures pp. 1--6 (08 2019).
+Underfull \hbox (badness 7186) in paragraph at lines 7--10
+\OT1/cmr/m/n/9 tions for ibm's quan-tum com-puter ar-chi-tec-tures. pp. 1--6 (08 2019).
  []
 
 [17]
-Underfull \hbox (badness 10000) in paragraph at lines 67--70
+Underfull \hbox (badness 2088) in paragraph at lines 27--31
+[]\OT1/cmr/m/n/9 Daei, O., Navi, K., Zomorodi, M.: Op-ti-mized quan-tum cir-cuit par-ti-tion-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 72--75
 []\OT1/cmr/m/n/9 Nash, B., Ghe-o-rghiu, V., Mosca, M.: Quan-tum cir-cuit op-ti-miza-tions
  []
 
 
-Underfull \hbox (badness 4673) in paragraph at lines 67--70
+Underfull \hbox (badness 4673) in paragraph at lines 72--75
 \OT1/cmr/m/n/9 for nisq ar-chi-tec-tures. Quan-tum Sci-ence and Tech-nol-ogy \OT1/cmr/bx/n/9 5 \OT1/cmr/m/n/9 (02 2020).
  []
 
 
-Underfull \hbox (badness 2951) in paragraph at lines 98--101
-[]\OT1/cmr/m/n/9 Tannu, S., Qureshi, M.: Not all qubits are cre-ated equal: A case for
+Underfull \hbox (badness 1024) in paragraph at lines 87--91
+\OT1/cmr/m/n/9 in-ter-ac-tion dis-tance in lin-ear near-est neigh-bor ar-chi-tec-tures. In: 2013 50th
  []
 
 [18]
-Underfull \hbox (badness 2285) in paragraph at lines 108--112
+Underfull \hbox (badness 2951) in paragraph at lines 101--104
+[]\OT1/cmr/m/n/9 Tannu, S., Qureshi, M.: Not all qubits are cre-ated equal: A case for
+ []
+
+
+Underfull \hbox (badness 2285) in paragraph at lines 111--115
 \OT1/cmr/m/n/9 Aided De-sign of In-te-grated Cir-cuits and Sys-tems \OT1/cmr/bx/n/9 PP\OT1/cmr/m/n/9 ,  1--1 (01 2020).
  []
 
@@ -964,15 +974,15 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 27279 strings out of 492616
- 503136 string characters out of 6129480
- 685571 words of memory out of 5000000
- 30801 multiletter control sequences out of 15000+600000
+ 27278 strings out of 492616
+ 503118 string characters out of 6129480
+ 685567 words of memory out of 5000000
+ 30800 multiletter control sequences out of 15000+600000
  550932 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,29n,65p,1679b,1378s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2019/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on samplepaper.pdf (27 pages, 430284 bytes).
+Output written on samplepaper.pdf (27 pages, 430948 bytes).
 PDF statistics:
  215 PDF objects out of 1000 (max. 8388607)
  154 compressed objects within 2 object streams
