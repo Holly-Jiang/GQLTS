@@ -50,7 +50,7 @@ In the current work, we adjust the lifetime of qubits through parallelization, a
 and physical circuits %$PC$
 as part of the initial mapping. The advantage of the initial mapping result is that we use the appropriate subgraph isomorphism and the two-way connection of the logical circuit and the physical circuit to obtain a dense initial mapping, which avoids certain nodes from being mapped to remote locations. We use Tabu search~\cite{Glover1990} to generate circuits that can be executed on physical devices. Tabu search can avoid falling into local optimum and swapping the recently swapped qubits, thereby improve the parallelism of quantum gates. We add SWAP gates associated with the gates on the shortest path to the candidate set, which greatly reduces the search space and improves the search speed. Our heuristic function not only considers the current gates but also the constraints of the gates already considered.
 
-We compared CSIC with the state-of-the-art initial mapping method wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\% (resp. 27.02\%), and the depths are reduced by 11.25\% (resp. 14.12\%). We compared TSA with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}. On the one hand, TSA can deal with 159 circuits in a few minutes, while the  other two adjustment algorithms are difficult to handle medium-sized or large circuits. On the other hand, the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than that of  TSA on average. Among the 159 circuits that we also tested with SABRE, only 29  were successfully mapped within the five-minute limit.
+We compare CSIC with the state-of-the-art initial mapping methods wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\% (resp. 27.02\%), and the depths are reduced by 11.25\% (resp. 14.12\%). We compare TSA with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}. On the one hand, TSA can deal with 159 circuits in a few minutes, while the  other two adjustment algorithms are difficult to handle medium-sized or large circuits. On the other hand, the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than that of  TSA on average. Among the 159 circuits that we also test with SABRE, only 29  can be successfully mapped within the five-minute limit.
 
 %, but needs to control the decisiveness of the behind gates in the heuristic function.
 The main contributions of this paper are as follows.
@@ -65,7 +65,7 @@ The main contributions of this paper are as follows.
 	\end{enumerate}
 
 The rest of this paper is organized as follows.
-In Section~\ref{Related work} we introduce some related works. 
+In Section~\ref{Related work} we discuss some related work. 
 In Section~\ref{Background} we recall some background of quantum computing and quantum information. In Section~\ref{Problem Description and Solution Outline}
 we introduce the problem of  quantum circuit transformation provide our solution by describing our algorithm in detail.
 The experimental results are reported in Section~\ref{Experiment}. 
@@ -77,9 +77,8 @@ Quantum technology has been applied in practice, but large quantum computers hav
 
 Users of these early quantum computers mainly rely on quantum circuits to implement quantum algorithms. They design logical circuits which then go through the step of circuit transformation in order to map logical qubits to physical ones before the logical circuits are executed in physical devices. A big challenge for quantum information is the problem of quantum decoherence. Due to the decoherence of qubits, quantum gates need to be applied in a coherent period as the time for a qubit to stay in a coherent state is very short. The longest coherence time of a superconducting quantum chip is still within 10us-100us. 
 
-There are several initial mapping methods. Paler~\cite{Paler2018} showed that the initial mapping has an important influence on quantum circuit transformation. He proposed a heuristic method to find the initial mapping. Just by placing qubits in different positions from the default
-\yx{I don't understand this sentence}
- in the actual circuit instance on the actual NISQ device, the time cost can be reduced by up to 10\%. Li et al.~\cite{Li2018} proposed a novel reverse traversal technique, which determines the initial mapping by considering the entire circuit. Zhou et al.~\cite{Xiangzhen2020} put forward an annealing algorithm to find an initial mapping, but it is unstable. In \cite{2020Qubit}, Li et al. considered the subgraph isomorphism algorithm wghtgraph to generate an initial mapping, which is the most recent result, so we will compare with it.
+There are several initial mapping methods. Paler~\cite{Paler2018} has showed that the initial mapping has an important influence on quantum circuit transformation. He proposed a heuristic method to find the initial mapping. Just by placing qubits in different positions from the default trivial placement
+ in the actual circuit instances on the actual NISQ device, the time cost can be reduced by up to 10\%. Li et al.~\cite{Li2018} have proposed a novel reverse traversal technique, which determines the initial mapping by considering the entire circuit. Zhou et al.~\cite{Xiangzhen2020} have put forward an annealing algorithm to find an initial mapping, but it is unstable. In \cite{2020Qubit}, Li et al. have considered the subgraph isomorphism algorithm wghtgraph to generate an initial mapping, which is the most recent result, so we will compare with it.
 
 The goal of circuit adjustment algorithm is to minimize the number of auxiliary SWAP gates. There are currently five main methods for solving the quantum circuit adjustment problem.
 \begin{itemize}
@@ -95,21 +94,22 @@ Siraichi et al.~\cite{2018QubitSiraichi} have proposed an exact method. It will 
 In~\cite{Shafaei2013}, Shafaei et al. have used the minimum linear permutation solution in graph theory to model the problem of reducing the interaction distance. The idea is to first divide a given circuit into several subcircuits and apply the minimum linear permutation solution, respectively. Then we turn non-adjacent gates in the subcircuits into adjacent gates by adding auxiliary gates. Finally, we can use the minimum linear permutation solution to find an appropriate permutation and use bubble sort to calculate the number of necessary SWAP gates. In \cite{Guerreschi2018,Matsuo2019}, a two-step method is used to reduce the quantum circuit transformation to the graph problem to minimize the number of auxiliary gates, based on the graph coloring problem and the largest subgraph isomorphism problem.
 \item
 \emph{Heuristic search.}
-Heuristic search uses an evaluation function to obtain an acceptable solution in exponential time. Zulehner \cite{Zulehner2017} suggests to layer the circuits, then determine compatible mappings for each of these layers to add as few auxiliary gates as possible. Zhou et al.~\cite{Xiangzhen2020} have designed a heuristic search algorithm with a novel selection mechanism. Instead of choosing the operation with the lowest cost to apply, one can look forward one step and then choose the best continuous operation. In this way, the algorithm can effectively avoid local minimum. Moreover, a pruning mechanism is introduced to reduce the search space's size and ensure that the program terminates in a reasonable amount of time.
+Heuristic search uses an evaluation function to obtain an acceptable solution in exponential time. Zulehner et al. \cite{Zulehner2017} have suggested to layer the circuits, then determine compatible mappings for each of these layers to add as few auxiliary gates as possible. Zhou et al.~\cite{Xiangzhen2020} have designed a heuristic search algorithm with a novel selection mechanism. Instead of choosing the operation with the lowest cost to apply, one can look forward one step and then choose the best continuous operation. In this way, the algorithm can effectively avoid local minimum. Moreover, a pruning mechanism is introduced to reduce the search space's size and ensure that the program terminates in a reasonable amount of time.
 %The overall time complexity of this algorithm is $O(|V|^{4})$, where $V$ is.
-\end{itemize}
 
 Li et al.~\cite{Li2018} have proposed a SWAP-based search algorithm SABRE. Compared with previous search algorithms based on exhaustive mapping, SABRE
 %achieves exponential search complexity and ensures the scalability of SABRE to
 can adapt to large quantum circuits in the NISQ era. In \cite{Cowtan2019}, a routing algorithm called $t\ket{ket}$  ensures that any quantum circuit can be compiled into any architecture. The algorithm is divided into four stages: decomposing the input circuit into time steps, determining the initial mapping, routing across time steps, and finally cleaning up. The heuristics in $t\ket{ket}$ give the same or better results than other circuit transformation systems in terms of the depth and the total number of gates in the compiled circuit, with much shorter running time, and can handle larger circuits. In \cite{Tannu2019},  a variation-aware qubit movement strategy is proposed. It takes advantage of the change in error rate and a change-aware quantum circuit transformation strategy by trying to select the route with the lowest probability of failure. This strategy uses the error rate of  SWAPs to allocate logical qubits to physical qubits, thus avoiding paths with high error rates as much as possible.
-\yx{Which of the five methods does the algorithms in the last paragraph belong to?} \yx{How to compare with those methods above?}
+\end{itemize}
+
+Among the existing methods above, wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017} are probably the most effective initial mapping ones. As to circuit adjustment algorithms, wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018} represent the state of the art. Therefore, we choose to compare our solution with them in Section~\ref{Experiment}.
 
 
 \section{Preliminary}
 \label{Background}
 In this section we introduce some notions and notations of quantum computing and quantum information.
 
-\paragraph{Qubits}
+%\paragraph{Qubits}
 Classical information is stored in bits, while quantum information is stored in qubits. 
 Besides two basic states $\ket{0}$ and $\ket{1}$,
 a qubit can be in any linear superposition state like $\ket{\phi}=a\ket{0}+b\ket{1}$,
@@ -117,21 +117,21 @@ where $a,b\in \mathbb{C}$ satisfy the condition $|a|^{2}+|b|^{2}=1$.
 The intuition is that $\ket{\phi}$ is in the state $\ket{0}$ with the probability $|a|^{2}$ or in the state $\ket{1}$ with the probability $|b|^{2}$.
 We use letters $\textsf{q}$ and $\textit{q}$ in different fonts to represent physical qubits and logical qubits.
 
-\paragraph{Quantum Gates}
-By applying quantum gates to qubits, we can change their states. Some
-commonly used quantum gate symbols and their semantics in terms of matrices are shown in Fig.~\ref{common_gates}. 
+%\paragraph{Quantum Gates}
+By applying quantum gates to qubits, we can change their states.
+For example, the Hadamard gate (H gate) can be applied on a single qubit, while the CNOT gate can be applied on two qubits. Their representations in terms of  gate symbols and their semantics in terms of matrices are shown in Fig.~\ref{common_gates}. 
 {
 \begin{figure}
 	 \scalefont{1.0}
 	 \begin{center}
 	\begin{tikzpicture}
 	% CNOT
-	\node at (7,2.0){	CNOT gate };
-	\node at (10,2.0){	
+	\node at (7,0){	CNOT gate };
+	\node at (10,0){	
 		\Qcircuit @C=2.2em @R=1.75em {
 		 & \ctrl{1}  & \qw 	 \\
 		 &\targ  	 & \qw   \\	    			}};
-	\node at (13,2.0){\vspace{10em}
+	\node at (13,0){\vspace{10em}
 				$\begin{bmatrix}
 					\ 1\ & 0\ & 0\ & 0\ \\
 					\ 0\ & 1\ & 0\ & 0\ \\
@@ -165,49 +165,49 @@ commonly used quantum gate symbols and their semantics in terms of matrices are 
 % };
 
 % Z gate
-\node at (7,3.3){	Pauli-Z gate };
-\node at (10,3.3){	
-	\Qcircuit @C=2.2em @R=1.75em {
-	 & \gate{Z}  & \qw 	 \\						 
-}};
-\node at (13,3.3){\vspace{10em}
-			$\begin{bmatrix}
-				\ 1\ & 0\  \\
-				\ 0\ & -1\ \\
-			\end{bmatrix}$
-};
+%\node at (7,3.3){	Pauli-Z gate };
+%\node at (10,3.3){	
+%	\Qcircuit @C=2.2em @R=1.75em {
+%	 & \gate{Z}  & \qw 	 \\						 
+%}};
+%\node at (13,3.3){\vspace{10em}
+%			$\begin{bmatrix}
+%				\ 1\ & 0\  \\
+%				\ 0\ & -1\ \\
+%			\end{bmatrix}$
+%};
 
 % Y gate
-\node at (7,4.4){	Pauli-Y gate };
-\node at (10,4.4){	
-	\Qcircuit @C=2.2em @R=1.75em {
-	 & \gate{Y}  & \qw 	 \\						 
-}};
-\node at (13,4.4){\vspace{10em}
-			$\begin{bmatrix}
-				\ 1\ & -i\  \\
-				\ i\ & 0\ \\
-			\end{bmatrix}$
-};
+%\node at (7,4.4){	Pauli-Y gate };
+%\node at (10,4.4){	
+%	\Qcircuit @C=2.2em @R=1.75em {
+%	 & \gate{Y}  & \qw 	 \\						 
+%}};
+%\node at (13,4.4){\vspace{10em}
+%			$\begin{bmatrix}
+%				\ 1\ & -i\  \\
+%				\ i\ & 0\ \\
+%			\end{bmatrix}$
+%};
 % X gate
-\node at (7,5.5){	Pauli-X gate };
-\node at (10,5.5){	
-	\Qcircuit @C=2.2em @R=1.75em {
-	 & \gate{X}  & \qw 	 \\						 
-}};
-\node at (13,5.5){\vspace{10em}
-			$\begin{bmatrix}
-				\ 0\ & 1\  \\
-				\ 1\ & 0\ \\
-			\end{bmatrix}$
-};
+%\node at (7,5.5){	Pauli-X gate };
+%\node at (10,5.5){	
+%	\Qcircuit @C=2.2em @R=1.75em {
+%	 & \gate{X}  & \qw 	 \\						 
+%}};
+%\node at (13,5.5){\vspace{10em}
+%			$\begin{bmatrix}
+%				\ 0\ & 1\  \\
+%				\ 1\ & 0\ \\
+%			\end{bmatrix}$
+%};
 % H
 	% IBM Q20
-	\node at (7,6.6){	Hadamard gate };
-	\node at (10,6.6){	\Qcircuit @C=2.2em @R=1.75em {
+	\node at (7,1.5){	Hadamard gate };
+	\node at (10,1.5){	\Qcircuit @C=2.2em @R=1.75em {
 		 & \gate{H}  & \qw 	 \\  						 
 	}};
-	\node at (13,6.6){\vspace{10em}
+	\node at (13,1.5){\vspace{10em}
 				$\frac{1}{\sqrt{2}}\begin{bmatrix}
 					\ 1\ & 1\ \\
 					\ 1\ & -1\ 
@@ -216,12 +216,12 @@ commonly used quantum gate symbols and their semantics in terms of matrices are 
 \end{tikzpicture}
 \end{center}
 
-\caption{The symbols of common quantum gates and their matrices}\label{common_gates}
+\caption{The symbols of two quantum gates and their matrices}\label{common_gates}
 \end{figure}	 
 
 }
 
-\paragraph{Quantum Circuit}
+%\paragraph{Quantum Circuit}
 A quantum logical circuit 
 consists of quantum gates interconnected by quantum wires~\cite{Daei2020}; see Fig.~\ref{OriginalCircuit} for an example.
 A quantum wire is a mechanism for moving quantum data from one location to another.
@@ -263,8 +263,8 @@ It is unnecessary to consider quantum gates acting on single qubits in circuit a
 
 
 
-\paragraph{Architectures}
-We mainly discuss the physical circuits of the IBM Q series.
+%\paragraph{Architectures}
+In the current work, we mainly consider the physical circuits of the IBM Q series.
 Let $\mathcal{\mathcal{AG}_{P}}=(V_{P}, E_{P})$ denote the architecture graph of a physical circuit,
 where $V_{P}$ denotes the set of physical qubits and $E_{P}$ denotes the set of edges that connect CNOT gates.
 In Fig.~\ref{IBM}, diagrams (a) and (b) are the physical architecture graphs of the 5-qubit IBM QX2 and IBM QX4, respectively; diagrams (c) and (d) are the physical architecture graphs of the 16-qubit IBM QX3 and IBM QX5, respectively; diagram (e) is the physical architecture graph of IBM Q20.
