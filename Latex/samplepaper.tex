@@ -1,4 +1,6 @@
 \documentclass[runningheads]{llncs}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathrsfs}
@@ -9,9 +11,9 @@
 \usepackage{scalefnt}
 \usepackage{qcircuit}
 \usepackage{tabularx} 
-\usepackage{float}
 \usepackage{enumerate}
 \usepackage{multirow}
+
 \usepackage[ruled,vlined]{algorithm2e}
 \newcommand{\yx}[1]{{\color{magenta} [YX: #1]}}
 \newcommand{\leaveout}[1]{}
@@ -33,6 +35,7 @@ Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
 ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
 \email{\{abc,lncs\}@uni-heidelberg.de}}
 %
+\
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
@@ -237,7 +240,7 @@ a circuit with a depth greater than 1000 is called a large circuit,
 and the rest are medium-sized circuits.
 It is unnecessary to consider quantum gates acting on single qubits in circuit adjustments, since the single qubits are \emph{local}~\cite{Shafaei2013}.
 %\leaveout{ %15
-\begin{figure}[h!] 
+\begin{figure}[!ht] 
 	\begin{center}
 		  {\scalefont{1.0}
 	\begin{tikzpicture}
@@ -274,7 +277,7 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 
 \begin{figure}
 	{
-	\scalefont{0.8}
+	% \scalefont{0.8}
 	\begin{tikzpicture}
 	% \draw[help Lines] (0,0) grid (11,3);
 		% IBM QX2
@@ -331,7 +334,7 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 }
 \vspace{2mm}\\
 {
-	\scalefont{0.8}
+	% \scalefont{0.8}
 		\begin{tikzpicture}
 			
 	\node at (3.15,0){(d) IBM QX5};
@@ -462,7 +465,8 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 		\node at (6.3,3.2){$\textsf{q}_\textsf{8}$};
 	\end{tikzpicture}
 }
-{\scalefont{0.8}
+{
+	% \scalefont{0.8}
 	\begin{tikzpicture}
 	
 		% IBM Q20
@@ -572,9 +576,9 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 \end{figure}
 
 \leaveout{ %10
-	 \begin{figure}[h!] 
+	 \begin{figure}[!ht] 
 		\begin{center}
-	{\scalefont{1}
+	{\scalefont{1.0}
 		\begin{tikzpicture}							 
 	\draw [black,  thin] (3,1) circle [radius=0.25];
 	\draw [black,  thin] (3,3) circle [radius=0.25];
@@ -622,9 +626,9 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 \end{figure}
 } % endofleaveout 10
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 	\begin{center}
-		{\scalefont{1}
+		{\scalefont{1.0}
 	\begin{tikzpicture}
 		% \tikzstyle{every node}=[font=\small,scale=0.9]
 
@@ -661,7 +665,8 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 			\end{tikzpicture}
 			}
 			\qquad   \qquad
-			{\scalefont{0.8}
+			{
+				% \scalefont{0.8}
 			\begin{tikzpicture}
             
                 % IBM Q20
@@ -744,7 +749,7 @@ we hope to find a circuit transformation algorithm that, when given an input cir
 Roughly speaking, quantum circuit transformation includes the following three steps.
 
 \leaveout{ %11
-\begin{figure}[h!] 
+\begin{figure}[!ht] 
 	\centering
 	\includegraphics[scale=0.4]{uml.jpg}		 
 	\caption{Circuit transformation process}
@@ -783,7 +788,7 @@ At the same time of circuit layering, we generate a logical circuit architecture
 %\subsubsection{Shortest Distance}
 Given a physical architecture graph and assume the distance of each edge is 1, we can use Floyd-Warshall algorithm to calculate the shortest distance matrix $dist[i][j]$, which represents the shortest distance from $\textsf{q}_{\textsf{i}}$ to $\textsf{q}_{\textsf{j}}$. 
 
-\begin{figure}[h!] 			
+\begin{figure}[!ht] 			
 %	\centerline{ 
 %		\Qcircuit @C=1.2em @R=0.5em {
 %			&  \ctrl{2}  		&    \qw &   &    &  \gate{H}  		&\targ 			&\gate{H}     	&  \qw \\
@@ -860,7 +865,7 @@ It shows that the best performance can be achieved by using filters and the sort
 					$\textsf{q} \leftarrow \tau[cans.first]$; \\
 					$k \leftarrow 0$; \\
 					$cans \leftarrow cans\backslash cans.first$; \\
-					\While{$ k \textless targetAdj[\textsf{q}].length$}{
+					\While{$ k < targetAdj[\textsf{q}].length$}{
 						\If{  $(targetAdj[\textsf{q}][k]\neq -1\ or\ targetAdj[k][\textsf{q}]  \neq -1)$\\
 						  $\ and\ not\ \tau.contains(k)$}{
 							 $\tau[\textit{q}] \leftarrow k$; \\
@@ -1126,9 +1131,9 @@ In the future, we will investigate how to reduce the number of inserted auxiliar
 \newpage
 \appendix
 \section{Experimental details of the SWAP gates added by the output circuits}
-\begin{table}[H]
+\begin{table}[!ht]
 	\begin{center}  
-	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+	\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
 	\hline
 	Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
 	 name	&   no. 	&	no. & added&  added &  added 	&  added&  added\\
@@ -1171,9 +1176,24 @@ rd32-v0\_66 & 4 & 16 & 0 & 0 & 6 & 0& - \\
 4gt13-v1\_93 & 5 & 30 & 0 & 0 & 13 & 0& - \\
 graycode6\_47 & 6 & 5 & 0 & 0 & 0 & 0& - \\
 4mod5-bdd\_287 & 7 & 31 & 3 & 6 & 8 & 6& 34 \\
-ham3\_102 & 3 & 11 & 0 & 0 & 3 & 0& 12 \\
-4gt4-v0\_80 & 6 & 79 & 5 & 5 & 22 & 5& - \\
-ex-1\_166 & 3 & 9 & 0 & 0 & 3 & 0& - \\
+\hline
+	\end{tabular} 
+	\end{center}
+	\caption{Comparison of  the number of SWAP gates added by the 
+	output circuit on the IBM Q20 } 
+	\label{tab2}
+	\end{table}
+
+	\begin{table}[!ht]
+		\begin{center}  
+		\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
+		\hline
+		Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
+		 name	&   no. 	&	no. & added&  added &  added 	&  added &  added\\
+		\hline
+		ham3\_102 & 3 & 11 & 0 & 0 & 3 & 0& 12 \\
+		4gt4-v0\_80 & 6 & 79 & 5 & 5 & 22 & 5& - \\
+		ex-1\_166 & 3 & 9 & 0 & 0 & 3 & 0& - \\
 mod5mils\_65 & 5 & 16 & 0 & 0 & 6 & 0& - \\
 0example & 5 & 9 & 1 & 2 & 3 & 3& - \\
 alu-v4\_36 & 5 & 51 & 12 & 8 & 22 & 4& 41 \\
@@ -1183,20 +1203,6 @@ one-two-three-v0\_98 & 5 & 65 & 11 & 13 & 32 & 10& - \\
 one-two-three-v0\_97 & 5 & 128 & 23 & 23 & 64 & 16& - \\
 one-two-three-v3\_101 & 5 & 32 & 3 & 4 & 14 & 3& - \\
 rd32\_270 & 5 & 36 & 3 & 3 & 6 & 6 &24\\
-\hline
-	\end{tabular} 
-	\end{center}
-	\caption{Comparison of  the number of SWAP gates added by the 
-	output circuit on the IBM Q20 } 
-	\label{tab2}
-	\end{table}
-	\begin{table}[H]
-		\begin{center}  
-		\begin{tabular}{|c|c|c|c|c|c|c|c|}
-		\hline
-		Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
-		 name	&   no. 	&	no. & added&  added &  added 	&  added &  added\\
-		\hline
 		rd53\_130 & 7 & 448 & 89 & 100 & 190 & 49& - \\
 rd53\_251 & 8 & 564 & 104 & 131 & 230 & 45& - \\
 4mod5-v1\_24 & 5 & 16 & 0 & 0 & 3 & 0& - \\
@@ -1223,29 +1229,9 @@ alu-v0\_27 & 5 & 17 & 2 & 4 & 11 & 2& 9 \\
 4gt13\_91 & 5 & 49 & 7 & 7 & 10 & 2& - \\
 4gt5\_77 & 5 & 58 & 12 & 12 & 20 & 6& - \\
 4gt13\_92 & 5 & 30 & 0 & 0 & 14 & 0& - \\
-4gt5\_76 & 5 & 46 & 7 & 10 & 24 & 5&39 \\
-4gt5\_75 & 5 & 38 & 5 & 12 & 16 & 4& 53 \\
-4gt12-v1\_89 & 6 & 100 & 11 & 21 & 38 & 4& - \\
-one-two-three-v1\_99 & 5 & 59 & 12 & 10 & 26 & 7& - \\
-4gt13\_90 & 5 & 53 & 7 & 7 & 13 & 3& - \\
-ising\_model\_10 & 10 & 90 & 0 & 0 & 5 & 0& - \\
-4gt11\_84 & 5 & 9 & 0 & 0 & 3 & 0& 12\\
-4gt11\_83 & 5 & 14 & 0 & 0 & 0 & 0& - \\
-mod5d1\_63 & 5 & 13 & 0 & 0 & 1 & 0& - \\
-4gt11\_82 & 5 & 18 & 1 & 1 & 1 & 1& - \\
-decod24-v3\_45 & 5 & 64 & 15 & 15 & 32 & 8& 64 \\
-rd32-v1\_68 & 4 & 16 & 0 & 0 & 6 & 0& 24 \\
-mini-alu\_167 & 5 & 126 & 27 & 27 & 49 & 11& - \\
-one-two-three-v2\_100 & 5 & 32 & 3 & 4 & 8 & 3& - \\
-4mod7-v0\_94 & 5 & 72 & 8 & 13 & 36 & 9& - \\
-cm82a\_208 & 8 & 283 & 41 & 69 & 84 & 33& - \\
-mod8-10\_178 & 6 & 152 & 5 & 20 & 13 & 7& - \\
-mod8-10\_177 & 6 & 196 & 14 & 33 & 58 & 13& 230 \\
-majority\_239 & 7 & 267 & 39 & 43 & 105 & 33& - \\
-miller\_11 & 3 & 23 & 0 & 0 & 9 & 0& 36 \\
-decod24-bdd\_294 & 6 & 32 & 4 & 4 & 9 & 4& 36 \\
-\hline
-total & 551 & 9244 & 1372 & 1738 & 3481 & 800 &-\\
+			4gt5\_76 & 5 & 46 & 7 & 10 & 24 & 5&39 \\
+			4gt5\_75 & 5 & 38 & 5 & 12 & 16 & 4& 53 \\
+			4gt12-v1\_89 & 6 & 100 & 11 & 21 & 38 & 4& - \\
 		\hline
 		\end{tabular} 
 		\end{center} 
@@ -1253,10 +1239,41 @@ total & 551 & 9244 & 1372 & 1738 & 3481 & 800 &-\\
 		output circuit on the IBM Q20 } 
 		\label{tab3}
 		\end{table}	
-		\begin{table}[H]
-			\label{tab4}
+		
+		\begin{table}[!ht]
 			\begin{center}  
-			\begin{tabular}{|c|c|c|c|c|c|c|c|}
+			\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
+			\hline
+			Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
+			 name	&   no. 	&	no. & added&  added &  added 	&  added &  added\\
+			\hline
+			4gt11\_83 & 5 & 14 & 0 & 0 & 0 & 0& - \\
+			mod5d1\_63 & 5 & 13 & 0 & 0 & 1 & 0& - \\
+			4gt11\_82 & 5 & 18 & 1 & 1 & 1 & 1& - \\
+			decod24-v3\_45 & 5 & 64 & 15 & 15 & 32 & 8& 64 \\
+			rd32-v1\_68 & 4 & 16 & 0 & 0 & 6 & 0& 24 \\
+			mini-alu\_167 & 5 & 126 & 27 & 27 & 49 & 11& - \\
+			one-two-three-v2\_100 & 5 & 32 & 3 & 4 & 8 & 3& - \\
+			4mod7-v0\_94 & 5 & 72 & 8 & 13 & 36 & 9& - \\
+			cm82a\_208 & 8 & 283 & 41 & 69 & 84 & 33& - \\
+			mod8-10\_178 & 6 & 152 & 5 & 20 & 13 & 7& - \\
+			mod8-10\_177 & 6 & 196 & 14 & 33 & 58 & 13& 230 \\
+			majority\_239 & 7 & 267 & 39 & 43 & 105 & 33& - \\
+			miller\_11 & 3 & 23 & 0 & 0 & 9 & 0& 36 \\
+			decod24-bdd\_294 & 6 & 32 & 4 & 4 & 9 & 4& 36 \\
+			\hline
+			total & 551 & 9244 & 1372 & 1738 & 3481 & 800 &-\\
+			\hline
+		\end{tabular} 
+		\end{center}
+		\caption{Comparison of  the number of SWAP gates added by the 
+		output circuit on the IBM Q20 } 
+		\label{tab4}
+		\end{table}
+		
+		\begin{table}[!ht]
+			\begin{center}  
+			\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
 			\hline
 			Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
 			 name	&   no. 	&	no. & added&  added &  added 	&  added&  added\\
@@ -1278,31 +1295,46 @@ sys6-v0\_111 & 10 & 98 & 23 & 26 & 38 & -& - \\
 hwb7\_59 & 8 & 10681 & 2687 & 3551 & 3722 & -& - \\
 sym9\_146 & 12 & 148 & 38 & 55 & 54 & -& 248 \\
 wim\_266 & 11 & 427 & 93 & 120 & 147 & -& - \\
-urf2\_152 & 8 & 35210 & 9181 & 11921 & 10577 & -& - \\
-urf5\_159 & 9 & 71932 & 20258 & 25505 & - & -& - \\
-urf2\_277 & 8 & 10066 & 2807 & 3798 & 3782 & -& - \\
-life\_238 & 11 & 9800 & 2762 & 3576 & - & -& - \\
-root\_255 & 13 & 7493 & 2128 & 3035 & - & -& - \\
-9symml\_195 & 11 & 15232 & 4553 & 5986 & - & -& - \\
-sym10\_262 & 12 & 28084 & 8534 & 11033 & - & -& - \\
-dc1\_220 & 11 & 833 & 226 & 207 & 371 & -& - \\
-cm42a\_207 & 14 & 771 & 182 & 229 & 294 & -& - \\
-rd53\_311 & 13 & 124 & 26 & 48 & 47 & -& - \\
-dc2\_222 & 15 & 4131 & 1383 & 1773 & - & -& - \\
-rd84\_142 & 15 & 154 & 49 & 58 & 50 & -& - \\
-sym6\_145 & 7 & 1701 & 317 & 449 & 750 & -& - \\
-co14\_215 & 15 & 7840 & 3078 & 3819 & - & -& - \\
-cnt3-5\_180 & 16 & 215 & 59 & 74 & 79 & -& - \\
-cm152a\_212 & 12 & 532 & 103 & 129 & 168 & -& - \\
-sym6\_316 & 14 & 123 & 30 & 39 & 56 & -& - \\
-mlp4\_245 & 16 & 8232 & 2780 & 3490 & - & -& - \\
+			\hline
+			\end{tabular} 
+			\end{center}	
+			\caption{Comparison of  the number of SWAP gates added by the 
+			output circuit on the IBM Q20 }
+			\label{tab5}  
+			\end{table}
+
+		\begin{table}[!ht]
+			\begin{center}  
+				\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
+					\hline
+					Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
+					 name	&   no. 	&	no. & added&  added &  added 	&  added&  added\\
+					\hline
+					urf2\_152 & 8 & 35210 & 9181 & 11921 & 10577 & -& - \\
+					urf5\_159 & 9 & 71932 & 20258 & 25505 & - & -& - \\
+					urf2\_277 & 8 & 10066 & 2807 & 3798 & 3782 & -& - \\
+					life\_238 & 11 & 9800 & 2762 & 3576 & - & -& - \\
+					root\_255 & 13 & 7493 & 2128 & 3035 & - & -& - \\
+					9symml\_195 & 11 & 15232 & 4553 & 5986 & - & -& - \\
+					sym10\_262 & 12 & 28084 & 8534 & 11033 & - & -& - \\
+					dc1\_220 & 11 & 833 & 226 & 207 & 371 & -& - \\
+					cm42a\_207 & 14 & 771 & 182 & 229 & 294 & -& - \\
+					rd53\_311 & 13 & 124 & 26 & 48 & 47 & -& - \\
+					dc2\_222 & 15 & 4131 & 1383 & 1773 & - & -& - \\
+					rd84\_142 & 15 & 154 & 49 & 58 & 50 & -& - \\
+					sym6\_145 & 7 & 1701 & 317 & 449 & 750 & -& - \\
+					co14\_215 & 15 & 7840 & 3078 & 3819 & - & -& - \\
+					cnt3-5\_180 & 16 & 215 & 59 & 74 & 79 & -& - \\
+					cm152a\_212 & 12 & 532 & 103 & 129 & 168 & -& - \\
+					sym6\_316 & 14 & 123 & 30 & 39 & 56 & -& - \\
+					mlp4\_245 & 16 & 8232 & 2780 & 3490 & - & -& - \\
 hwb8\_113 & 9 & 30372 & 10749 & 16489 & - & -& - \\
 qft\_16 & 16 & 240 & 90 & 147 & - & -& - \\
 plus63mod4096\_163 & 13 & 56329 & 19759 & 24273 & - & -& - \\
 urf1\_149 & 9 & 80878 & 22551 & 28516 & - & -& - \\
 urf3\_155 & 10 & 185276 & 50842 & 62903 & - & -& - \\
 urf3\_279 & 10 & 60380 & 17999 & 23318 & - & -& - \\
-hwb9\_119 & 10 & 90955 & 22946 & 30031 & - & -& - \\
+					hwb9\_119 & 10 & 90955 & 22946 & 30031 & - & -& - \\
 plus63mod8192\_164 & 14 & 81865 & 28022 & 36207 & - & -& - \\
 pm1\_249 & 14 & 771 & 182 & 229 & 294 & -& - \\
 sym9\_193 & 11 & 15232 & 4382 & 5518 & - & -& - \\
@@ -1311,21 +1343,6 @@ urf1\_278 & 9 & 26692 & 8010 & 10217 & - & -& - \\
 squar5\_261 & 13 & 869 & 219 & 313 & 290 & -& - \\
 ground\_state\_estimation\_10 & 13 & 154209 & 11671 & 22886 & - & -& - \\
 adr4\_197 & 13 & 1498 & 516 & 670 & - & -& - \\
-			\hline
-			\end{tabular} 
-			\end{center}	
-			\caption{Comparison of  the number of SWAP gates added by the 
-			output circuit on the IBM Q20 }
-			\label{tab4}  
-			\end{table}
-				\begin{table}[H]
-					\label{tab5}
-					\begin{center}  
-					\begin{tabular}{|c|c|c|c|c|c|c|c|}
-					\hline
-					Circuit &  qubit  & CNOT &TSA$_{num}$& TSA$_{dep}$  & optm 	 & wghtgr  &SABRE 	\\
-					 name	&   no. 	&	no. & added&  added &  added 	&  added&  added\\
-					\hline
 					hwb6\_56 & 7 & 2952 & 698 & 933 & 909 & -& - \\
 clip\_206 & 14 & 14772 & 5430 & 6865 & - & -& - \\
 cm85a\_209 & 14 & 4986 & 2088 & 2225 & - & -& - \\
@@ -1340,13 +1357,14 @@ con1\_216 & 9 & 415 & 86 & 118 & 177 & -& - \\
 					\end{center}	
 					\caption{Comparison of  the number of  SWAP gates added by the 
 					output circuit on the IBM Q20 }  
-					\label{tab5}
+					\label{tab6}
 					\end{table}
+				
 \section{Experimental details of the depths of the output circuits}
-					\begin{table}[H]
-						\begin{center}  
-						\begin{tabular}{|c|c|c|c|c|c|c|}
-						\hline
+\begin{table}[!ht]
+	\begin{center}  
+		\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|}
+			\hline
 						Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
 						 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
 						\hline
@@ -1389,9 +1407,29 @@ rd53\_135 & 7 & 134 & 159 & 218 & 221 & 331 \\
 sys6-v0\_111 & 10 & 98 & 75 & 167 & 176 & 188 \\
 decod24-v2\_43 & 4 & 22 & 30 & 22 & 22 & 75 \\
 hwb7\_59 & 8 & 10681 & 13437 & 18742 & 21334 & 29601 \\
+					\hline
+						\end{tabular} 
+						\end{center} 	
+						\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+						\label{tab7}
+					\end{table}
+
+\begin{table}[!ht]
+	\begin{center}  
+		\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|}
+							\hline
+							Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
+							 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
+							\hline
+							rd53\_138 & 8 & 60 & 56 & 102 & 108 & 114 \\
+							rd32-v0\_66 & 4 & 16 & 20 & 16 & 16 & 51 \\
+rd53\_135 & 7 & 134 & 159 & 218 & 221 & 331 \\
+sys6-v0\_111 & 10 & 98 & 75 & 167 & 176 & 188 \\
+decod24-v2\_43 & 4 & 22 & 30 & 22 & 22 & 75 \\
+hwb7\_59 & 8 & 10681 & 13437 & 18742 & 21334 & 29601 \\
 rd53\_138 & 8 & 60 & 56 & 102 & 108 & 114 \\
 rd32-v0\_66 & 4 & 16 & 20 & 16 & 16 & 51 \\
-sym9\_146 & 12 & 148 & 127 & 262 & 313 & 309 \\
+							sym9\_146 & 12 & 148 & 127 & 262 & 313 & 309 \\
 4gt13-v1\_93 & 5 & 30 & 39 & 30 & 30 & 102 \\
 graycode6\_47 & 6 & 5 & 5 & 5 & 5 & 5 \\
 wim\_266 & 11 & 427 & 514 & 706 & 787 & 1180 \\
@@ -1400,26 +1438,12 @@ urf2\_277 & 8 & 10066 & 11390 & 18487 & 21460 & 26548 \\
 4mod5-bdd\_287 & 7 & 31 & 41 & 40 & 49 & 71 \\
 ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 4gt4-v0\_80 & 6 & 79 & 101 & 94 & 94 & 206 \\
-					\hline
-						\end{tabular} 
-						\end{center} 	
-						\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
-						\label{tab6}
-					\end{table}
-						\begin{table}[H]
-							\begin{center}  
-							\begin{tabular}{|c|c|c|c|c|c|c|}
-							\hline
-							Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
-							 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
-							\hline
 							ex-1\_166 & 3 & 9 & 12 & 9 & 9 & 28 \\
 							mod5mils\_65 & 5 & 16 & 21 & 16 & 16 & 52 \\
 							0example & 5 & 9 & 6 & 12 & 15 & 15 \\
 							alu-v4\_36 & 5 & 51 & 66 & 87 & 75 & 170 \\
 							alu-v4\_37 & 5 & 18 & 22 & 24 & 30 & 60 \\
-							ex1\_226 & 6 & 5 & 5 & 5 & 5 & 10 \\
-							one-two-three-v0\_98 & 5 & 65 & 82 & 98 & 104 & 234 \\
+							ex1\_226 & 6 & 5 & 5 & 5 & 5 & 10 \\one-two-three-v0\_98 & 5 & 65 & 82 & 98 & 104 & 234 \\
 							one-two-three-v0\_97 & 5 & 128 & 163 & 197 & 197 & 443 \\
 							one-two-three-v3\_101 & 5 & 32 & 40 & 41 & 44 & 95 \\
 							rd32\_270 & 5 & 36 & 47 & 45 & 45 & 76 \\
@@ -1441,10 +1465,24 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 							sym6\_145 & 7 & 1701 & 2187 & 2652 & 3048 & 5716 \\
 							sf\_276 & 6 & 336 & 435 & 372 & 492 & 1096 \\
 							decod24-v1\_41 & 5 & 38 & 50 & 50 & 50 & 120 \\
-							sf\_274 & 6 & 336 & 436 & 438 & 399 & 822 \\
-							4gt4-v1\_74 & 6 & 119 & 154 & 170 & 191 & 329 \\
-							alu-v2\_33 & 5 & 17 & 22 & 29 & 29 & 59 \\
-							cnt3-5\_180 & 16 & 215 & 209 & 392 & 437 & 482 \\
+						\hline
+							\end{tabular} 
+							\end{center} 
+							\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+							\label{tab8}	
+\end{table}
+
+							\begin{table}[!ht]
+								\begin{center}  
+								\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|}
+								\hline
+								Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
+								 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
+								\hline
+								sf\_274 & 6 & 336 & 436 & 438 & 399 & 822 \\
+								4gt4-v1\_74 & 6 & 119 & 154 & 170 & 191 & 329 \\
+								alu-v2\_33 & 5 & 17 & 22 & 29 & 29 & 59 \\
+								cnt3-5\_180 & 16 & 215 & 209 & 392 & 437 & 482 \\
 							cm152a\_212 & 12 & 532 & 684 & 841 & 919 & 1423 \\
 							cnt3-5\_179 & 16 & 85 & 61 & 103 & 103 & 166 \\
 							sym6\_316 & 14 & 123 & 135 & 213 & 240 & 378 \\
@@ -1463,96 +1501,84 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 							one-two-three-v1\_99 & 5 & 59 & 76 & 95 & 89 & 194 \\
 							4gt13\_90 & 5 & 53 & 65 & 74 & 74 & 124 \\
 							pm1\_249 & 14 & 771 & 940 & 1317 & 1458 & 2279 \\
-						\hline
-							\end{tabular} 
-							\end{center} 
-							\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
-							\label{tab7}	
-						\end{table}
-							\begin{table}[H]
-								\label{tab8}
-								\begin{center}  
-								\begin{tabular}{|c|c|c|c|c|c|c|}
-								\hline
-								Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
-								 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
-								\hline
-								ising\_model\_10 & 10 & 90 & 52 & 90 & 90 & 107 \\
-								misex1\_241 & 15 & 2100 & 2676 & 3540 & 4362 & 5326 \\
-								4gt11\_84 & 5 & 9 & 11 & 9 & 9 & 25 \\
-								4gt11\_83 & 5 & 14 & 16 & 14 & 14 & 16 \\
-								mod5d1\_63 & 5 & 13 & 13 & 13 & 13 & 17 \\
-								4gt11\_82 & 5 & 18 & 20 & 21 & 21 & 25 \\
-								squar5\_261 & 13 & 869 & 1051 & 1526 & 1808 & 2309 \\
-								decod24-v3\_45 & 5 & 64 & 84 & 109 & 109 & 244 \\
-								rd32-v1\_68 & 4 & 16 & 21 & 16 & 16 & 52 \\
-								hwb6\_56 & 7 & 2952 & 3736 & 5046 & 5751 & 7773 \\
-								mini-alu\_167 & 5 & 126 & 162 & 207 & 207 & 400 \\
-								one-two-three-v2\_100 & 5 & 32 & 40 & 41 & 44 & 80 \\
-								4mod7-v0\_94 & 5 & 72 & 92 & 96 & 111 & 270 \\
-								cm82a\_208 & 8 & 283 & 340 & 406 & 490 & 699 \\
-								mod8-10\_178 & 6 & 152 & 193 & 167 & 212 & 243 \\
-								mod8-10\_177 & 6 & 196 & 251 & 238 & 295 & 525 \\
-								majority\_239 & 7 & 267 & 344 & 384 & 396 & 839 \\
-								qft\_10 & 10 & 90 & 37 & 159 & 192 & 135 \\
-								miller\_11 & 3 & 23 & 29 & 23 & 23 & 75 \\
-								decod24-bdd\_294 & 6 & 32 & 40 & 44 & 44 & 86 \\
-								con1\_216 & 9 & 415 & 508 & 673 & 769 & 1197 \\
-								\hline
-								total & 823 & 83416 & 103023 & 145372 & 164848 & 224731  \\
+							ising\_model\_10 & 10 & 90 & 52 & 90 & 90 & 107 \\
+							misex1\_241 & 15 & 2100 & 2676 & 3540 & 4362 & 5326 \\
+							4gt11\_84 & 5 & 9 & 11 & 9 & 9 & 25 \\
+							4gt11\_83 & 5 & 14 & 16 & 14 & 14 & 16 \\
+							mod5d1\_63 & 5 & 13 & 13 & 13 & 13 & 17 \\
+							4gt11\_82 & 5 & 18 & 20 & 21 & 21 & 25 \\
+							squar5\_261 & 13 & 869 & 1051 & 1526 & 1808 & 2309 \\
+							decod24-v3\_45 & 5 & 64 & 84 & 109 & 109 & 244 \\
+							rd32-v1\_68 & 4 & 16 & 21 & 16 & 16 & 52 \\
+							hwb6\_56 & 7 & 2952 & 3736 & 5046 & 5751 & 7773 \\
+							mini-alu\_167 & 5 & 126 & 162 & 207 & 207 & 400 \\
+							one-two-three-v2\_100 & 5 & 32 & 40 & 41 & 44 & 80 \\
+							4mod7-v0\_94 & 5 & 72 & 92 & 96 & 111 & 270 \\
+							cm82a\_208 & 8 & 283 & 340 & 406 & 490 & 699 \\
+							mod8-10\_178 & 6 & 152 & 193 & 167 & 212 & 243 \\
+							mod8-10\_177 & 6 & 196 & 251 & 238 & 295 & 525 \\
+							majority\_239 & 7 & 267 & 344 & 384 & 396 & 839 \\
+							qft\_10 & 10 & 90 & 37 & 159 & 192 & 135 \\
+							miller\_11 & 3 & 23 & 29 & 23 & 23 & 75 \\
+							decod24-bdd\_294 & 6 & 32 & 40 & 44 & 44 & 86 \\
+							con1\_216 & 9 & 415 & 508 & 673 & 769 & 1197 \\
+							\hline
+							total & 823 & 83416 & 103023 & 145372 & 164848 & 224731  \\
 							\hline
 								\end{tabular} 
 								\end{center}						
 								\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
-								\label{tab8}\end{table}
-								\begin{table}[H]
-									\begin{center}  
-									\begin{tabular}{|c|c|c|c|c|c|c|}
-									\hline
-									Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
-									 name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
-									\hline
-									max46\_240 & 10 & 11844 & 14257 & 22263 & 25479 & - \\
-									rd73\_252 & 10 & 2319 & 2867 & 4077 & 4602 & - \\
-									urf4\_187 & 11 & 224028 & 264330 & 388383 & 404448 & - \\
-									sqn\_258 & 10 & 4459 & 5458 & 8056 & 8719 & - \\
-									ham15\_107 & 15 & 3858 & 4819 & 7836 & 8925 & - \\
-									sao2\_257 & 14 & 16864 & 19563 & 32902 & 38398 & - \\
-									sym9\_148 & 10 & 9408 & 12087 & 15003 & 16704 & - \\
-									urf5\_280 & 9 & 23764 & 27822 & 44731 & 49954 & - \\
-									square\_root\_7 & 15 & 3089 & 3847 & 5525 & 9539 & - \\
-									urf5\_159 & 9 & 71932 & 89148 & 132706 & 148447 & - \\
-									life\_238 & 11 & 9800 & 12511 & 18086 & 20528 & - \\
-									root\_255 & 13 & 7493 & 8839 & 13877 & 16598 & - \\
-									9symml\_195 & 11 & 15232 & 19235 & 28891 & 33190 & - \\
-									sym10\_262 & 12 & 28084 & 35572 & 53686 & 61183 & - \\
-									dc2\_222 & 15 & 4131 & 5242 & 8280 & 9450 & - \\
-									co14\_215 & 15 & 7840 & 8570 & 17074 & 19297 & - \\
-									mlp4\_245 & 16 & 8232 & 10328 & 16572 & 18702 & - \\
-									hwb8\_113 & 9 & 30372 & 38717 & 62619 & 79839 & - \\
-									qft\_16 & 16 & 240 & 61 & 510 & 681 & - \\
-									plus63mod4096\_163 & 13 & 56329 & 72246 & 115606 & 129148 & - \\
-									urf1\_149 & 9 & 80878 & 99586 & 148531 & 166426 & - \\
-									urf3\_155 & 10 & 185276 & 229365 & 337802 & 373985 & - \\
-									urf3\_279 & 10 & 60380 & 70702 & 114377 & 130334 & - \\
-									hwb9\_119 & 10 & 90955 & 116199 & 159793 & 181048 & - \\
-									plus63mod8192\_164 & 14 & 81865 & 105142 & 165931 & 190486 & - \\
-									sym9\_193 & 11 & 15232 & 19235 & 28378 & 31786 & - \\
-									ising\_model\_13 & 13 & 120 & 46 & 120 & 120 & - \\
-									urf1\_278 & 9 & 26692 & 30955 & 50722 & 57343 & - \\
-									ising\_model\_16 & 16 & 150 & 57 & 150 & 150 & - \\
-									ground\_state\_estimation\_10 & 13 & 154209 & 217236 & 189222 & 222867 & - \\
-									adr4\_197 & 13 & 1498 & 1839 & 3046 & 3508 & - \\
-									clip\_206 & 14 & 14772 & 17879 & 31062 & 35367 & - \\
-									cm85a\_209 & 14 & 4986 & 6374 & 11250 & 11661 & - \\
-									rd84\_253 & 12 & 5960 & 7261 & 11507 & 12959 & - \\
-									dist\_223 & 13 & 16624 & 19694 & 33493 & 38917 & - \\
-									inc\_237 & 16 & 4636 & 5864 & 8215 & 9637 & - \\
-									urf6\_160 & 15 & 75180 & 93645 & 157752 & 172536 & - \\
-								\hline
-									\end{tabular} 
-									\end{center}						
-									\caption{Comparison of  the depth of the output circuit on the IBM Q20}  
-									\label{tab9}
-								\end{table}
+								\label{tab9}
+							\end{table}
+
+						\begin{table}[!ht]
+							\begin{center}  
+							\begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|}
+							\hline
+							Circuit &  qubit  & CNOT &depths &TSA$_{num}$& TSA$_{dep}$  & optm 	  	\\
+							name	&   no. 	&	no. & no. & depths&  depths &  depths 	\\
+						   \hline
+						   max46\_240 & 10 & 11844 & 14257 & 22263 & 25479 & - \\
+						   rd73\_252 & 10 & 2319 & 2867 & 4077 & 4602 & - \\
+						   urf4\_187 & 11 & 224028 & 264330 & 388383 & 404448 & - \\
+						   sqn\_258 & 10 & 4459 & 5458 & 8056 & 8719 & - \\
+						   ham15\_107 & 15 & 3858 & 4819 & 7836 & 8925 & - \\
+						   sao2\_257 & 14 & 16864 & 19563 & 32902 & 38398 & - \\
+						   sym9\_148 & 10 & 9408 & 12087 & 15003 & 16704 & - \\
+						   urf5\_280 & 9 & 23764 & 27822 & 44731 & 49954 & - \\
+						   square\_root\_7 & 15 & 3089 & 3847 & 5525 & 9539 & - \\
+						   urf5\_159 & 9 & 71932 & 89148 & 132706 & 148447 & - \\
+						   life\_238 & 11 & 9800 & 12511 & 18086 & 20528 & - \\
+						   root\_255 & 13 & 7493 & 8839 & 13877 & 16598 & - \\
+						   9symml\_195 & 11 & 15232 & 19235 & 28891 & 33190 & - \\
+						   sym10\_262 & 12 & 28084 & 35572 & 53686 & 61183 & - \\
+						   dc2\_222 & 15 & 4131 & 5242 & 8280 & 9450 & - \\
+						   co14\_215 & 15 & 7840 & 8570 & 17074 & 19297 & - \\
+						   mlp4\_245 & 16 & 8232 & 10328 & 16572 & 18702 & - \\
+						   hwb8\_113 & 9 & 30372 & 38717 & 62619 & 79839 & - \\
+						   qft\_16 & 16 & 240 & 61 & 510 & 681 & - \\
+						   plus63mod4096\_163 & 13 & 56329 & 72246 & 115606 & 129148 & - \\
+						   urf1\_149 & 9 & 80878 & 99586 & 148531 & 166426 & - \\
+						   urf3\_155 & 10 & 185276 & 229365 & 337802 & 373985 & - \\
+						   urf3\_279 & 10 & 60380 & 70702 & 114377 & 130334 & - \\
+						   hwb9\_119 & 10 & 90955 & 116199 & 159793 & 181048 & - \\
+						   plus63mod8192\_164 & 14 & 81865 & 105142 & 165931 & 190486 & - \\
+						   sym9\_193 & 11 & 15232 & 19235 & 28378 & 31786 & - \\
+						   ising\_model\_13 & 13 & 120 & 46 & 120 & 120 & - \\
+						   urf1\_278 & 9 & 26692 & 30955 & 50722 & 57343 & - \\
+						   ising\_model\_16 & 16 & 150 & 57 & 150 & 150 & - \\
+						   ground\_state\_estimation\_10 & 13 & 154209 & 217236 & 189222 & 222867 & - \\
+						   adr4\_197 & 13 & 1498 & 1839 & 3046 & 3508 & - \\
+						   clip\_206 & 14 & 14772 & 17879 & 31062 & 35367 & - \\
+						   cm85a\_209 & 14 & 4986 & 6374 & 11250 & 11661 & - \\
+						   rd84\_253 & 12 & 5960 & 7261 & 11507 & 12959 & - \\
+						   dist\_223 & 13 & 16624 & 19694 & 33493 & 38917 & - \\
+						   inc\_237 & 16 & 4636 & 5864 & 8215 & 9637 & - \\
+						   urf6\_160 & 15 & 75180 & 93645 & 157752 & 172536 & - \\
+						   \hline
+					\end{tabular} 
+					\end{center}						
+					\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+					\label{tab11}
+				\end{table}		
 \end{document}
