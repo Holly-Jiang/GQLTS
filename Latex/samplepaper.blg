@@ -3,55 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: samplepaper.aux
 The style file: splncs04.bst
 Database file #1: mybibliography.bib
-Warning--empty booktitle in 2019Almeida
-Warning--empty publisher in 2018Integer
-Warning--empty journal in Cowtan2019
-Warning--empty booktitle in 2019Murali
-Warning--empty publisher in Paler2018
-Warning--empty booktitle in Sun2020
-Warning--empty booktitle in Tannu2019
-Warning--empty booktitle in 2017Temporal
-Warning--empty booktitle in 2019Zhang
-Warning--empty booktitle in Zulehner2017
 You've used 24 entries,
             2850 wiz_defined-function locations,
-            763 strings with 9258 characters,
-and the built_in function-call counts, 14350 in all, are:
-= -- 1168
-> -- 450
-< -- 24
-+ -- 185
-- -- 160
-* -- 954
-:= -- 1851
-add.period$ -- 42
+            752 strings with 9433 characters,
+and the built_in function-call counts, 15093 in all, are:
+= -- 1295
+> -- 443
+< -- 33
++ -- 183
+- -- 158
+* -- 924
+:= -- 1873
+add.period$ -- 37
 call.type$ -- 24
-change.case$ -- 155
+change.case$ -- 177
 chr.to.int$ -- 0
-cite$ -- 34
-duplicate$ -- 1298
-empty$ -- 1296
-format.name$ -- 182
-if$ -- 3140
+cite$ -- 24
+duplicate$ -- 1338
+empty$ -- 1335
+format.name$ -- 179
+if$ -- 3354
 int.to.chr$ -- 0
 int.to.str$ -- 24
-missing$ -- 251
+missing$ -- 259
 newline$ -- 78
-num.names$ -- 50
-pop$ -- 460
+num.names$ -- 48
+pop$ -- 498
 preamble$ -- 1
 purify$ -- 127
 quote$ -- 0
-skip$ -- 363
+skip$ -- 468
 stack$ -- 0
-substring$ -- 814
-swap$ -- 694
-text.length$ -- 24
+substring$ -- 925
+swap$ -- 760
+text.length$ -- 33
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 92
-warning$ -- 10
-while$ -- 105
+type$ -- 96
+warning$ -- 0
+while$ -- 126
 width$ -- 26
-write$ -- 268
-(There were 10 warnings)
+write$ -- 247
