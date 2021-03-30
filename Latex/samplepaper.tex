@@ -20,31 +20,38 @@
 
 \begin{document}
 %
-\title{ Quantum Circuit Transformation Based on Subgraph Isomorphism and Tabu Search\thanks{Supported by organization x.}}
+\title{ Quantum Circuit Transformation Based on Subgraph Isomorphism and Tabu Search%\thanks{Supported by organization x.}
+}
 
-\author{First Aaaaaaauthor\inst{1}\orcidID{0000-ereer1111-2222-3333} \and
-Second Author\inst{2,3}\orcidID{1111-2222-3333-4444} \and
-Third Author\inst{3}\orcidID{2222--3333-4444-5555}}
+\author{Hui Jiang %\inst{1}\orcidID{0000-ereer1111-2222-3333} 
+	\and
+Yuxin Deng
+\and Ming Xu
+%\inst{2,3}\orcidID{1111-2222-3333-4444} \and
+%Third Author\inst{3}\orcidID{2222--3333-4444-5555}
+}
 %
-\authorrunning{F. Author et al.}
+\authorrunning{H. Jiang et al.}
 
-\institute{Princeton University, Princeton NJ 08544, USA \and
-Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
-\email{lncs@springer.com}\\
-\url{http://www.springer.com/gp/computer-science/lncs} \and
-ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
-\email{\{abc,lncs\}@uni-heidelberg.de}}
+\institute{Shanghai Key Laboratory of Trustworthy Computing, 
+	East China Normal University, Shanghai, China
+	%\and
+%Springer Heidelberg, Tiergartenstr. 17, 69121 Heidelberg, Germany
+%\email{lncs@springer.com}\\
+%\url{http://www.springer.com/gp/computer-science/lncs} \and
+%ABC Institute, Rupert-Karls-University Heidelberg, Heidelberg, Germany\\
+%\email{\{abc,lncs\}@uni-heidelberg.de}
+}
 %
-\
+
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
 	The goal of quantum circuit adjustment is to construct mappings from logical quantum circuits to physical ones in an acceptable amount of time, and in the meantime to introduce  as few auxiliary gates as possible. We present an effective approach to constructing the mapping. It consists of two keys steps: one makes use of a combined subgraph isomorphism and complement (CSIC) to initialize a mapping, the other dynamically adjusts the mapping by using a Tabu search based adjustment (TSA). Our experiments show that, compared with the wghtgraph recently considered in the literature, CSIC can save 22.26\% of auxiliary gates and reduce the depths of output circuits by 11.76\% on average in the initialization of the mapping, and  TSA has a better scalability than many state-of-the-art algorithms for adjusting mappings.
-	
-	
-	\keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu search}
 \end{abstract}
 
+%\keywords{Quantum circuit transformation  \and  Subgraph isomorphism \and Initial mapping \and Tabu search}
+	
 \section{Introduction}
 \label{Introduction}
 The entanglement of a quantum system with its surrounding environment will lead to quantum decoherence. It is unrealistic to use quantum error correction in circuit mapping process, since there are only dozens of available qubits for quantum devices in the NISQ era~\cite{2018QuantumPreskill}. It is necessary to transform circuits by adding auxiliary gates to satisfy both logical and physical constraints, since quantum algorithms do not consider any hardware connectivity constraints. Hence, quantum circuit transformation is an important part of quantum circuit compilation. We need a set of highly efficient and automatic mapping procedures and adjustment routines to perform circuit transformation. In this process noise may be introduced, which brings a huge challenge to circuit compilation because noise has a significant impact on the final circuit and may make the result meaningless. 
@@ -76,7 +83,7 @@ The last section concludes the paper and discusses some future research.
 
 \section{Related work}
 \label{Related work}
-Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In 2017, IBM developed the first 5-qubit backend called IBM QX2, followed by the 16-qubit backend  IBM QX3. The revised versions of them are called IBM QX4 and IBM QX5, respectively. IBM Q Experience provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework $Qiskit$ \footnote{https://www.qiskit.org/}. 
+Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In 2017, IBM developed the first 5-qubit backend called IBM QX2, followed by the 16-qubit backend  IBM QX3. The revised versions of them are called IBM QX4 and IBM QX5, respectively. IBM Q Experience \cite{ibm} provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework Qiskit \cite{qiskit}. 
 
 Users of these early quantum computers mainly rely on quantum circuits to implement quantum algorithms. They design logical circuits which then go through the step of circuit transformation in order to map logical qubits to physical ones before the logical circuits are executed in physical devices. A big challenge for quantum information is the problem of quantum decoherence. Due to the decoherence of qubits, quantum gates need to be applied in a coherent period as the time for a qubit to stay in a coherent state is very short. The longest coherence time of a superconducting quantum chip is still within 10us-100us. 
 
@@ -124,7 +131,7 @@ We use letters $\textsf{q}$ and $\textit{q}$ in different fonts to represent phy
 By applying quantum gates to qubits, we can change their states.
 For example, the Hadamard gate (H gate) can be applied on a single qubit, while the CNOT gate can be applied on two qubits. Their representations in terms of  gate symbols and their semantics in terms of matrices are shown in Fig.~\ref{common_gates}. 
 {
-\begin{figure}
+\begin{figure}[t]
 	 \scalefont{1.0}
 	 \begin{center}
 	\begin{tikzpicture}
@@ -218,7 +225,6 @@ For example, the Hadamard gate (H gate) can be applied on a single qubit, while 
 	};
 \end{tikzpicture}
 \end{center}
-
 \caption{The symbols of two quantum gates and their matrices}\label{common_gates}
 \end{figure}	 
 
@@ -238,9 +244,9 @@ For example, the depth of the circuit in Fig.~\ref{OriginalCircuit} is 6, and th
 In this paper, a circuit with a depth less than 100 is a called a small circuit,
 a circuit with a depth greater than 1000 is called a large circuit,
 and the rest are medium-sized circuits.
-It is unnecessary to consider quantum gates acting on single qubits in circuit adjustments, since the single qubits are \emph{local}~\cite{Shafaei2013}.
+It is unnecessary to consider quantum gates acting on single qubits in circuit adjustments, since the single qubits are local~\cite{Shafaei2013}.
 %\leaveout{ %15
-\begin{figure}[!ht] 
+\begin{figure}[t] 
 	\begin{center}
 		  {\scalefont{1.0}
 	\begin{tikzpicture}
@@ -275,7 +281,7 @@ The direction in each edge indicates the control direction of a 2-qubit gate,
 and 2-qubit gates can only be performed between qubits with edges connected.
 IBM physical circuits only support single quantum gates and CNOT gates between two adjacent qubits.
 
-\begin{figure}
+\begin{figure}[t]
 	{
 	% \scalefont{0.8}
 	\begin{tikzpicture}
@@ -626,7 +632,7 @@ IBM physical circuits only support single quantum gates and CNOT gates between t
 \end{figure}
 } % endofleaveout 10
 
-\begin{figure}[!ht]
+\begin{figure}[t]
 	\begin{center}
 		{\scalefont{1.0}
 	\begin{tikzpicture}
@@ -788,7 +794,7 @@ At the same time of circuit layering, we generate a logical circuit architecture
 %\subsubsection{Shortest Distance}
 Given a physical architecture graph and assume the distance of each edge is 1, we can use Floyd-Warshall algorithm to calculate the shortest distance matrix $dist[i][j]$, which represents the shortest distance from $\textsf{q}_{\textsf{i}}$ to $\textsf{q}_{\textsf{j}}$. 
 
-\begin{figure}[!ht] 			
+\begin{figure}[t] 			
 %	\centerline{ 
 %		\Qcircuit @C=1.2em @R=0.5em {
 %			&  \ctrl{2}  		&    \qw &   &    &  \gate{H}  		&\targ 			&\gate{H}     	&  \qw \\
@@ -812,7 +818,8 @@ Given a physical architecture graph and assume the distance of each edge is 1, w
 
 For IBM QX2, QX3, QX4, and QX5, the control of one qubit to a neighbour is unilateral. In this case, 
 a SWAP gate can be implemented by using three CNOT gates and four H gates, as shown in Fig.~\ref{f:Decomposition}. The four H gates are needed to change the direction of the middle CNOT gate. 
-Consider a CNOT gate $g=\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $. If $q_i$ and $q_j$  are mapped to $\textsf{q}_{m}$ and $\textsf{q}_{n}$, respectively, then the cost of executing $g$ under the shortest path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[m][n]-1)$. For IBM Q20, where the control between two adjacent qubits are bilateral, a SWAP gate can be implemented by using three CNOT gates. Thus the cost  is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[m][n]-1)$. The time complexity is $O (N^{3})$.
+Consider a CNOT gate $g=\left \langle  \textit{q}_\textit{i},\textit{q}_\textit{j} \right \rangle $. If $q_i$ and $q_j$  are mapped to $\textsf{q}_{m}$ and $\textsf{q}_{n}$, respectively, then the cost of executing $g$ under the shortest path is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=7 \times( dist[m][n]-1)$. For IBM Q20, where the control between two adjacent qubits are bilateral, a SWAP gate can be implemented by using three CNOT gates. Thus the cost  is $cost_{cnot}(\textit{q}_\textit{i},\textit{q}_\textit{j})=3 \times( dist[m][n]-1)$. 
+%The time complexity is $O (N^{3})$.
 \begin{example}
 	Take the QX5 (cf. Fig.~\ref{IBM} (d))    structure  as an example. Suppose there is a CNOT gate $g=\left \langle  \textit{q}_\textit{1}, \textit{q}_\textit{2} \right \rangle $, with \ $\textit{q}_\textit{1}$ mapped to $\textsf{q}_{1}$ and $\textit{q}_\textit{2}$ mapped to $\textsf{q}_{\textsf{14}}$. The shortest distance between them  is $dist[1][14]=3$. There are 3 shortest paths to move $\textsf{q}_{\textsf{1}}$ to an adjacent position of 
 $\textsf{q}_{\textsf{14}}$:
@@ -834,7 +841,7 @@ $cost_{\pi_{0}}=18,\ cost_{\pi_{1}}=14,$ and $ cost_{\pi_{2}}=14$, respectively.
 %As it is known, not all logical architecture graph have a subgraph that exactly matches all the nodes in physical architecture graph.
 In general, in a physical architecture graph, it is almost impossible to find a subgraph that exactly matches all the nodes in a logical architecture graph. We regard the mapping with the largest number of matching nodes as the partial mapping. SubgraphMatching compares various compositions of several state-of-the-art subgraph isomorphism algorithms.  
 It shows that the best performance can be achieved by using filters and the sorting ideas of the GraphQL algorithm to process candidate nodes, and the local candidates calculation method LFTJ based on set-intersection to enumerate the results. Since SubgraphMatching cannot handle disconnected graphs, we artificially create connected graphs by connecting isolated nodes to the nodes with the largest degree in the logical architecture graph. %We would like to minimize the impact of logical dependency graphs, thus map isolated nodes to nodes with the largest degree.
-\begin{algorithm}  
+\begin{algorithm}[!ht]  
 	\label{algorithm_initial}
 	\caption{Complementary mapping algorithm based on connectivity between qubits}  
 	\LinesNumbered  
@@ -893,7 +900,7 @@ Then we traverse $\tau$ and add the unmapped nodes to the queue $Q$. For the unm
 	Following the previous example, we first use the CSIC algorithm for the logical architecture graph given in Fig.~\ref{LAGPAG} (a) and the physical architecture graph given in Fig.~\ref{IBM} (e) to obtain the partial mapping set $T=\{\tau_{0},\tau_{1},...,\tau_{n}\}$. We take one of the partial mappings as an example.
 	$$\tau_{0}=\{\textit{q}_\textit{0}\rightarrow \textsf{q}_{\textsf{10}},\textit{q}_\textit{1}\rightarrow -1,
 	\textit{q}_\textit{2}\rightarrow \textsf{q}_{\textsf{6}},\textit{q}_\textit{3}\rightarrow \textsf{q}_{\textsf{5}},\textit{q}_\textit{4}\rightarrow \textsf{q}_{\textsf{11}}\}. $$ 
-Here $\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to any physical node, so we need to perform a mapping completion. In this example, the maximum number of mapped nodes is 4. Next, we demonstrate how $\tau_{0}$ is completed. We add all unmapped nodes to the queue $Q$. In this example, $Q=\{\textit{q}_\textit{1}\}$. Then we loop until $Q$ is empty. We pop the first element $q$ of $Q$, get the adjacency matrix of the query graph and the target graph, and traverse the adjacency matrix. We put the nodes  $\textit{q}_\textit{m}$ adjacent to \textit{q} into the candidate nodes list $cans$, which is sorted by the connectivity of $\textit{q}_\textit{m}$ and \textit{q}. We get $cans=\{\textit{q}_\textit{3},\textit{q}_\textit{2},\textit{q}_\textit{4},\textit{q}_\textit{0}\}$. Thereafter, we traverse $cans$ and take out of the first element $\textit{q}_\textit{3}$ in $cans$, and calculate the phycical node $\textsf{q}=\textsf{q}_{\textsf{5}}$, $\tau_0(\textit{q}_\textit{3})=\textsf{q}_{\textsf{5}}$. Finally, we map \textit{q} to the node connected to \textsf{q} but not yet mapped. If the nodes connected to \textsf{q} have been mapped, the loop continues. In this example, it can be directly mapped to $\textsf{q}_{\textsf{0}}$. In the end, we obtain the mapping $$ \tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textsf{q}_{10},\textit{q}_\textit{1}\rightarrow \textsf{q}_{0},	\textit{q}_\textit{2}\rightarrow  \textsf{q}_{\textsf{6}},\textit{q}_\textit{3}\rightarrow  \textsf{q}_{\textsf{5}},\textit{q}_\textit{4}\rightarrow  \textsf{q}_{\textsf{11}}\}. $$
+Here $\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is not mapped to any physical node, so we need to perform a mapping completion. In this example, the maximum number of mapped nodes is 4. Next, we demonstrate how $\tau_{0}$ is completed. We add all unmapped nodes to the queue $Q$. In this example, $Q=\{\textit{q}_\textit{1}\}$. Then we loop until $Q$ is empty. We pop the first element $q$ of $Q$, get the adjacency matrix of the query graph and the target graph, and traverse the adjacency matrix. We put the nodes  $\textit{q}_\textit{m}$ adjacent to \textit{q} into the candidate nodes list $cans$, which is sorted by the connectivity of $\textit{q}_\textit{m}$ and \textit{q}. We get $cans=\{\textit{q}_\textit{3},\textit{q}_\textit{2},\textit{q}_\textit{4},\textit{q}_\textit{0}\}$. Thereafter, we traverse $cans$ and take out of the first element $\textit{q}_\textit{3}$ in $cans$, and calculate the phycical node $\textsf{q}=\textsf{q}_{\textsf{5}}$, $\tau_0(\textit{q}_\textit{3})=\textsf{q}_{\textsf{5}}$. Finally, we map \textit{q} to the node connected to \textsf{q} but not yet mapped. If the nodes connected to \textsf{q} have been mapped, the loop continues. In this example, it can be directly mapped to $\textsf{q}_{\textsf{0}}$. In the end, we obtain the mapping $ \tau_{0}=\{\textit{q}_\textit{0}\rightarrow  \textsf{q}_{10},\textit{q}_\textit{1}\rightarrow \textsf{q}_{0},	\textit{q}_\textit{2}\rightarrow  \textsf{q}_{\textsf{6}},\textit{q}_\textit{3}\rightarrow  \textsf{q}_{\textsf{5}},\textit{q}_\textit{4}\rightarrow  \textsf{q}_{\textsf{11}}\}. $
 	\end{example}
 \subsection{Adjustment}
 \subsubsection{Tabu search}
@@ -904,7 +911,7 @@ The following objects are defined in Tabu search: neighborhoods, neighborhood ac
  taking the objective function as the evaluation function in general. The evaluation function should meet the requirements of some gates, 
 and the number of SWAP gates added or the depth of the entire circuit should be small. The amnesty rules are used when all objects in the candidate set are banned,  or after banning an object, the target value will be greatly reduced.
 
-\begin{algorithm}  
+\begin{algorithm} [!ht] 
 	\label{algorithm_neighborhood}
 	\caption{Calculate the candidate sets }  
 	\LinesNumbered  
@@ -980,7 +987,7 @@ The two endpoints of an edge passed by one of the shortest paths should intersec
 The current candidate set is $\{SWAP(\textsf{q}_\textsf{6},\textsf{q}_\textsf{1}),$ $SWAP(\textsf{q}_\textsf{1},\textsf{q}_\textsf{0}),$ $SWAP(\textsf{q}_\textsf{6},\textsf{q}_\textsf{5}),$ $SWAP(\textsf{q}_\textsf{5},\textsf{q}_\textsf{0}) \}$.
 \end{example}
 
-	\begin{algorithm} 
+	\begin{algorithm}[!ht] 
 		\label{algorithm_Tabu}
 			\caption{Tabu search }  
 			\LinesNumbered  
@@ -1065,7 +1072,7 @@ and the depths are reduced by 11.25\%.
 
 Next, we compare the optm algorithm with the CSIC algorithm. The optm algorithm has one circuit with fewer auxiliary gates and two circuits with a small depth, while the CSIC algorithm has 99 circuits with fewer auxiliary gates and 98 circuits with a small depth.  
 They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates. The auxiliary gates of the CSIC algorithm are relatively reduced by 27.02\%, and the depths are reduced by 14.12\%. Table~\ref{tab1} shows the experimental data on 104 circuits. The three initial mapping algorithms are compared according to the depths of the generated circuits using the same $A^{*}$ algorithm, and the numbers of added auxiliary gates. The column headed by CSIC /optm  shows the efficiency improvement of the former upon the latter $(n_{optm}-n_{CSIC })/n_{optm}$.
-\begin{table}
+\begin{table}[t]
 	\begin{center}  
 	\begin{tabular}{|c|c|c|c|c|c|}
 	\hline
@@ -1077,20 +1084,20 @@ They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates.
 	\hline
 	\end{tabular} 
 	\end{center} 
-	\caption{Compare optm, wgtgraph, and CSIC .}
+	\caption{Comparison of optm, wgtgraph and CSIC}
 	\label{tab1}
 	\end{table}
 
-	We then compare the use of two indicators TSA$_{dep}$ and TSA$_{num}$ that prioritize smaller depths and fewer auxiliary gates, respectively. Using the two indicators  as objective functions, we tested 159 circuits. The depths of the final circuits obtained by TSA$_{num}$ are 1.93\% smaller than TSA$_{dep}$ on average, and the numbers of auxiliary gates added are 4.53\% smaller on average. When inserting a SWAP gate, the circuit needs to add 3 CNOT gates, and the depth will be increased by 3.  Therefore, if fewer SWAP gates are added, the depths of the circuits will reduce accordingly. 
+	We then compare in Table~\ref{tabextra} the use of two indicators TSA$_{dep}$ and TSA$_{num}$ that prioritize smaller depths and fewer auxiliary gates, respectively. Using the two indicators  as objective functions, we tested 159 circuits. The depths of the final circuits obtained by TSA$_{num}$ are 1.93\% smaller than TSA$_{dep}$ on average, and the numbers of auxiliary gates added are 4.53\% smaller on average. When inserting a SWAP gate, the circuit needs to add 3 CNOT gates, and the depth will be increased by 3.  Therefore, if fewer SWAP gates are added, the depths of the circuits will reduce accordingly. 
 	%Thus we use SWAP quantity first to give better results. 
 
 	Finally, we compare TSA with wgtgraph.  Since the wgtgraph algorithm only uses 2-qubit gates, 
 	it is impossible to compare the depths of the generated circuits.  Instead, we compare the number of SWAP gates added and the time costs. 
 	%Since large circuits may not successfully handle for a long time, we consider it meaningless.  
-	We set a five-minute timeout period and tested 159 circuits. It turns out that TSA$_{num}$ only takes 461 seconds and TSA$_{dep}$ takes 485 seconds. The  wgtgraph algorithm takes 1908 seconds for the 159 circuts,  but only produces valid results for 99 circuits, including 64 small circuits,  35 medium-sized circuits,  and no circuit output is produced for any of the 44 large circuits. Although Tabu search can quickly produce results on large circuits, in contrast,  more auxiliary gates are added.  In the generated circuits obtained by wgtgraph from  99 small and medium-sized circuits,  the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than TSA$_{num}$ (resp. TSA$_{dep}$) on average. The Tabu search can quickly output converted circuits on large circuits, but wgtgraph cannot get results in the predefined time bound. Since  our candidate set is too small to be able to process the circuit quickly, but this also leads to an increase in the insertion of additional gates. As to SABRE, when dealing with 159 circuits with a five-minute limit for each circuit, it successfully produces results for only 23 small circuits, 6 medium-sized circuits, and 1 large circuit. The detailed results of the circuit comparisons are in the Appendix. 
+	We set a five-minute timeout period and tested 159 circuits. It turns out that TSA$_{num}$ only takes 461 seconds and TSA$_{dep}$ takes 485 seconds. The  wgtgraph algorithm takes 1908 seconds for the 159 circuts,  but only produces valid results for 99 circuits, including 64 small circuits,  35 medium-sized circuits,  and no circuit output is produced for any of the 44 large circuits. Although Tabu search can quickly produce results on large circuits, in contrast,  more auxiliary gates are added.  In the generated circuits obtained by wgtgraph from  99 small and medium-sized circuits,  the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than TSA$_{num}$ (resp. TSA$_{dep}$) on average. The Tabu search can quickly output converted circuits on large circuits, but wgtgraph cannot get results in the predefined time bound. Since  our candidate set is too small to be able to process the circuit quickly, but this also leads to an increase in the insertion of additional gates. As to SABRE, when dealing with 159 circuits with a five-minute limit for each circuit, it successfully produces results for only 23 small circuits, 6 medium-sized circuits, and 1 large circuit. The detailed results of the circuit comparisons are in the Appendices. 
    
 
- \begin{table}
+ \begin{table}[t]
 	\begin{center}
 	\begin{tabular}{|p{1.7cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1cm}<{\centering}|p{1.2cm}<{\centering}|}
 	\hline
@@ -1108,7 +1115,7 @@ They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates.
 	\hline
 	\end{tabular}
 	\end{center} 
-	\caption{Compare optm, wghtgraph, SABRE TSA$_{num}$ and TSA$_{dep}$.}
+	\caption{Comparison of TSA$_{num}$, TSA$_{dep}$, wghtgraph and SABRE}
 	\label{tabextra}
 	\end{table}
 	
@@ -1179,8 +1186,8 @@ graycode6\_47 & 6 & 5 & 0 & 0 & 0 & 0& - \\
 \hline
 	\end{tabular} 
 	\end{center}
-	\caption{Comparison of  the number of SWAP gates added by the 
-	output circuit on the IBM Q20 } 
+	\caption{Comparison of  the numbers of SWAP gates added by the 
+	output circuits on the IBM Q20 } 
 	\label{tab2}
 	\end{table}
 
@@ -1235,8 +1242,8 @@ alu-v0\_27 & 5 & 17 & 2 & 4 & 11 & 2& 9 \\
 		\hline
 		\end{tabular} 
 		\end{center} 
-		\caption{Comparison of the number of SWAP gates added by the 
-		output circuit on the IBM Q20 } 
+		\caption{Comparison of the numbers of SWAP gates added by the 
+		output circuits on the IBM Q20 } 
 		\label{tab3}
 		\end{table}	
 		
@@ -1266,8 +1273,8 @@ alu-v0\_27 & 5 & 17 & 2 & 4 & 11 & 2& 9 \\
 			\hline
 		\end{tabular} 
 		\end{center}
-		\caption{Comparison of  the number of SWAP gates added by the 
-		output circuit on the IBM Q20 } 
+		\caption{Comparison of  the numbers of SWAP gates added by the 
+		output circuits on the IBM Q20 } 
 		\label{tab4}
 		\end{table}
 		
@@ -1298,8 +1305,8 @@ wim\_266 & 11 & 427 & 93 & 120 & 147 & -& - \\
 			\hline
 			\end{tabular} 
 			\end{center}	
-			\caption{Comparison of  the number of SWAP gates added by the 
-			output circuit on the IBM Q20 }
+			\caption{Comparison of  the numbers of SWAP gates added by the 
+			output circuits on the IBM Q20 }
 			\label{tab5}  
 			\end{table}
 
@@ -1355,8 +1362,8 @@ con1\_216 & 9 & 415 & 86 & 118 & 177 & -& - \\
 					\hline
 					\end{tabular} 
 					\end{center}	
-					\caption{Comparison of  the number of  SWAP gates added by the 
-					output circuit on the IBM Q20 }  
+					\caption{Comparison of  the numbers of  SWAP gates added by the 
+					output circuits on the IBM Q20 }  
 					\label{tab6}
 					\end{table}
 				
@@ -1410,7 +1417,7 @@ hwb7\_59 & 8 & 10681 & 13437 & 18742 & 21334 & 29601 \\
 					\hline
 						\end{tabular} 
 						\end{center} 	
-						\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+						\caption{Comparison of  the depths of the output circuits on the IBM Q20} 
 						\label{tab7}
 					\end{table}
 
@@ -1468,7 +1475,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 						\hline
 							\end{tabular} 
 							\end{center} 
-							\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+							\caption{Comparison of  the depths of the output circuits on the IBM Q20} 
 							\label{tab8}	
 \end{table}
 
@@ -1527,7 +1534,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 							\hline
 								\end{tabular} 
 								\end{center}						
-								\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+								\caption{Comparison of  the depths of the output circuits on the IBM Q20} 
 								\label{tab9}
 							\end{table}
 
@@ -1578,7 +1585,7 @@ ham3\_102 & 3 & 11 & 13 & 11 & 11 & 28 \\
 						   \hline
 					\end{tabular} 
 					\end{center}						
-					\caption{Comparison of  the depth of the output circuit on the IBM Q20} 
+					\caption{Comparison of  the depths of the output circuits on the IBM Q20} 
 					\label{tab11}
 				\end{table}		
 \end{document}
