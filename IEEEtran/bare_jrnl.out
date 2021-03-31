@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Related work}{}% 2
+\BOOKMARK [1][-]{section.3}{Preliminary}{}% 3
+\BOOKMARK [1][-]{section.4}{Quantum Circuit Transformation}{}% 4
+\BOOKMARK [2][-]{subsection.4.1}{Preprocessing}{section.4}% 5
+\BOOKMARK [2][-]{subsection.4.2}{Isomorphism and Completion}{section.4}% 6
+\BOOKMARK [2][-]{subsection.4.3}{Adjustment}{section.4}% 7
+\BOOKMARK [3][-]{subsubsection.4.3.1}{Tabu search}{subsection.4.3}% 8
+\BOOKMARK [3][-]{subsubsection.4.3.2}{Evaluation functions }{subsection.4.3}% 9
+\BOOKMARK [3][-]{subsubsection.4.3.3}{Look ahead }{subsection.4.3}% 10
+\BOOKMARK [3][-]{subsubsection.4.3.4}{Complexity}{subsection.4.3}% 11
+\BOOKMARK [1][-]{section.5}{Experiments}{}% 12
+\BOOKMARK [1][-]{section.6}{Conclusion}{}% 13
+\BOOKMARK [1][-]{section*.11}{References}{}% 14
+\BOOKMARK [1][-]{section*.12}{Appendix A: Experimental details of the added SWAP gate and depth of the output circuit}{}% 15

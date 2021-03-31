@@ -3,40 +3,47 @@
 \providecommand{\urlprefix}{URL }
 \providecommand{\doi}[1]{https://doi.org/#1}
 
+\bibitem{ibm}
+\url{https://www.ibm.com/quantum-computing/}
+
+\bibitem{qiskit}
+\url{https://www.qiskit.org/}
+
 \bibitem{2019Almeida}
 de~Almeida, A.A.A., Dueck, G.W., da~Silva, A.C.R.: Finding optimal qubit
-  permutations for ibm's quantum computer architectures. In: Proceedings of the
-  32nd Symposium on Integrated Circuits and Systems Design. p.~13 (2019)
+  permutations for {IBM}'s quantum computer architectures. In: Proceedings of
+  the 32nd Symposium on Integrated Circuits and Systems Design. p.~13. {ACM}
+  (2019)
 
 \bibitem{1995Barenco}
 Barenco, A., Bennett, C., Cleve, R., DiVincenzo, D., Margolus, N., Shor, P.,
   Sleator, T., Smolin, J., Weinfurter, H.: Elementary gates for quantum
-  computation. Physical Review A  \textbf{52} (1995)
+  computation. Physical Review A  \textbf{52}(5),  3457--3467 (1995)
 
 \bibitem{2018Integer}
 Bernal, D.E., Booth, K.E.C., Dridi, R., Alghassi, H., Tayur, S.R., Venturelli,
   D.: Integer programming techniques for minor-embedding in quantum annealers.
-  In: Integration of Constraint Programming, Artificial Intelligence, and
-  Operations Research - 17th International Conference. Lecture Notes in
-  Computer Science, vol. 12296, pp. 112--129 (2020)
+  In: Proceedings of the 17th International Conference on Integration of
+  Constraint Programming, Artificial Intelligence, and Operations Research.
+  Lecture Notes in Computer Science, vol. 12296, pp. 112--129. Springer (2020)
 
 \bibitem{Cowtan2019}
 Cowtan, A., Dilkes, S., Duncan, R., Krajenbrink, A., Simmons, W., Sivarajah,
-  S.: On the qubit routing problem. In: 14th Conference on the Theory of
-  Quantum Computation, Communication and Cryptography. LIPIcs, vol.~135, pp.
-  5:1--5:32 (2019)
+  S.: On the qubit routing problem. In: Proceedings of the 14th Conference on
+  the Theory of Quantum Computation, Communication and Cryptography. LIPIcs,
+  vol.~135, pp. 5:1--5:32 (2019)
 
 \bibitem{Daei2020}
 Daei, O., Navi, K., Moghadam, M.Z.: Optimized quantum circuit partitioning.
   CoRR  \textbf{abs/2005.11614} (2020)
 
 \bibitem{Glover1990}
-Glover, F.W.: Tabu search - part {II}. {INFORMS} J. Comput.  \textbf{2}(1),
-  4--32 (1990)
+Glover, F.W.: Tabu search - part {II}. Informs Journal on Computing
+  \textbf{2}(1),  4--32 (1990)
 
 \bibitem{Guerreschi2018}
 Guerreschi, G.G., Park, J.: Two-step approach to scheduling quantum circuits.
-  Quantum Science and Technology  \textbf{3}(4),  045003 (jul 2018)
+  Quantum Science and Technology  \textbf{3}(4),  045003 (2018)
 
 \bibitem{2019CNOT}
 Kissinger, A., de~Griend, A.M.: {CNOT} circuit extraction for
@@ -45,30 +52,30 @@ Kissinger, A., de~Griend, A.M.: {CNOT} circuit extraction for
 
 \bibitem{Li2018}
 Li, G., Ding, Y., Xie, Y.: Tackling the qubit mapping problem for nisq-era
-  quantum devices. In: Proceedings of the Twenty-Fourth International
-  Conference on Architectural Support for Programming Languages and Operating
-  Systems. pp. 1001--1014 (2019)
+  quantum devices. In: Proceedings of the 24th International Conference on
+  Architectural Support for Programming Languages and Operating Systems. pp.
+  1001--1014. {ACM} (2019)
 
 \bibitem{2020Qubit}
 Li, S., Xiangzhen, Z., Feng, Y.: Qubit mapping based on subgraph isomorphism
-  and filtered depth-limited search. IEEE Transactions on Computers
-  \textbf{PP}, ~1--1 (2020)
+  and filtered depth-limited search. IEEE Transactions on Computers pp.~1--1
+  (2020)
 
 \bibitem{Matsuo2019}
 Matsuo, A., Yamashita, S.: An efficient method for quantum circuit placement
-  problem on a 2-d grid. In: Reversible Computation - 11th International
-  Conference. Lecture Notes in Computer Science, vol. 11497, pp. 162--168
-  (2019)
+  problem on a 2-d grid. In: Proceedings of the 11th International Conference
+  on Reversible Computation. Lecture Notes in Computer Science, vol. 11497, pp.
+  162--168. Springer (2019)
 
 \bibitem{2005Mttnen}
-Mottonen, M., Vartiainen, J.J.: Decompositions of general quantum gates.
-  Physics  (2005)
+M{\"o}tt{\"o}nen, M., Vartiainen, J.: Decompositions of general quantum gates.
+  Nova Science Publishers Inc (2006)
 
 \bibitem{2019Murali}
 Murali, P., Linke, N.M., Martonosi, M., Javadi{-}Abhari, A., Nguyen, N.H.,
   Alderete, C.H.: Full-stack, real-system quantum computer studies:
   architectural comparisons and design insights. In: Proceedings of the 46th
-  International Symposium on Computer Architecture. pp. 527--540 (2019)
+  International Symposium on Computer Architecture. pp. 527--540. ACM (2019)
 
 \bibitem{2019Quantum}
 Nash, B., Gheorghiu, V., Mosca, M.: Quantum circuit optimizations for {NISQ}
@@ -76,7 +83,7 @@ Nash, B., Gheorghiu, V., Mosca, M.: Quantum circuit optimizations for {NISQ}
 
 \bibitem{Paler2018}
 Paler, A.: On the influence of initial qubit placement during {NISQ} circuit
-  compilation. CoRR  \textbf{abs/1811.08985} (2018)
+  compilation (2018), abs/1811.08985
 
 \bibitem{2018QuantumPreskill}
 Preskill, J.: Quantum {C}omputing in the {NISQ} era and beyond. {Quantum}
@@ -84,45 +91,47 @@ Preskill, J.: Quantum {C}omputing in the {NISQ} era and beyond. {Quantum}
 
 \bibitem{Shafaei2013}
 Shafaei, A., Saeedi, M., Pedram, M.: Optimization of quantum circuits for
-  interaction distance in linear nearest neighbor architectures. In: The 50th
-  Annual Design Automation Conference 2013. pp. 41:1--41:6 (2013)
+  interaction distance in linear nearest neighbor architectures. In:
+  Proceedings of the 50th Annual Design Automation Conference. pp. 41:1--41:6.
+  ACM (2013)
 
 \bibitem{2018QubitSiraichi}
 Siraichi, M.Y., dos Santos, V.F., Collange, S., Pereira, F.M.Q.: Qubit
   allocation. In: Proceedings of the 2018 International Symposium on Code
-  Generation and Optimization. pp. 113--125 (2018)
+  Generation and Optimization. pp. 113--125. ACM (2018)
 
 \bibitem{Sun2020}
 Sun, S., Luo, Q.: In-memory subgraph matching: An in-depth study. In:
   Proceedings of the 2020 International Conference on Management of Data. pp.
-  1083--1098 (2020)
+  1083--1098. ACM (2020)
 
 \bibitem{Tannu2019}
 Tannu, S.S., Qureshi, M.K.: Not all qubits are created equal: {A} case for
   variability-aware policies for nisq-era quantum computers. In: Proceedings of
-  the Twenty-Fourth International Conference on Architectural Support for
-  Programming Languages and Operating Systems. pp. 987--999 (2019)
+  the 24th International Conference on Architectural Support for Programming
+  Languages and Operating Systems. pp. 987--999. ACM (2019)
 
 \bibitem{2017Temporal}
 Venturelli, D., Do, M., Rieffel, E.G., Frank, J.: Temporal planning for
   compilation of quantum approximate optimization circuits. In: Proceedings of
-  the Twenty-Sixth International Joint Conference on Artificial Intelligence.
-  pp. 4440--4446 (2017)
+  the 26th International Joint Conference on Artificial Intelligence. pp.
+  4440--4446 (2017)
 
 \bibitem{2019Zhang}
 Zhang, Y., Deng, H., Li, Q., Song, H., Nie, L.: Optimizing quantum programs
   against decoherence: Delaying qubits into quantum superposition. In: 2019
   International Symposium on Theoretical Aspects of Software Engineering. pp.
-  184--191 (2019)
+  184--191. IEEE (2019)
 
 \bibitem{Xiangzhen2020}
 Zhou, X., Li, S., Feng, Y.: Quantum circuit transformation based on simulated
-  annealing and heuristic search. {IEEE} Trans. Comput. Aided Des. Integr.
-  Circuits Syst.  \textbf{39}(12),  4683--4694 (2020)
+  annealing and heuristic search. IEEE Transactions on Computer-Aided Design of
+  Integrated Circuits and Systems  \textbf{39}(12),  4683--4694 (2020)
 
 \bibitem{Zulehner2017}
-Zulehner, A., Paler, A., Wille, R.: Efficient mapping of quantum circuits to
-  the {IBM} {QX} architectures. In: 2018 Design, Automation {\&} Test in Europe
-  Conference {\&} Exhibition. pp. 1135--1138 (2018)
+Zulehner, A., Paler, A., Wille, R.: An efficient methodology for mapping
+  quantum circuits to the {IBM} {QX} architectures. IEEE Transactions on
+  Computer-Aided Design of Integrated Circuits and Systems (7),  1226--1236
+  (2019)
 
 \end{thebibliography}

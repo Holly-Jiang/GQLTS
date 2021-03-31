@@ -3,44 +3,50 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: samplepaper.aux
 The style file: splncs04.bst
 Database file #1: mybibliography.bib
-You've used 24 entries,
+Warning--to sort, need author or key in ibm
+Warning--to sort, need author or key in qiskit
+Warning--can't use both author and editor fields in 2005Mttnen
+Warning--empty chapter and pages in 2005Mttnen
+Warning--there's a number but no volume in Zulehner2017
+You've used 26 entries,
             2850 wiz_defined-function locations,
-            752 strings with 9433 characters,
-and the built_in function-call counts, 15093 in all, are:
-= -- 1295
-> -- 443
-< -- 33
-+ -- 183
+            762 strings with 9646 characters,
+and the built_in function-call counts, 15926 in all, are:
+= -- 1358
+> -- 445
+< -- 32
++ -- 186
 - -- 158
-* -- 924
-:= -- 1873
-add.period$ -- 37
-call.type$ -- 24
-change.case$ -- 177
+* -- 968
+:= -- 1921
+add.period$ -- 45
+call.type$ -- 26
+change.case$ -- 179
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 1338
-empty$ -- 1335
+cite$ -- 31
+duplicate$ -- 1408
+empty$ -- 1458
 format.name$ -- 179
-if$ -- 3354
+if$ -- 3574
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 259
-newline$ -- 78
+int.to.str$ -- 26
+missing$ -- 275
+newline$ -- 84
 num.names$ -- 48
-pop$ -- 498
+pop$ -- 557
 preamble$ -- 1
-purify$ -- 127
+purify$ -- 131
 quote$ -- 0
-skip$ -- 468
+skip$ -- 506
 stack$ -- 0
-substring$ -- 925
-swap$ -- 760
-text.length$ -- 33
+substring$ -- 966
+swap$ -- 804
+text.length$ -- 32
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
-warning$ -- 0
-while$ -- 126
-width$ -- 26
-write$ -- 247
+type$ -- 102
+warning$ -- 5
+while$ -- 128
+width$ -- 28
+write$ -- 265
+(There were 5 warnings)
