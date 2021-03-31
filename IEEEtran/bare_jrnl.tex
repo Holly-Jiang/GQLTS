@@ -27,6 +27,7 @@
 \newcommand{\yx}[1]{{\color{magenta} [YX: #1]}}
 \newcommand{\leaveout}[1]{}
 \newtheorem{example}{Example}[section]
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
 
 % correct bad hyphenation here
 \hyphenation{op-tical net-works semi-conduc-tor}
@@ -54,8 +55,6 @@ of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta
 GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
 \thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
 \thanks{Manuscript received April 19, 2005; revised August 26, 2015.}}
-
-
 
 
 % The paper headers
@@ -117,7 +116,7 @@ In the current work, we adjust the lifetime of qubits through parallelization, a
 and physical circuits %$PC$
 as part of the initial mapping. The advantage of the initial mapping result is that we use the appropriate subgraph isomorphism and the two-way connection of the logical circuit and the physical circuit to obtain a dense initial mapping, which avoids certain nodes from being mapped to remote locations. We use Tabu search~\cite{Glover1990} to generate circuits that can be executed on physical devices. Tabu search can avoid falling into local optimum and swapping the recently swapped qubits, thereby improve the parallelism of quantum gates. We add SWAP gates associated with the gates on the shortest path to the candidate set, which greatly reduces the search space and improves the search speed. Our heuristic function not only considers the current gates but also the constraints of the gates already considered.
 
-We compare CSIC with the state-of-the-art initial mapping methods wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\% (resp. 27.02\%), and the depths are reduced by 11.25\% (resp. 14.12\%). We compare TSA with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}. On the one hand, TSA can deal with 159 circuits in a few minutes, while the  other two adjustment algorithms are difficult to handle medium-sized or large circuits. On the other hand, the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than that of  TSA on average. Among the 159 circuits that we also test with SABRE, only 29  can be successfully mapped within the five-minute limit.
+We compare CSIC with the state-of-the-art initial mapping methods wghtgraph~\cite{2020Qubit} and optm~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\% (resp. 27.02\%), and the depths are reduced by 11.25\% (resp. 14.12\%). We compare TSA with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}. On the one hand, TSA can handle 159 circuits in a few minutes, while the  other two adjustment algorithms are difficult to handle medium-sized or large circuits. On the other hand, the number of SWAP gates added by wgtgraph is 26.87\% (resp. 24.89\%) smaller than that of  TSA on average. Among the 159 circuits that we also test with SABRE, only 29  can be successfully mapped within the five-minute limit.
 
 %, but needs to control the decisiveness of the behind gates in the heuristic function.
 The main contributions of this paper are as follows.
@@ -153,7 +152,7 @@ The goal of circuit adjustment algorithm is to minimize the number of auxiliary 
   \item
 \emph{Unitary matrix decomposition algorithm.} It is used in \cite{2019CNOT,2019Quantum} to rearrange the quantum circuit from the beginning while retaining the input circuit. It can be applied to a broad class of circuits consisting of generic gate sets, but the results are not as efficient as a compiler designed specifically for this task.
 \item
-\emph{Converting into some existing problems.} This approach converts the quantum circuit transformation problem into some existing problems, such as AI planning~\cite{2017Temporal,2018Integer}, Integer Linear Programming (ILP)~\cite{2019Almeida}, or Satisfiability Modulo Theories (SMT)~\cite{2019Murali}. Existing tools for those problems are then used to find acceptable results. The approach cannot take advantage of certain properties of quantum mapping, which is a drawback. Furthermore, as the time cost is usually long, it can only deal with small quantum circuits.
+\emph{Converting into some existing problems.} This approach converts the quantum circuit transformation problem into some existing problems, such as AI planning~\cite{2017Temporal,2018Integer}, Integer Linear Programming (ILP)~\cite{2019Almeida}, or Satisfiability Modulo Theories (SMT)~\cite{2019Murali}. Existing tools for those problems are then used to find acceptable results. The approach cannot take advantage of certain properties of quantum mapping, which is a drawback. Furthermore, as the time cost is usually long, it can only handle small quantum circuits.
 \item
 \emph{Exact methods.}
 Siraichi et al.~\cite{2018QubitSiraichi} have proposed an exact method. It will iterate all possible mappings for all dependencies, so it is only suitable for simple quantum architecture and cannot be extended to complex quantum architectures.
@@ -956,7 +955,7 @@ Here $\textit{q}_\textit{1}\rightarrow -1$ means that $\textit{q}_\textit{1}$ is
 	\end{example}
 \subsection{Adjustment}
 \subsubsection{Tabu search}
-The Tabu search algorithm is a type of heuristic algorithm. It uses a tabu list to avoid searching repeated spaces, thereby avoiding deadlock. The algorithm uses amnesty rules to jump out of the local optimum to ensure the diversity of transformed results. The circuit adjustment mainly relies on the Tabu search algorithm, aiming to deal with those large circuits that the current algorithm is difficult to handle and produce an output circuit closer to the optimum solution.
+The Tabu search algorithm is a type of heuristic algorithm. It uses a tabu list to avoid searching repeated spaces, thereby avoiding deadlock. The algorithm uses amnesty rules to jump out of the local optimum to ensure the diversity of transformed results. The circuit adjustment mainly relies on the Tabu search algorithm, aiming to handle those large circuits that the current algorithm is difficult to handle and produce an output circuit closer to the optimum solution.
 
 
 The following objects are defined in Tabu search: neighborhoods, neighborhood action, tabu list, candidate set, tabu object, evaluation function, and amnesty rule. All the edges that can be swapped in the current map are the neighborhoods. The tabu list avoids local optimum and guarantees the parallelism of auxiliary gates. The tabu object is the object in the tabu list. We try not to use the recently swapped qubits as much as possible, which are added to the tabu list. We perform pruning to reduce search space, because only swaps adjacent to at least one gate node are meaningful. We select the edge in the shortest path that has an intersection with the qubits contained in the gate as the candidate set. The evaluation function selects a SWAP evaluation formula from the candidate set, 
@@ -1123,7 +1122,7 @@ and the circuit adjustment algorithm based on Tabu search TSA with the wghtgraph
 All the experiments are conducted on a Windows machine with 3.3GHz CPU and 10G memory. 
  
 First, we compare the efficiency of initial mapping on optm~\cite{Zulehner2017},  CSIC and wghtgraph~\cite{2020Qubit}. In order to  observe the results of these two initial mapping algorithms, we used the same circuit adjustment algorithm $A^{*}$~\cite{Zulehner2017}.
-We have tested 159 circuits. Within five minutes, optm,  wghtgraph, and CSIC  can deal with 121, 106, and  131 circuits, respectively. There are 103 circuits that they can handle. We then compare the wghtgraph algorithm and the CSIC algorithm more closely. The wghtgraph algorithm has 21 circuits with fewer auxiliary gates  and 19 circuits with smaller depths, and the CSIC algorithm has 54 circuits with fewer auxiliary gates and 60 circuits with  smaller depths. They output 25 circuits with equal depth and  29 circuits with equal auxiliary gates. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\%, 
+We have tested 159 circuits. Within five minutes, optm,  wghtgraph, and CSIC can handle 121, 106, and  131 circuits, respectively. There are 103 circuits that they can handle. We then compare the wghtgraph algorithm and the CSIC algorithm more closely. The wghtgraph algorithm has 21 circuits with fewer auxiliary gates  and 19 circuits with smaller depths, and the CSIC algorithm has 54 circuits with fewer auxiliary gates and 60 circuits with  smaller depths. They output 25 circuits with equal depth and  29 circuits with equal auxiliary gates. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.44\%, 
 and the depths are reduced by 11.25\%.
 \begin{table*}[htbp]
 	\begin{center}  
@@ -1187,6 +1186,10 @@ They have 4 circuits with equal depth and 4 circuits with equal auxiliary gates.
 \bibliography{IEEEabrv,mybibfile}
 \appendices
 \section{Experimental details of the added SWAP gate and depth of the output circuit}
+The qubit no. indicates the number of qubits in the circuit, the CNOT no. indicates the number of initial CNOT gates, TSA$_{num}$, TSA$_{dep}$, optm, wghtgr, SABRE indicate the number of CNOT gates added by the TSA using their respective circuit transformation methods. Since wghtgr and SABRE do not count the depth of the converted circuit, no comparison is made. "-" means that the circuit cannot be successfully transformed within five minutes.
+
+Table \RNum{3} and Table \RNum{4} show the circuits that TSA$_{num}$, TSA$_{dep}$, optm, wghtgr can successfully transform, and calculate the total number of gates added by them. Table \RNum{5} shows the circuits that optm, wghtgr, and SABRE may not be able to handle. Table \RNum{6} \RNum{7} shows the depth of the circuit after TSA$_{num}$, TSA$_{dep}$, optm can be successfully transform.  Table \RNum{8} shows the circuits that optm cannot handle.
+
 \begin{table*}[htbp]
     \begin{center}  
     \begin{tabular}{|p{4.3cm}<{\centering}|c|c|c|c|c|c|c|}
