@@ -96,7 +96,7 @@ The goal of quantum circuit transformation is to construct mappings from logical
 
 % Note that keywords are not normally used for peerreview papers.
 \begin{IEEEkeywords}
-Quantum circuit transformation  ,  Subgraph isomorphism , Initial mapping , Tabu search
+Quantum circuit transformation,  subgraph isomorphism, initial mapping, Tabu search
 \end{IEEEkeywords}
 
 % For peer review papers, you can put extra information on the cover
@@ -109,12 +109,21 @@ Quantum circuit transformation  ,  Subgraph isomorphism , Initial mapping , Tabu
 % creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
 \section{Introduction}
+Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In 2017, IBM developed the first 5-qubit backend called IBM QX2, followed by the 16-qubit backend  IBM QX3. The revised versions of them are called IBM QX4 and IBM QX5, respectively. IBM Q Experience \cite{ibm} provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework Qiskit \cite{qiskit}. 
 
-The entanglement of a quantum system with environment will lead to quantum decoherence. It is unrealistic to use quantum error correction in the circuit mapping process, since there are only dozens of available qubits for quantum devices in the NISQ era~\cite{2018QuantumPreskill}. It is necessary to transform circuits by adding auxiliary gates to satisfy both logical and physical constraints, since quantum algorithms do not consider any hardware connectivity constraints. Hence, quantum circuit transformation is an important part of quantum circuit compilation. We need an efficient and automatic program for circuit transformation. In this process, noise may be introduced, which brings a huge challenge to circuit compilation, since noise has a significant impact on the final circuit and may make the result meaningless. 
+Users of these early quantum computers mainly rely on quantum circuits to implement quantum algorithms.
+There is a gap between the design and implementation of a quantum algorithm. In the design stage, we usually do not consider any hardware connectivity constraints. But in order to implement an algorithm on a physical device, some physical constraints must be taken into account. Hence, it is necessary to transform the circuits for quantum algorithms to satisfy both logical and physical constraints. This process is called quantum circuit transformation, which maps logical qubits to physical ones before the logical circuits are executed in physical devices. A big challenge for quantum information is the problem of quantum decoherence. Due to the decoherence of qubits, quantum gates need to be applied in a coherent period as the time for a qubit to stay in a coherent state is very short. The longest coherence time of a superconducting quantum chip is still within 10us-100us. 
+Therefore, two main goals of a circuit transformation is to reduce the depths of output circuits and the numbers of auxiliary gates introduced by the transformation.  
+
+%There is a gap between the design and implementation of a quantum algorithm. In the design stage, we usually do not consider any hardware connectivity constraints. But in order to implement an algorithm on a physical device, some physical constraints must be taken into account. Hence, it is necessary to transform the circuits for quantum algorithms to satisfy both logical and physical constraints. This process is called quantum circuit transformation, which is an important part of quantum circuit compilation. 
+%In this process, noise may be introduced due to the entanglement of a quantum system with its environment, which brings a huge challenge to circuit compilation, since noise has a significant impact on the final circuit and may make the result meaningless. 
+%In the NISQ era~\cite{2018QuantumPreskill} there are only dozens of available qubits for quantum devices, and it is still unrealistic to use quantum error correction in the circuit mapping process
+
+%The entanglement of a quantum system with its environment will lead to quantum decoherence. It is unrealistic to use quantum error correction in the circuit mapping process, since there are only dozens of available qubits for quantum devices in the NISQ era~\cite{2018QuantumPreskill}. It is necessary to transform circuits by adding auxiliary gates to satisfy both logical and physical constraints, since quantum algorithms do not consider any hardware connectivity constraints. Hence, quantum circuit transformation is an important part of quantum circuit compilation. We need an efficient and automatic program for circuit transformation. In this process, noise may be introduced, which brings a huge challenge to circuit compilation, since noise has a significant impact on the final circuit and may make the result meaningless. 
 
 In the current work, we adjust the lifetime of qubits through parallelization, and use \emph{SubgraphMatching}~\cite{Sun2020} to generate partial isomorphic subgraphs of logical circuits %$LC$
 and physical circuits %$PC$
-as part of the initial mapping. The advantage of the initial mapping is that we use the appropriate subgraph isomorphism and the two-way connection of the logical circuit and the physical circuit to obtain a dense initial mapping, which avoids certain nodes from being mapped to remote locations. We use Tabu search~\cite{Glover1990} to generate circuits that can be executed on physical devices. Tabu search can avoid falling into local optimum and swapping the recently swapped qubits, thereby improve the parallelism of quantum gates. We add SWAP gates associated with the gates on the shortest path to the candidate set, which greatly reduces the search space and improves the search speed. Our evaluation function not only considers the current gates but also the constraints of the gates already considered.
+as part of the initial mapping. The advantage of the initial mapping is that we use the appropriate subgraph isomorphism and the two-way connection of the logical circuit and the physical circuit to obtain a dense initial mapping, which avoids certain nodes from being mapped to remote locations. We use Tabu search~\cite{Glover1990} to generate circuits that can be executed on physical devices. Tabu search can avoid falling into local optima and swapping the recently swapped qubits, thereby improve the parallelism of quantum gates. We add SWAP gates associated with the gates on the shortest path to the candidate set, which greatly reduces the search space and improves the search speed. Our evaluation function not only considers the current gates but also the constraints of the gates already considered.
 
 We compare CSIC with the state-of-the-art initial mapping methods \emph{wghtgraph}~\cite{2020Qubit} and \emph{optm}~\cite{Zulehner2017}. On average, the auxiliary gates of the CSIC algorithm are reduced by 22.43\% (resp. 27.14\%), and the depths are reduced by 8.46\% (resp. 10.74\%). We compare TSA with wgtgraph~\cite{2020Qubit} and SABRE~\cite{Li2018}. TSA can transform 159 circuits in a few minutes, while the  other two adjustment algorithms are difficult to transform medium or large circuits.  Among the 159 circuits that we also test with SABRE, only 29  can be successfully mapped within the five-minute limit.
 
@@ -123,7 +132,7 @@ The main contributions of this paper are summarized as follows.
 	\begin{enumerate}
 	\item We use the combined subgraph isomorphism algorithm to generate part of the initial mapping
           %, which can be reduced to subgraph isomorphism. Thus we use a suitable subgraph isomorphism algorithm to generate part of the initial mapping
-    and then complete the mapping based on the connectivity between qubits.  Tabu search-based adjustment
+    and then complete the mapping based on the connectivity between qubits.  
 	\item We present a heuristic circuit adjustment algorithm based on Tabu search~\cite{Glover1990}, which can adjust large circuits much efficiently, compared with existing precise search and heuristic algorithms.
           %, it can complete the circuit transformation in a shorter time. 
 	\item  We propose a look-ahead evaluation function that considers both the current gates and the  gates yet to be executed. It filters out SWAP gates that are beneficial to the current gates and also bring closer the gates to be executed.
@@ -131,19 +140,15 @@ The main contributions of this paper are summarized as follows.
 	\end{enumerate}
 
 The rest of this paper is organized as follows.
-We discuss some related work in Section~\ref{Related work} . 
-We recall some background of quantum computing and quantum information in Section~\ref{Background}. In Section~\ref{Problem Description and Solution Outline}, 
-we introduce the problem of  quantum circuit transformation and povide our detailed algorithm solution.
+In Section~\ref{Related work} we discuss some related work. In Section~\ref{Background}
+we recall some background of quantum computing and quantum information. In Section~\ref{Problem Description and Solution Outline} 
+we introduce the problem of  quantum circuit transformation and povide our detailed solution.
 The experimental results are reported in Section~\ref{Experiment}. 
-The last section concludes the paper and discusses some future works.
+The last section concludes the paper and discusses some future work.
 
 
 \section{Related work}
 \label{Related work}
-Quantum technology has been applied in practice, but large quantum computers have not yet been built. Most of the contributions of quantum information to computer science are still in the theoretical stage. In 2017, IBM developed the first 5-qubit backend called IBM QX2, followed by the 16-qubit backend  IBM QX3. The revised versions of them are called IBM QX4 and IBM QX5, respectively. IBM Q Experience \cite{ibm} provides the public with free quantum computer resources on the cloud and opens source the quantum computing software framework Qiskit \cite{qiskit}. 
-
-Users of these early quantum computers mainly rely on quantum circuits to implement quantum algorithms. They design logical circuits which go through the step of circuit transformation in order to map logical qubits to physical ones before the logical circuits are executed in physical devices. A big challenge for quantum information is the problem of quantum decoherence. Due to the decoherence of qubits, quantum gates need to be applied in a coherent period as the time for a qubit to stay in a coherent state is very short. The longest coherence time of a superconducting quantum chip is still within 10us-100us. 
-
 There are several initial mapping methods. Paler~\cite{Paler2018} has showed that the initial mapping has an important influence on quantum circuit transformation. He proposed a heuristic method to find the initial mapping. Just by placing qubits in different positions from the default trivial placement
  in the actual circuit instances on the actual NISQ device, the time cost can be reduced by up to 10\%. Li et al.~\cite{Li2018} have proposed a novel reverse traversal technique, which determines the initial mapping by considering the entire circuit. Zhou et al.~\cite{Xiangzhen2020} have put forward an annealing algorithm to find an initial mapping, but it is unstable. In \cite{2020Qubit}, Li et al. have considered the subgraph isomorphism algorithm wghtgraph to generate an initial mapping, which is the most recent result, so we will compare with it.
 
