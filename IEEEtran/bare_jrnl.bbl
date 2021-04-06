@@ -23,7 +23,7 @@
 
 \bibitem{2018QuantumPreskill}
 J.~Preskill, ``Quantum {C}omputing in the {NISQ} era and beyond,''
-  \emph{{Quantum}}, vol.~2, p.~79, 2018.
+  \emph{{Quantum}}, vol.~2, p.~79, Aug. 2018.
 
 \bibitem{Sun2020}
 S.~Sun and Q.~Luo, ``In-memory subgraph matching: An in-depth study,'' in
@@ -79,13 +79,14 @@ A.~Kissinger and A.~M. de~Griend, ``{CNOT} circuit extraction for
 \bibitem{2019Quantum}
 B.~Nash, V.~Gheorghiu, and M.~Mosca, ``Quantum circuit optimizations for {NISQ}
   architectures,'' \emph{Quantum Science and Technology}, vol.~5, no.~2, p.
-  025010, 2020.
+  025010, 02 2020.
 
 \bibitem{2017Temporal}
 D.~Venturelli, M.~Do, E.~G. Rieffel, and J.~Frank, ``Temporal planning for
   compilation of quantum approximate optimization circuits,'' in
   \emph{Proceedings of the 26th International Joint Conference on Artificial
-  Intelligence}, 2017, pp. 4440--4446.
+  Intelligence}.\hskip 1em plus 0.5em minus 0.4em\relax ijcai.org, 08 2017, pp.
+  4440--4446.
 
 \bibitem{2018Integer}
 D.~E. Bernal, K.~E.~C. Booth, R.~Dridi, H.~Alghassi, S.~R. Tayur, and
@@ -112,7 +113,7 @@ P.~Murali, N.~M. Linke, M.~Martonosi, A.~Javadi{-}Abhari, N.~H. Nguyen, and
 M.~Y. Siraichi, V.~F. dos Santos, S.~Collange, and F.~M.~Q. Pereira, ``Qubit
   allocation,'' in \emph{Proceedings of the 2018 International Symposium on
   Code Generation and Optimization}.\hskip 1em plus 0.5em minus 0.4em\relax
-  ACM, 2018, pp. 113--125.
+  {ACM}, 2018, pp. 113--125.
 
 \bibitem{Shafaei2013}
 A.~Shafaei, M.~Saeedi, and M.~Pedram, ``Optimization of quantum circuits for
@@ -123,14 +124,13 @@ A.~Shafaei, M.~Saeedi, and M.~Pedram, ``Optimization of quantum circuits for
 \bibitem{Guerreschi2018}
 G.~G. Guerreschi and J.~Park, ``Two-step approach to scheduling quantum
   circuits,'' \emph{Quantum Science and Technology}, vol.~3, no.~4, p. 045003,
-  03 2018.
+  06 2018.
 
 \bibitem{Matsuo2019}
 A.~Matsuo and S.~Yamashita, ``An efficient method for quantum circuit placement
   problem on a 2-d grid,'' in \emph{Proceedings of the 11th International
-  Conference on Reversible Computation}, ser. Lecture Notes in Computer
-  Science, vol. 11497.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2019,
-  pp. 162--168.
+  Conference on Reversible Computation}, ser. LNCS, vol. 11497.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2019, pp. 162--168.
 
 \bibitem{Cowtan2019}
 A.~Cowtan, S.~Dilkes, R.~Duncan, A.~Krajenbrink, W.~Simmons, and S.~Sivarajah,
@@ -152,7 +152,7 @@ O.~Daei, K.~Navi, and M.~Z. Moghadam, ``Optimized quantum circuit
 \bibitem{1995Barenco}
 A.~Barenco, C.~Bennett, R.~Cleve, D.~DiVincenzo, N.~Margolus, P.~Shor,
   T.~Sleator, J.~Smolin, and H.~Weinfurter, ``Elementary gates for quantum
-  computation,'' \emph{Physical Review A}, vol.~52, no.~5, pp. 3457--3467,
+  computation,'' \emph{Physical Review A}, vol.~52, no.~5, pp. 3457--3467, Nov
   1995.
 
 \bibitem{2005Mttnen}
