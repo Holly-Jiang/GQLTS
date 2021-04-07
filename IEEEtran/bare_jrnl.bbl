@@ -21,9 +21,15 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{2018QuantumPreskill}
-J.~Preskill, ``Quantum {C}omputing in the {NISQ} era and beyond,''
-  \emph{{Quantum}}, vol.~2, p.~79, Aug. 2018.
+\bibitem{ibm}
+\BIBentryALTinterwordspacing
+ [Online]. Available: \url{https://www.ibm.com/quantum-computing/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{qiskit}
+\BIBentryALTinterwordspacing
+ [Online]. Available: \url{https://www.qiskit.org/}
+\BIBentrySTDinterwordspacing
 
 \bibitem{Sun2020}
 S.~Sun and Q.~Luo, ``In-memory subgraph matching: An in-depth study,'' in
@@ -50,16 +56,6 @@ G.~Li, Y.~Ding, and Y.~Xie, ``Tackling the qubit mapping problem for nisq-era
   quantum devices,'' in \emph{Proceedings of the 24th International Conference
   on Architectural Support for Programming Languages and Operating
   Systems}.\hskip 1em plus 0.5em minus 0.4em\relax {ACM}, 2019, pp. 1001--1014.
-
-\bibitem{ibm}
-\BIBentryALTinterwordspacing
- [Online]. Available: \url{https://www.ibm.com/quantum-computing/}
-\BIBentrySTDinterwordspacing
-
-\bibitem{qiskit}
-\BIBentryALTinterwordspacing
- [Online]. Available: \url{https://www.qiskit.org/}
-\BIBentrySTDinterwordspacing
 
 \bibitem{Paler2018}
 A.~Paler, ``On the influence of initial qubit placement during {NISQ} circuit

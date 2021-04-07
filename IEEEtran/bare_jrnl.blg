@@ -16,45 +16,45 @@ Warning--I'm ignoring Guerreschi2018's extra "month" field
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 
 Done.
-You've used 26 entries,
+You've used 25 entries,
             4087 wiz_defined-function locations,
-            1365 strings with 19669 characters,
-and the built_in function-call counts, 20960 in all, are:
-= -- 1648
-> -- 481
-< -- 181
-+ -- 266
-- -- 79
-* -- 991
-:= -- 2974
-add.period$ -- 61
-call.type$ -- 26
-change.case$ -- 24
+            1358 strings with 19472 characters,
+and the built_in function-call counts, 20468 in all, are:
+= -- 1601
+> -- 477
+< -- 179
++ -- 264
+- -- 78
+* -- 970
+:= -- 2883
+add.period$ -- 59
+call.type$ -- 25
+change.case$ -- 23
 chr.to.int$ -- 426
-cite$ -- 26
-duplicate$ -- 1523
-empty$ -- 1754
-format.name$ -- 100
-if$ -- 4950
+cite$ -- 25
+duplicate$ -- 1478
+empty$ -- 1713
+format.name$ -- 99
+if$ -- 4837
 int.to.chr$ -- 0
-int.to.str$ -- 26
-missing$ -- 268
-newline$ -- 105
-num.names$ -- 24
-pop$ -- 657
+int.to.str$ -- 25
+missing$ -- 261
+newline$ -- 102
+num.names$ -- 23
+pop$ -- 645
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1616
+skip$ -- 1575
 stack$ -- 0
-substring$ -- 1049
-swap$ -- 1241
-text.length$ -- 39
+substring$ -- 1044
+swap$ -- 1208
+text.length$ -- 37
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 26
+type$ -- 25
 warning$ -- 0
-while$ -- 94
-width$ -- 28
-write$ -- 269
+while$ -- 92
+width$ -- 27
+write$ -- 259
 (There was 1 warning)
