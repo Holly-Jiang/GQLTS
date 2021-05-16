@@ -41,9 +41,9 @@ F.~W. Glover, ``Tabu search - part {II},'' \emph{Informs Journal on Computing},
   vol.~2, no.~1, pp. 4--32, 1990.
 
 \bibitem{2020Qubit}
-S.~Li, Z.~Xiangzhen, and Y.~Feng, ``Qubit mapping based on subgraph isomorphism
-  and filtered depth-limited search,'' \emph{IEEE Transactions on Computers},
-  pp. 1--1, 2020.
+S.~Li, X.~Zhou, and Y.~Feng, ``Qubit mapping based on subgraph isomorphism and
+  filtered depth-limited search,'' \emph{IEEE Transactions on Computers}, pp.
+  1--1, 2020.
 
 \bibitem{Zulehner2017}
 A.~Zulehner, A.~Paler, and R.~Wille, ``An efficient methodology for mapping
